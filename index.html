@@ -3,1156 +3,4486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>Trạm Chuyên Môn Cụm — Cổng thông tin &amp; Kho học liệu số dùng chung</title>
+<title>Trạm Chuyên Môn Cụm — Cổng thông tin & Kho học liệu số dùng chung</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --blue-50:#EEF4FF;
-    --blue-100:#DCE8FF;
-    --blue-200:#B9D2FF;
-    --blue-400:#5B93F7;
-    --blue-500:#3B7DFB;
-    --blue-600:#2F66E0;
-    --blue-700:#1F4DBD;
-    --blue-900:#0F2A5E;
-    --ink:#101C3A;
-    --muted:#5B6B8C;
-    --teal:#0EA894;
-    --teal-soft:#DDF6F1;
-    --amber:#E8992C;
-    --amber-soft:#FCEACB;
-    --red:#E5544B;
-    --surface:#FFFFFF;
-    --bg:#F4F8FF;
-    --line:#E2E9F7;
-    --radius-lg:12px;
-    --radius-md:8px;
-    --radius-sm:6px;
-    --shadow-sm: 0 2px 8px -4px rgba(16,28,58,0.10);
-    --shadow-md: 0 6px 18px -8px rgba(16,28,58,0.14);
-    --shadow-lg: 0 16px 36px -14px rgba(16,28,58,0.22);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0; font-family:'Be Vietnam Pro', sans-serif;
-    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{ font-family:'Sora', sans-serif; font-weight:700; margin:0; color:var(--ink); letter-spacing:-0.01em; }
-  p{line-height:1.65; color:var(--muted); margin:0;}
-  a{color:inherit;}
-  .wrap{max-width:1220px; margin:0 auto; padding:0 32px;}
-  img,svg{display:block;}
-  ::selection{background:var(--blue-200);}
+:root{
+  --blue-50:#EEF4FF;
+  --blue-100:#DCE8FF;
+  --blue-200:#B9D2FF;
+  --blue-300:#8FB5FF;
+  --blue-400:#5B93F7;
+  --blue-500:#3B7DFB;
+  --blue-600:#2F66E0;
+  --blue-700:#1F4DBD;
+  --blue-900:#0F2A5E;
 
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--blue-600); display:inline-flex; align-items:center; gap:9px; font-weight:600;
-    background:var(--blue-50); padding:6px 12px 6px 10px; border-radius:999px; border:1px solid var(--blue-100);
-  }
-  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--blue-500);}
+  --ink:#101C3A;
+  --muted:#5B6B8C;
 
-  /* ---------------- NAV ---------------- */
-  header.nav{ position:sticky; top:0; z-index:80; background:var(--blue-700); border-bottom:1px solid rgba(255,255,255,0.12); }
-  .nav-inner{ max-width:1220px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; }
-  .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; }
-  .brand-mark{
-    width:34px; height:34px; border-radius:8px; flex-shrink:0;
-    background:rgba(255,255,255,0.14);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .brand-mark svg{width:18px; height:18px;}
-  .brand-text{display:flex; flex-direction:column; line-height:1.15;}
-  .brand-text b{font-family:'Sora',sans-serif; font-size:15.5px; font-weight:700; color:#fff;}
-  .brand-text span{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.08em; color:#B9D2FF; text-transform:uppercase;}
-  nav.links{display:flex; gap:26px; align-items:center;}
-  nav.links a.nlink{ color:#DCE8FF; text-decoration:none; font-size:14px; font-weight:600; opacity:.85; transition:.2s; }
-  nav.links a.nlink:hover{opacity:1; color:#fff;}
-  .btn{ display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:999px; font-weight:700; font-size:14px;
-        text-decoration:none; cursor:pointer; border:1px solid transparent; transition:.18s; font-family:'Be Vietnam Pro',sans-serif; }
-  .btn-primary{ background:linear-gradient(135deg, var(--blue-500), var(--blue-600)); color:#fff; box-shadow:0 8px 20px -8px rgba(47,102,224,0.55); }
-  .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 12px 26px -8px rgba(47,102,224,0.6); }
-  .btn-ghost{ border-color:var(--line); color:var(--ink); background:#fff; }
-  .btn-ghost:hover{ border-color:var(--blue-300); background:var(--blue-50); }
-  .btn-meet{
-    background:#fff; color:var(--red); border:1.5px solid #F6D3D0; padding:9px 16px 9px 12px; font-size:13.5px;
-  }
-  .btn-meet:hover{ background:#FFF3F2; border-color:var(--red); }
-  .live-dot{ width:8px; height:8px; border-radius:50%; background:var(--red); animation:blink 1.6s ease-in-out infinite; }
-  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
-  .burger{display:none;}
+  --teal:#0EA894;
+  --teal-soft:#DDF6F1;
 
-  /* ---------------- HERO ---------------- */
-  .hero{
-    position:relative; padding:56px 0 68px;
-    background:var(--blue-700);
-  }
-  .hero-inner{ max-width:720px; }
-  .hero .eyebrow{ background:rgba(255,255,255,0.12); color:#EAF2FF; border-color:rgba(255,255,255,0.2); }
-  .hero .eyebrow .dot{background:#BFE0FF;}
-  .hero h1{ color:#fff; font-size:38px; line-height:1.22; margin:16px 0 16px; max-width:620px; }
-  .hero h1 span{ color:#FFE9A8; }
-  .hero p.lead{ color:#D5E4FF; font-size:15.5px; max-width:560px; margin-bottom:26px; }
-  .btn-row{display:flex; gap:12px; flex-wrap:wrap;}
-  .btn-hero-primary{ background:#fff; color:var(--blue-700); }
-  .btn-hero-primary:hover{ background:#F1F6FF; }
-  .btn-hero-meet{ background:#fff; color:var(--red); border:1.5px solid transparent; }
-  .btn-hero-meet:hover{ background:#FFF3F2; }
-  .btn-hero-ghost{ border-color:rgba(255,255,255,0.35); color:#fff; }
-  .btn-hero-ghost:hover{ background:rgba(255,255,255,0.08); border-color:#fff; }
-  .legal-chip{ margin-top:22px; display:inline-flex; gap:9px; align-items:center; font-family:'IBM Plex Mono',monospace;
-    font-size:11px; color:#C7DBFF; border:1px solid rgba(255,255,255,0.18); padding:7px 13px; border-radius:6px; }
-  .legal-chip b{color:#fff; font-weight:600;}
+  --amber:#E8992C;
+  --amber-soft:#FCEACB;
 
-  /* ---------------- STATS ---------------- */
-  .stats-strip{ background:var(--bg); padding:26px 0 4px; }
-  .stats-inner{ max-width:1220px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-  .stat-item{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm); padding:16px 18px; }
-  .stat-item .num{ font-family:'Sora',sans-serif; font-size:24px; font-weight:800; color:var(--blue-600); line-height:1; }
-  .stat-item .lbl{ font-size:12px; color:var(--muted); margin-top:6px; font-weight:500; }
+  --red:#E5544B;
 
-  section{padding:80px 0;}
-  .sec-head{ max-width:680px; margin-bottom:40px; }
-  .sec-head h2{ font-size:30px; margin-top:14px; line-height:1.26; }
-  .sec-head p{ margin-top:12px; font-size:15px; }
-  .sec-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  --surface:#FFFFFF;
+  --bg:#F4F8FF;
+  --line:#E2E9F7;
 
-  /* ---------------- WORKSPACE (INTERACTIVE) ---------------- */
-  .workspace{ background:#fff; }
-  .role-switch{
-    display:flex; gap:10px; background:var(--blue-50); padding:6px; border-radius:999px; border:1px solid var(--blue-100);
-    width:fit-content; margin-bottom:34px; flex-wrap:wrap;
-  }
-  .role-btn{
-    border:none; background:none; padding:10px 18px; border-radius:999px; font-weight:700; font-size:13.5px;
-    color:var(--blue-700); cursor:pointer; font-family:'Be Vietnam Pro',sans-serif; transition:.15s; display:flex; align-items:center; gap:8px;
-  }
-  .role-btn .rb-dot{width:7px;height:7px;border-radius:50%; background:var(--blue-300); }
-  .role-btn.active{ background:var(--blue-600); color:#fff; box-shadow:var(--shadow-sm); }
-  .role-btn.active .rb-dot{background:#fff;}
-  .role-hint{ font-size:13px; color:var(--muted); margin:-24px 0 30px; padding:12px 16px; background:var(--blue-50); border-radius:var(--radius-sm); border:1px dashed var(--blue-200); max-width:640px; }
-  .role-hint b{color:var(--blue-700);}
+  --radius-lg:12px;
+  --radius-md:8px;
+  --radius-sm:6px;
 
-  .ws-tabs{ display:flex; gap:8px; border-bottom:1px solid var(--line); margin-bottom:32px; flex-wrap:wrap; }
-  .ws-tab{
-    border:none; background:none; padding:14px 6px; margin-right:22px; font-weight:700; font-size:14.5px; color:var(--muted);
-    cursor:pointer; border-bottom:2.5px solid transparent; font-family:'Be Vietnam Pro',sans-serif; display:flex; align-items:center; gap:8px;
-  }
-  .ws-tab .wt-badge{ background:var(--blue-50); color:var(--blue-600); font-family:'IBM Plex Mono',monospace; font-size:11px; padding:1px 7px; border-radius:999px; }
-  .ws-tab.active{ color:var(--blue-700); border-color:var(--blue-600); }
+  --shadow-sm:0 2px 8px -4px rgba(16,28,58,.10);
+  --shadow-md:0 6px 18px -8px rgba(16,28,58,.14);
+  --shadow-lg:0 16px 36px -14px rgba(16,28,58,.22);
+}
 
-  .ws-panel{display:none;} .ws-panel.active{display:block; animation:fadein .3s ease;}
-  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+*{
+  box-sizing:border-box;
+}
 
-  /* Trang chu feed */
-  .composer{
-    background:var(--blue-50); border:1px solid var(--blue-100); border-radius:var(--radius-md); padding:18px 20px; margin-bottom:24px;
-  }
-  .composer.locked{ opacity:.55; }
-  .composer textarea{
-    width:100%; border:1px solid var(--line); border-radius:var(--radius-sm); padding:12px 14px; font-family:inherit; font-size:14px;
-    resize:vertical; min-height:60px; background:#fff; color:var(--ink);
-  }
-  .composer .composer-foot{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
-  .composer select{ border:1px solid var(--line); border-radius:8px; padding:7px 10px; font-size:12.5px; font-family:inherit; color:var(--ink); background:#fff; }
-  .feed-item{ display:flex; gap:14px; padding:18px 0; border-bottom:1px solid var(--line); }
-  .feed-item:last-child{border-bottom:none;}
-  .avatar{ width:40px; height:40px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13.5px; }
-  .feed-head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:5px; }
-  .feed-head b{font-size:14px;}
-  .feed-tag{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:2px 8px; border-radius:999px; background:var(--blue-50); color:var(--blue-600); font-weight:600; }
-  .feed-time{font-size:12px; color:var(--muted);}
-  .feed-body{font-size:14px; color:var(--ink); line-height:1.6;}
+html{
+  scroll-behavior:smooth;
+}
 
-  /* Kho hoc lieu */
-  .lib-toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:16px; flex-wrap:wrap; }
-  .lib-filter{ display:flex; gap:8px; flex-wrap:wrap; }
-  .chip-filter{ border:1px solid var(--line); background:#fff; padding:7px 14px; border-radius:999px; font-size:12.8px; font-weight:600; cursor:pointer; color:var(--muted); }
-  .chip-filter.active{ background:var(--blue-600); border-color:var(--blue-600); color:#fff; }
-  .mat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-  .mat-card{ border:1px solid var(--line); border-radius:var(--radius-md); padding:20px; background:#fff; transition:.15s; }
-  .mat-card:hover{ box-shadow:var(--shadow-sm); border-color:var(--blue-200); }
-  .mat-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px; }
-  .mat-icon{ width:38px; height:38px; border-radius:10px; background:var(--blue-50); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--blue-600); font-weight:800; font-family:'Sora',sans-serif; }
-  .mat-card h4{ font-size:15px; margin-bottom:4px; }
-  .mat-meta{ font-size:12.5px; color:var(--muted); }
-  .status-badge{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:999px; white-space:nowrap; }
-  .status-badge.s1{ background:var(--amber-soft); color:#9A6613; }
-  .status-badge.s2{ background:#E4ECFF; color:var(--blue-700); }
-  .status-badge.s3{ background:var(--teal-soft); color:#0B7A6A; }
-  .mat-foot{ display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); }
-  .mat-approve{ background:var(--blue-600); color:#fff; border:none; padding:8px 14px; border-radius:8px; font-size:12.5px; font-weight:700; cursor:pointer; }
-  .mat-approve:hover{background:var(--blue-700);}
-  .mat-approve.final{ background:var(--teal); }
-  .mat-approve.final:hover{ background:#0B8E7C; }
-  .mat-locked{ font-size:12px; color:var(--muted); font-style:italic; }
-  .lib-form{ display:grid; grid-template-columns:1fr 1fr; gap:12px; background:var(--blue-50); border:1px solid var(--blue-100); border-radius:var(--radius-md); padding:18px 20px; margin-bottom:24px; }
-  .lib-form input, .lib-form select{ border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:13.5px; font-family:inherit; background:#fff; color:var(--ink); }
-  .lib-form .full{ grid-column:1/-1; display:flex; justify-content:flex-end; }
+body{
+  margin:0;
+  font-family:'Be Vietnam Pro',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
 
-  /* NCBH */
-  .session-card{ border:1px solid var(--line); border-radius:var(--radius-md); padding:22px; margin-bottom:18px; background:#fff; }
-  .session-top{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:12px; }
-  .session-top h4{font-size:16px;}
-  .session-meta{ font-size:12.5px; color:var(--muted); margin-top:4px; }
-  .comments{ margin-top:14px; padding-top:14px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:12px; }
-  .comment{ display:flex; gap:10px; font-size:13.5px; }
-  .comment .cbody{ background:var(--blue-50); border-radius:var(--radius-sm); padding:10px 13px; flex:1; }
-  .comment .cbody b{font-size:12.8px;}
-  .comment-form{ display:flex; gap:10px; margin-top:12px; }
-  .comment-form input{ flex:1; border:1px solid var(--line); border-radius:999px; padding:10px 16px; font-size:13.5px; font-family:inherit; }
-  .comment-form button{ background:var(--blue-600); color:#fff; border:none; border-radius:999px; padding:0 20px; font-weight:700; font-size:13px; cursor:pointer; }
+h1,h2,h3,h4{
+  font-family:'Sora',sans-serif;
+  font-weight:700;
+  margin:0;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
 
-  /* ---------------- OTHER MODULES (compact) ---------------- */
-  .mod-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  .mod-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:24px; transition:.18s; }
-  .mod-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--blue-200); }
-  .mod-ic{ width:44px; height:44px; border-radius:12px; background:var(--blue-50); display:flex; align-items:center; justify-content:center; margin-bottom:16px; color:var(--blue-600); }
-  .mod-card h4{ font-size:16.5px; margin-bottom:8px; }
-  .mod-card p{ font-size:13.5px; }
-  .mod-card ul{ margin:14px 0 0; padding-left:18px; }
-  .mod-card li{ font-size:12.8px; color:var(--muted); margin-bottom:5px; }
+p{
+  line-height:1.65;
+  color:var(--muted);
+  margin:0;
+}
 
-  /* ---------------- WORKFLOW ---------------- */
-  .flow{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px; }
-  .flow-step{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:24px 20px; position:relative; }
-  .flow-step .fnum{ font-family:'Sora',sans-serif; font-size:26px; color:var(--blue-500); font-weight:800; line-height:1; }
-  .flow-step h4{ font-size:15px; margin:12px 0 8px; }
-  .flow-step p{ font-size:13px; }
-  .flow-step:not(:last-child)::after{
-    content:"→"; position:absolute; right:-22px; top:50%; transform:translateY(-50%);
-    width:28px; height:28px; background:var(--blue-600); color:#fff; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; font-size:13px; z-index:2;
-  }
+a{
+  color:inherit;
+}
 
-  /* ---------------- ROLES ---------------- */
-  .roles{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  .role-card{ background:var(--blue-900); border-radius:var(--radius-md); padding:26px 22px; color:#fff; }
-  .role-card.mid{background:var(--blue-600);}
-  .role-card.low{background:var(--teal);}
-  .role-tag{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#EAF2FF;
-    border:1px solid rgba(255,255,255,0.3); display:inline-block; padding:4px 10px; border-radius:6px; margin-bottom:14px; }
-  .role-card h4{ color:#fff; font-size:18px; margin-bottom:8px; }
-  .role-card p{ color:rgba(255,255,255,0.82); font-size:13.5px; }
+button,
+input,
+textarea,
+select{
+  font-family:'Be Vietnam Pro',sans-serif;
+}
 
-  /* ---------------- TARGETS ---------------- */
-  .targets{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  .target-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-md); padding:26px; border-top:3px solid var(--blue-500); }
-  .target-card .tnum{ font-family:'Sora',sans-serif; font-size:32px; color:var(--ink); font-weight:800; }
-  .target-card .tnum span{ font-size:14px; color:var(--blue-600); font-family:'IBM Plex Mono',monospace; font-weight:600; margin-left:6px; }
-  .target-card h4{ font-size:14.5px; margin:10px 0 8px; }
-  .target-card p{ font-size:13px; }
+.wrap{
+  max-width:1220px;
+  margin:0 auto;
+  padding:0 32px;
+}
 
-  .band{ background:var(--blue-900); }
-  .band .sec-head h2, .band .sec-head p{ color:#fff; }
-  .band .sec-head p{ color:#CFE0FF; }
-  .band .eyebrow{ background:rgba(255,255,255,0.12); color:#EAF2FF; border-color:rgba(255,255,255,0.22); }
+img,
+svg{
+  display:block;
+}
 
-  /* ---------------- MEETING MODAL ---------------- */
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(10,20,45,0.6); backdrop-filter:blur(3px); z-index:200;
-    display:none; align-items:center; justify-content:center; padding:20px;
-  }
-  .modal-overlay.open{display:flex;}
-  .meet-modal{ background:#fff; border-radius:var(--radius-lg); width:100%; max-width:900px; overflow:hidden; box-shadow:var(--shadow-lg); }
-  .meet-head{ display:flex; justify-content:space-between; align-items:center; padding:18px 24px; border-bottom:1px solid var(--line); }
-  .meet-head h3{font-size:17px;}
-  .meet-head .msub{ font-size:12.5px; color:var(--muted); margin-top:2px; }
-  .meet-close{ border:none; background:var(--blue-50); width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:16px; color:var(--blue-700); }
-  #jitsi-container{ width:100%; height:480px; background:var(--ink); }
-  .meet-foot{ display:flex; gap:10px; justify-content:space-between; align-items:center; padding:14px 24px; background:var(--blue-50); flex-wrap:wrap; }
-  .meet-link{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--blue-700); background:#fff; border:1px solid var(--blue-100); padding:8px 12px; border-radius:8px; }
-  .meet-actions{display:flex; gap:8px;}
-  .meet-actions button, .meet-actions a{ border:none; background:#fff; border:1px solid var(--line); padding:8px 14px; border-radius:8px; font-size:12.5px; font-weight:700; cursor:pointer; color:var(--ink); text-decoration:none; }
+::selection{
+  background:var(--blue-200);
+}
 
-  /* ---------------- FOOTER ---------------- */
-  footer{ background:var(--blue-900); color:#9FB4DF; padding:56px 0 30px; }
-  .foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; padding-bottom:34px; border-bottom:1px solid rgba(255,255,255,0.1); }
-  .foot-brand .brand-text b{color:#fff;}
-  .foot-brand p{ margin-top:14px; font-size:13px; max-width:320px; color:#9FB4DF; }
-  footer h5{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#CFE0FF; margin-bottom:14px; font-weight:700; }
-  footer ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px;}
-  footer a{color:#9FB4DF; text-decoration:none; font-size:13.3px;}
-  footer a:hover{color:#fff;}
-  .foot-bottom{ padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; }
-  .foot-bottom .credit{ font-family:'IBM Plex Mono',monospace; color:#6E86B8; }
+/* ================= EYEBROW ================= */
 
-  .demo-badge{
-    position:fixed; bottom:20px; right:20px; z-index:60; background:var(--blue-600); color:#fff;
-    font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; padding:9px 16px; border-radius:999px;
-    box-shadow:var(--shadow-md); letter-spacing:.03em;
-  }
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--blue-600);
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-weight:600;
+  background:var(--blue-50);
+  padding:6px 12px 6px 10px;
+  border-radius:999px;
+  border:1px solid var(--blue-100);
+}
 
-  @media (max-width:980px){
-    nav.links{display:none;}
-    .stats-inner{grid-template-columns:repeat(2,1fr); row-gap:12px;}
-    .mat-grid, .mod-grid, .roles, .targets{grid-template-columns:1fr;}
-    .flow{grid-template-columns:1fr;}
-    .flow-step::after{display:none;}
-    .foot-grid{grid-template-columns:1fr; gap:26px;}
-    .lib-form{grid-template-columns:1fr;}
-  }
-  @media (max-width:600px){
-    .wrap, .nav-inner, .stats-inner{padding-left:18px; padding-right:18px;}
-    .hero h1{font-size:30px;}
-    section{padding:56px 0;}
-    .sec-head h2{font-size:24px;}
-    #jitsi-container{height:340px;}
-    .role-switch{width:100%;}
-    .role-btn{flex:1; justify-content:center;}
-  }
-</style>
-</head>
-<body>
+.eyebrow .dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--blue-500);
+}
 
-<header class="nav">
-  <div class="nav-inner">
-    <a class="brand" href="#top">
-      <div class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M3 9L12 4L21 9L12 14L3 9Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 11.5V16C7 16 9 18 12 18C15 18 17 16 17 16V11.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </div>
-      <div class="brand-text">
-        <b>Trạm Chuyên Môn Cụm</b>
-        <span>Kho học liệu số dùng chung</span>
-      </div>
-    </a>
-    <nav class="links">
-      <a class="nlink" href="#workspace">Khu vực làm việc</a>
-      <a class="nlink" href="#modules">Phân hệ khác</a>
-      <a class="nlink" href="#roles">Phân quyền</a>
-      <a class="btn btn-meet" onclick="openMeeting()"><span class="live-dot"></span> Họp online toàn cụm</a>
-      <!-- ĐĂNG NHẬP GOOGLE -->
-<div id="firebaseAuthBox" style="
+/* ================= NAV ================= */
+
+header.nav{
+  position:sticky;
+  top:0;
+  z-index:80;
+  background:var(--blue-700);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.nav-inner{
+  max-width:1220px;
+  margin:0 auto;
+  padding:0 32px;
+  min-height:64px;
   display:flex;
   align-items:center;
-  margin-left:12px;
-">
+  justify-content:space-between;
+  gap:15px;
+}
 
-  <button id="googleLoginBtn" style="
-    border:0;
-    border-radius:10px;
-    padding:10px 15px;
-    background:#fff;
-    color:#1a56db;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-    white-space:nowrap;
-    box-shadow:0 2px 6px rgba(0,0,0,.18);
-  ">
-    🔵 Đăng nhập
-  </button>
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  text-decoration:none;
+  flex-shrink:0;
+}
 
-  <div id="firebaseUserBox" style="
+.brand-mark{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  flex-shrink:0;
+  background:rgba(255,255,255,.14);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.brand-mark svg{
+  width:18px;
+  height:18px;
+}
+
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.15;
+}
+
+.brand-text b{
+  font-family:'Sora',sans-serif;
+  font-size:15.5px;
+  font-weight:700;
+  color:#fff;
+}
+
+.brand-text span{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  letter-spacing:.08em;
+  color:#B9D2FF;
+  text-transform:uppercase;
+}
+
+nav.links{
+  display:flex;
+  gap:20px;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+
+nav.links a.nlink{
+  color:#DCE8FF;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  opacity:.85;
+  transition:.2s;
+  white-space:nowrap;
+}
+
+nav.links a.nlink:hover{
+  opacity:1;
+  color:#fff;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:11px 20px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:14px;
+  text-decoration:none;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:.18s;
+  font-family:'Be Vietnam Pro',sans-serif;
+}
+
+.btn:disabled{
+  cursor:not-allowed;
+  opacity:.6;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue-500),var(--blue-600));
+  color:#fff;
+  box-shadow:0 8px 20px -8px rgba(47,102,224,.55);
+}
+
+.btn-primary:hover{
+  transform:translateY(-1px);
+  box-shadow:0 12px 26px -8px rgba(47,102,224,.6);
+}
+
+.btn-meet{
+  background:#fff;
+  color:var(--red);
+  border:1.5px solid #F6D3D0;
+  padding:9px 16px 9px 12px;
+  font-size:13.5px;
+}
+
+.btn-meet:hover{
+  background:#FFF3F2;
+  border-color:var(--red);
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--red);
+  animation:blink 1.6s ease-in-out infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.35}
+}
+
+/* ================= AUTH ================= */
+
+#firebaseAuthBox{
+  display:flex;
+  align-items:center;
+  margin-left:2px;
+}
+
+#googleLoginBtn{
+  border:0;
+  border-radius:10px;
+  padding:10px 15px;
+  background:#fff;
+  color:#1a56db;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+  box-shadow:0 2px 6px rgba(0,0,0,.18);
+}
+
+#googleLoginBtn:hover{
+  background:#F2F6FF;
+}
+
+#firebaseUserBox{
+  display:none;
+  align-items:center;
+  gap:8px;
+  color:#fff;
+}
+
+#firebaseUserAvatar{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(255,255,255,.8);
+  background:#fff;
+}
+
+#firebaseUserName{
+  font-weight:600;
+  font-size:13px;
+  max-width:140px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#googleLogoutBtn{
+  border:0;
+  border-radius:8px;
+  padding:7px 10px;
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  cursor:pointer;
+  font-weight:600;
+}
+
+#googleLogoutBtn:hover{
+  background:rgba(255,255,255,.28);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  position:relative;
+  padding:56px 0 68px;
+  background:var(--blue-700);
+}
+
+.hero-inner{
+  max-width:720px;
+}
+
+.hero .eyebrow{
+  background:rgba(255,255,255,.12);
+  color:#EAF2FF;
+  border-color:rgba(255,255,255,.2);
+}
+
+.hero .eyebrow .dot{
+  background:#BFE0FF;
+}
+
+.hero h1{
+  color:#fff;
+  font-size:38px;
+  line-height:1.22;
+  margin:16px 0;
+  max-width:620px;
+}
+
+.hero h1 span{
+  color:#FFE9A8;
+}
+
+.hero p.lead{
+  color:#D5E4FF;
+  font-size:15.5px;
+  max-width:560px;
+  margin-bottom:26px;
+}
+
+.btn-row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn-hero-primary{
+  background:#fff;
+  color:var(--blue-700);
+}
+
+.btn-hero-primary:hover{
+  background:#F1F6FF;
+}
+
+.btn-hero-meet{
+  background:#fff;
+  color:var(--red);
+  border:1.5px solid transparent;
+}
+
+.btn-hero-meet:hover{
+  background:#FFF3F2;
+}
+
+.legal-chip{
+  margin-top:22px;
+  display:inline-flex;
+  gap:9px;
+  align-items:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:#C7DBFF;
+  border:1px solid rgba(255,255,255,.18);
+  padding:7px 13px;
+  border-radius:6px;
+}
+
+.legal-chip b{
+  color:#fff;
+  font-weight:600;
+}
+
+/* ================= STATS ================= */
+
+.stats-strip{
+  background:var(--bg);
+  padding:26px 0 4px;
+}
+
+.stats-inner{
+  max-width:1220px;
+  margin:0 auto;
+  padding:0 32px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.stat-item{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:16px 18px;
+}
+
+.stat-item .num{
+  font-family:'Sora',sans-serif;
+  font-size:24px;
+  font-weight:800;
+  color:var(--blue-600);
+  line-height:1;
+}
+
+.stat-item .lbl{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:6px;
+  font-weight:500;
+}
+
+/* ================= SECTION ================= */
+
+section{
+  padding:80px 0;
+}
+
+.sec-head{
+  max-width:680px;
+  margin-bottom:40px;
+}
+
+.sec-head h2{
+  font-size:30px;
+  margin-top:14px;
+  line-height:1.26;
+}
+
+.sec-head p{
+  margin-top:12px;
+  font-size:15px;
+}
+
+.sec-head.center{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+
+/* ================= WORKSPACE ================= */
+
+.workspace{
+  background:#fff;
+}
+
+.role-switch{
+  display:flex;
+  gap:10px;
+  background:var(--blue-50);
+  padding:6px;
+  border-radius:999px;
+  border:1px solid var(--blue-100);
+  width:fit-content;
+  margin-bottom:34px;
+  flex-wrap:wrap;
+}
+
+.role-btn{
+  border:none;
+  background:none;
+  padding:10px 18px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13.5px;
+  color:var(--blue-700);
+  cursor:pointer;
+  font-family:'Be Vietnam Pro',sans-serif;
+  transition:.15s;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.role-btn .rb-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--blue-300);
+}
+
+.role-btn.active{
+  background:var(--blue-600);
+  color:#fff;
+  box-shadow:var(--shadow-sm);
+}
+
+.role-btn.active .rb-dot{
+  background:#fff;
+}
+
+.role-btn:disabled{
+  cursor:default;
+}
+
+.role-hint{
+  font-size:13px;
+  color:var(--muted);
+  margin:-24px 0 30px;
+  padding:12px 16px;
+  background:var(--blue-50);
+  border-radius:var(--radius-sm);
+  border:1px dashed var(--blue-200);
+  max-width:640px;
+}
+
+.role-hint b{
+  color:var(--blue-700);
+}
+
+/* ================= WORKSPACE TABS ================= */
+
+.ws-tabs{
+  display:flex;
+  gap:8px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+
+.ws-tab{
+  border:none;
+  background:none;
+  padding:14px 6px;
+  margin-right:22px;
+  font-weight:700;
+  font-size:14.5px;
+  color:var(--muted);
+  cursor:pointer;
+  border-bottom:2.5px solid transparent;
+  font-family:'Be Vietnam Pro',sans-serif;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ws-tab .wt-badge{
+  background:var(--blue-50);
+  color:var(--blue-600);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  padding:1px 7px;
+  border-radius:999px;
+}
+
+.ws-tab.active{
+  color:var(--blue-700);
+  border-color:var(--blue-600);
+}
+
+.ws-panel{
+  display:none;
+}
+
+.ws-panel.active{
+  display:block;
+  animation:fadein .3s ease;
+}
+
+@keyframes fadein{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* ================= COMPOSER ================= */
+
+.composer{
+  background:var(--blue-50);
+  border:1px solid var(--blue-100);
+  border-radius:var(--radius-md);
+  padding:18px 20px;
+  margin-bottom:24px;
+}
+
+.composer.locked{
+  opacity:.65;
+}
+
+.composer textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  font-family:inherit;
+  font-size:14px;
+  resize:vertical;
+  min-height:60px;
+  background:#fff;
+  color:var(--ink);
+}
+
+.composer textarea:disabled{
+  background:#f8faff;
+}
+
+.composer .composer-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  gap:10px;
+}
+
+.composer select{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:12.5px;
+  font-family:inherit;
+  color:var(--ink);
+  background:#fff;
+}
+
+/* ================= FEED ================= */
+
+.feed-item{
+  display:flex;
+  gap:14px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.feed-item:last-child{
+  border-bottom:none;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:700;
+  font-size:13.5px;
+}
+
+.feed-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:5px;
+}
+
+.feed-head b{
+  font-size:14px;
+}
+
+.feed-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  padding:2px 8px;
+  border-radius:999px;
+  background:var(--blue-50);
+  color:var(--blue-600);
+  font-weight:600;
+}
+
+.feed-time{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.feed-body{
+  font-size:14px;
+  color:var(--ink);
+  line-height:1.6;
+}
+
+/* ================= LIBRARY ================= */
+
+.lib-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.lib-filter{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.chip-filter{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:12.8px;
+  font-weight:600;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+.chip-filter.active{
+  background:var(--blue-600);
+  border-color:var(--blue-600);
+  color:#fff;
+}
+
+.mat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.mat-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:20px;
+  background:#fff;
+  transition:.15s;
+}
+
+.mat-card:hover{
+  box-shadow:var(--shadow-sm);
+  border-color:var(--blue-200);
+}
+
+.mat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.mat-icon{
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  background:var(--blue-50);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  color:var(--blue-600);
+  font-weight:800;
+  font-family:'Sora',sans-serif;
+}
+
+.mat-card h4{
+  font-size:15px;
+  margin-bottom:4px;
+}
+
+.mat-meta{
+  font-size:12.5px;
+  color:var(--muted);
+}
+
+.status-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+
+.status-badge.s1{
+  background:var(--amber-soft);
+  color:#9A6613;
+}
+
+.status-badge.s2{
+  background:#E4ECFF;
+  color:var(--blue-700);
+}
+
+.status-badge.s3{
+  background:var(--teal-soft);
+  color:#0B7A6A;
+}
+
+.mat-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px dashed var(--line);
+}
+
+.mat-approve{
+  background:var(--blue-600);
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:12.5px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.mat-approve:hover{
+  background:var(--blue-700);
+}
+
+.mat-approve.final{
+  background:var(--teal);
+}
+
+.mat-approve.final:hover{
+  background:#0B8E7C;
+}
+
+.mat-locked{
+  font-size:12px;
+  color:var(--muted);
+  font-style:italic;
+}
+
+.lib-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  background:var(--blue-50);
+  border:1px solid var(--blue-100);
+  border-radius:var(--radius-md);
+  padding:18px 20px;
+  margin-bottom:24px;
+}
+
+.lib-form input,
+.lib-form select{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:10px 12px;
+  font-size:13.5px;
+  font-family:inherit;
+  background:#fff;
+  color:var(--ink);
+}
+
+.lib-form .full{
+  grid-column:1/-1;
+  display:flex;
+  justify-content:flex-end;
+}
+
+/* ================= NCBH ================= */
+
+.session-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:22px;
+  margin-bottom:18px;
+  background:#fff;
+}
+
+.session-top{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.session-top h4{
+  font-size:16px;
+}
+
+.session-meta{
+  font-size:12.5px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.comments{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.comment{
+  display:flex;
+  gap:10px;
+  font-size:13.5px;
+}
+
+.comment .cbody{
+  background:var(--blue-50);
+  border-radius:var(--radius-sm);
+  padding:10px 13px;
+  flex:1;
+}
+
+.comment .cbody b{
+  font-size:12.8px;
+}
+
+.comment-form{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.comment-form input{
+  flex:1;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:10px 16px;
+  font-size:13.5px;
+  font-family:inherit;
+}
+
+.comment-form button{
+  background:var(--blue-600);
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  padding:0 20px;
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* ================= MODULES ================= */
+
+.mod-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.mod-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:24px;
+  transition:.18s;
+}
+
+.mod-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--blue-200);
+}
+
+.mod-ic{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:var(--blue-50);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:16px;
+  color:var(--blue-600);
+}
+
+.mod-card h4{
+  font-size:16.5px;
+  margin-bottom:8px;
+}
+
+.mod-card p{
+  font-size:13.5px;
+}
+
+.mod-card ul{
+  margin:14px 0 0;
+  padding-left:18px;
+}
+
+.mod-card li{
+  font-size:12.8px;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+
+/* ================= WORKFLOW ================= */
+
+.flow{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:8px;
+}
+
+.flow-step{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:24px 20px;
+  position:relative;
+}
+
+.flow-step .fnum{
+  font-family:'Sora',sans-serif;
+  font-size:26px;
+  color:var(--blue-500);
+  font-weight:800;
+  line-height:1;
+}
+
+.flow-step h4{
+  font-size:15px;
+  margin:12px 0 8px;
+}
+
+.flow-step p{
+  font-size:13px;
+}
+
+.flow-step:not(:last-child)::after{
+  content:"→";
+  position:absolute;
+  right:-22px;
+  top:50%;
+  transform:translateY(-50%);
+  width:28px;
+  height:28px;
+  background:var(--blue-600);
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  z-index:2;
+}
+
+/* ================= ROLES ================= */
+
+.roles{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.role-card{
+  background:var(--blue-900);
+  border-radius:var(--radius-md);
+  padding:26px 22px;
+  color:#fff;
+}
+
+.role-card.mid{
+  background:var(--blue-600);
+}
+
+.role-card.low{
+  background:var(--teal);
+}
+
+.role-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#EAF2FF;
+  border:1px solid rgba(255,255,255,.3);
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:6px;
+  margin-bottom:14px;
+}
+
+.role-card h4{
+  color:#fff;
+  font-size:18px;
+  margin-bottom:8px;
+}
+
+.role-card p{
+  color:rgba(255,255,255,.82);
+  font-size:13.5px;
+}
+
+/* ================= TARGETS ================= */
+
+.targets{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.target-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:26px;
+  border-top:3px solid var(--blue-500);
+}
+
+.target-card .tnum{
+  font-family:'Sora',sans-serif;
+  font-size:32px;
+  color:var(--ink);
+  font-weight:800;
+}
+
+.target-card .tnum span{
+  font-size:14px;
+  color:var(--blue-600);
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  margin-left:6px;
+}
+
+.target-card h4{
+  font-size:14.5px;
+  margin:10px 0 8px;
+}
+
+.target-card p{
+  font-size:13px;
+}
+
+/* ================= BAND ================= */
+
+.band{
+  background:var(--blue-900);
+}
+
+.band .sec-head h2,
+.band .sec-head p{
+  color:#fff;
+}
+
+.band .sec-head p{
+  color:#CFE0FF;
+}
+
+.band .eyebrow{
+  background:rgba(255,255,255,.12);
+  color:#EAF2FF;
+  border-color:rgba(255,255,255,.22);
+}
+
+/* ================= MEETING ================= */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(10,20,45,.6);
+  backdrop-filter:blur(3px);
+  z-index:200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-overlay.open{
+  display:flex;
+}
+
+.meet-modal{
+  background:#fff;
+  border-radius:var(--radius-lg);
+  width:100%;
+  max-width:900px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+
+.meet-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 24px;
+  border-bottom:1px solid var(--line);
+}
+
+.meet-head h3{
+  font-size:17px;
+}
+
+.meet-head .msub{
+  font-size:12.5px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.meet-close{
+  border:none;
+  background:var(--blue-50);
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:16px;
+  color:var(--blue-700);
+}
+
+#jitsi-container{
+  width:100%;
+  height:480px;
+  background:var(--ink);
+}
+
+.meet-foot{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 24px;
+  background:var(--blue-50);
+  flex-wrap:wrap;
+}
+
+.meet-link{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:var(--blue-700);
+  background:#fff;
+  border:1px solid var(--blue-100);
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.meet-actions{
+  display:flex;
+  gap:8px;
+}
+
+.meet-actions button,
+.meet-actions a{
+  border:none;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:12.5px;
+  font-weight:700;
+  cursor:pointer;
+  color:var(--ink);
+  text-decoration:none;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  background:var(--blue-900);
+  color:#9FB4DF;
+  padding:56px 0 30px;
+}
+
+.foot-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr;
+  gap:40px;
+  padding-bottom:34px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.foot-brand .brand-text b{
+  color:#fff;
+}
+
+.foot-brand p{
+  margin-top:14px;
+  font-size:13px;
+  max-width:320px;
+  color:#9FB4DF;
+}
+
+footer h5{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#CFE0FF;
+  margin-bottom:14px;
+  font-weight:700;
+}
+
+footer ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+footer a{
+  color:#9FB4DF;
+  text-decoration:none;
+  font-size:13.3px;
+}
+
+footer a:hover{
+  color:#fff;
+}
+
+.foot-bottom{
+  padding-top:22px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  font-size:12px;
+}
+
+.foot-bottom .credit{
+  font-family:'IBM Plex Mono',monospace;
+  color:#6E86B8;
+}
+
+/* ================= DEMO BADGE ================= */
+
+.demo-badge{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:60;
+  background:var(--blue-600);
+  color:#fff;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  padding:9px 16px;
+  border-radius:999px;
+  box-shadow:var(--shadow-md);
+  letter-spacing:.03em;
+}
+
+/* ================= FIREBASE STATUS ================= */
+
+.firebase-status{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  z-index:60;
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--muted);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  padding:8px 12px;
+  border-radius:999px;
+  box-shadow:var(--shadow-sm);
+}
+
+.firebase-status.online{
+  color:#0B7A6A;
+  background:var(--teal-soft);
+  border-color:#BCEDE3;
+}
+
+.firebase-status.offline{
+  color:#9A6613;
+  background:var(--amber-soft);
+  border-color:#F3D49F;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:1100px){
+
+  nav.links{
+    gap:10px;
+  }
+
+  nav.links a.nlink{
     display:none;
-    align-items:center;
-    gap:8px;
-    color:#fff;
-  ">
-    <img id="firebaseUserAvatar"
-         src=""
-         style="
-           width:32px;
-           height:32px;
-           border-radius:50%;
-           object-fit:cover;
-           border:2px solid rgba(255,255,255,.8);
-         ">
+  }
 
-    <span id="firebaseUserName"
-          style="font-weight:600;"></span>
+}
 
-    <button id="googleLogoutBtn" style="
-      border:0;
-      border-radius:8px;
-      padding:7px 10px;
-      background:rgba(255,255,255,.18);
-      color:#fff;
-      cursor:pointer;
-    ">
-      Thoát
-    </button>
-  </div>
+@media (max-width:980px){
 
-</div>
-<!-- HẾT ĐĂNG NHẬP GOOGLE -->
+  .stats-inner{
+    grid-template-columns:repeat(2,1fr);
+    row-gap:12px;
+  }
+
+  .mat-grid,
+  .mod-grid,
+  .roles,
+  .targets{
+    grid-template-columns:1fr;
+  }
+
+  .flow{
+    grid-template-columns:1fr;
+  }
+
+  .flow-step::after{
+    display:none;
+  }
+
+  .foot-grid{
+    grid-template-columns:1fr;
+    gap:26px;
+  }
+
+  .lib-form{
+    grid-template-columns:1fr;
+  }
+
+  .lib-form .full{
+    grid-column:auto;
+  }
+
+}
+
+@media (max-width:700px){
+
+  .nav-inner{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .brand-text b{
+    font-size:13px;
+  }
+
+  .brand-text span{
+    display:none;
+  }
+
+  #firebaseUserName{
+    display:none;
+  }
+
+  .btn-meet{
+    display:none;
+  }
+
+}
+
+@media (max-width:600px){
+
+  .wrap,
+  .stats-inner{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .hero h1{
+    font-size:30px;
+  }
+
+  section{
+    padding:56px 0;
+  }
+
+  .sec-head h2{
+    font-size:24px;
+  }
+
+  #jitsi-container{
+    height:340px;
+  }
+
+  .role-switch{
+    width:100%;
+  }
+
+  .role-btn{
+    flex:1;
+    justify-content:center;
+  }
+
+  .firebase-status{
+    display:none;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="nav">
+
+  <div class="nav-inner">
+
+    <a class="brand" href="#top">
+
+      <div class="brand-mark">
+
+        <svg viewBox="0 0 24 24" fill="none">
+
+          <path
+            d="M3 9L12 4L21 9L12 14L3 9Z"
+            stroke="#fff"
+            stroke-width="1.6"
+            stroke-linejoin="round"/>
+
+          <path
+            d="M7 11.5V16C7 16 9 18 12 18C15 18 17 16 17 16V11.5"
+            stroke="#fff"
+            stroke-width="1.6"
+            stroke-linecap="round"/>
+
+        </svg>
+
+      </div>
+
+      <div class="brand-text">
+
+        <b>Trạm Chuyên Môn Cụm</b>
+
+        <span>Kho học liệu số dùng chung</span>
+
+      </div>
+
+    </a>
+
+
+    <nav class="links">
+
+      <a class="nlink" href="#workspace">
+        Khu vực làm việc
+      </a>
+
+      <a class="nlink" href="#modules">
+        Phân hệ khác
+      </a>
+
+      <a class="nlink" href="#roles">
+        Phân quyền
+      </a>
+
+      <a class="btn btn-meet" onclick="openMeeting()">
+        <span class="live-dot"></span>
+        Họp online toàn cụm
+      </a>
+
+
+      <!-- ================= AUTH BOX ================= -->
+
+      <div id="firebaseAuthBox">
+
+        <button id="googleLoginBtn">
+          🔵 Đăng nhập
+        </button>
+
+
+        <div id="firebaseUserBox">
+
+          <img
+            id="firebaseUserAvatar"
+            src=""
+            alt="Ảnh đại diện">
+
+          <span id="firebaseUserName"></span>
+
+          <button id="googleLogoutBtn">
+            Thoát
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- ================= END AUTH ================= -->
+
     </nav>
+
   </div>
+
 </header>
 
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
 <section class="hero" id="top">
+
   <div class="wrap hero-inner">
-    <div class="eyebrow"><span class="dot"></span> Cổng thông tin điện tử · Cụm liên trường</div>
-    <h1>Một mái nhà chuyên môn cho <span>mọi trường trong cụm</span>.</h1>
-    <p class="lead">Xóa bỏ rào cản địa lý giữa các trường, chia sẻ học liệu số, sinh hoạt nghiên cứu bài học, họp trực tuyến và bồi dưỡng thường xuyên — trên cùng một nền tảng, theo đúng Công văn 4069/BGDĐT-GDPT.</p>
-    <div class="btn-row">
-      <a href="#workspace" class="btn btn-hero-primary">Vào khu vực làm việc ↓</a>
-      <a class="btn btn-hero-meet" onclick="openMeeting()"><span class="live-dot"></span> Họp online toàn cụm</a>
+
+    <div class="eyebrow">
+      <span class="dot"></span>
+      Cổng thông tin điện tử · Cụm liên trường
     </div>
-    <div class="legal-chip">📄&nbsp; Căn cứ: <b>CV 4069/BGDĐT-GDPT</b> · 01/07/2026 &nbsp;·&nbsp; <b>TT 15/2026/TT-BGDĐT</b></div>
+
+    <h1>
+      Một mái nhà chuyên môn cho
+      <span>mọi trường trong cụm</span>.
+    </h1>
+
+    <p class="lead">
+      Xóa bỏ rào cản địa lý giữa các trường, chia sẻ học liệu số,
+      sinh hoạt nghiên cứu bài học, họp trực tuyến và bồi dưỡng
+      thường xuyên — trên cùng một nền tảng.
+    </p>
+
+    <div class="btn-row">
+
+      <a
+        href="#workspace"
+        class="btn btn-hero-primary">
+        Vào khu vực làm việc ↓
+      </a>
+
+      <a
+        class="btn btn-hero-meet"
+        onclick="openMeeting()">
+
+        <span class="live-dot"></span>
+        Họp online toàn cụm
+
+      </a>
+
+    </div>
+
+    <div class="legal-chip">
+
+      📄 Căn cứ:
+      <b>CV 4069/BGDĐT-GDPT</b>
+      · 01/07/2026
+
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
 
 <div class="stats-strip">
+
   <div class="stats-inner">
-    <div class="stat-item"><div class="num">06</div><div class="lbl">Phân hệ chuyên môn tích hợp</div></div>
-    <div class="stat-item"><div class="num">03</div><div class="lbl">Cấp tài khoản phân quyền</div></div>
-    <div class="stat-item"><div class="num">04</div><div class="lbl">Bước kiểm duyệt học liệu</div></div>
-    <div class="stat-item"><div class="num">02+</div><div class="lbl">Lần sinh hoạt cụm / môn / năm</div></div>
+
+    <div class="stat-item">
+      <div class="num">06</div>
+      <div class="lbl">
+        Phân hệ chuyên môn tích hợp
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <div class="num">03</div>
+      <div class="lbl">
+        Cấp tài khoản phân quyền
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <div class="num">04</div>
+      <div class="lbl">
+        Bước kiểm duyệt học liệu
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <div class="num">02+</div>
+      <div class="lbl">
+        Lần sinh hoạt cụm / môn / năm
+      </div>
+    </div>
+
   </div>
+
 </div>
 
-<!-- ================= INTERACTIVE WORKSPACE ================= -->
+
+<!-- =========================================================
+     WORKSPACE
+========================================================= -->
+
 <section class="workspace" id="workspace">
+
   <div class="wrap">
+
     <div class="sec-head">
-      <div class="eyebrow"><span class="dot"></span> Khu vực làm việc</div>
-      <h2>Ba phân hệ lõi — dùng thử ngay, đúng luồng nghiệp vụ thật.</h2>
-      <p>Chọn một vai trò bên dưới để xem hệ thống hiển thị và cho phép thao tác khác nhau ra sao — đúng như khi thầy cô đăng nhập thật. Dữ liệu ở đây là dữ liệu minh họa, thao tác không lưu lại sau khi tải lại trang.</p>
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        Khu vực làm việc
+      </div>
+
+      <h2>
+        Ba phân hệ lõi — dùng thử ngay,
+        đúng luồng nghiệp vụ thật.
+      </h2>
+
+      <p>
+        Hệ thống tự xác định quyền của tài khoản sau khi đăng nhập.
+        Người dùng không thể tự chọn hoặc thay đổi quyền.
+      </p>
+
     </div>
+
+
+    <!-- ================= ROLE ================= -->
 
     <div class="role-switch" id="roleSwitch">
-      <button class="role-btn active" data-role="giaovien"><span class="rb-dot"></span> Giáo viên</button>
-      <button class="role-btn" data-role="admintruong"><span class="rb-dot"></span> Admin Trường</button>
-      <button class="role-btn" data-role="admincum"><span class="rb-dot"></span> Admin Cụm</button>
+
+      <button
+        class="role-btn"
+        data-role="giaovien"
+        disabled>
+
+        <span class="rb-dot"></span>
+        Giáo viên
+
+      </button>
+
+
+      <button
+        class="role-btn"
+        data-role="admintruong"
+        disabled>
+
+        <span class="rb-dot"></span>
+        Admin Trường
+
+      </button>
+
+
+      <button
+        class="role-btn"
+        data-role="admincum"
+        disabled>
+
+        <span class="rb-dot"></span>
+        Admin Cụm
+
+      </button>
+
     </div>
-    <div class="role-hint" id="roleHint"></div>
+
+
+    <div
+      class="role-hint"
+      id="roleHint">
+      🔐 Đang kiểm tra tài khoản...
+    </div>
+
+
+    <!-- ================= TABS ================= -->
 
     <div class="ws-tabs" id="wsTabs">
-      <button class="ws-tab active" data-tab="tc">🏠 Trang chủ &amp; Truyền thông</button>
-      <button class="ws-tab" data-tab="kh">📚 Kho học liệu số <span class="wt-badge" id="khCount">4</span></button>
-      <button class="ws-tab" data-tab="nc">🔬 Hồ sơ Nghiên cứu bài học</button>
+
+      <button
+        class="ws-tab active"
+        data-tab="tc">
+
+        🏠 Trang chủ & Truyền thông
+
+      </button>
+
+
+      <button
+        class="ws-tab"
+        data-tab="kh">
+
+        📚 Kho học liệu số
+
+        <span
+          class="wt-badge"
+          id="khCount">
+          4
+        </span>
+
+      </button>
+
+
+      <button
+        class="ws-tab"
+        data-tab="nc">
+
+        🔬 Hồ sơ Nghiên cứu bài học
+
+      </button>
+
     </div>
 
-    <!-- TRANG CHU -->
-    <div class="ws-panel active" id="panel-tc">
-      <div class="composer" id="composerTC">
-        <textarea id="postInput" placeholder="Đăng bản tin / thông báo tới toàn cụm..."></textarea>
+
+    <!-- =====================================================
+         TRANG CHỦ
+    ====================================================== -->
+
+    <div
+      class="ws-panel active"
+      id="panel-tc">
+
+
+      <div
+        class="composer"
+        id="composerTC">
+
+        <textarea
+          id="postInput"
+          placeholder="Đang kiểm tra quyền..."
+          disabled></textarea>
+
+
         <div class="composer-foot">
-          <select id="postTag"><option>Bản tin</option><option>Lịch công tác</option><option>Văn bản chỉ đạo</option></select>
-          <button class="btn btn-primary" onclick="addPost()">Đăng tin</button>
+
+          <select id="postTag">
+
+            <option>Bản tin</option>
+            <option>Lịch công tác</option>
+            <option>Văn bản chỉ đạo</option>
+
+          </select>
+
+
+          <button
+            class="btn btn-primary"
+            id="postButton"
+            onclick="addPost()"
+            disabled>
+
+            Đăng tin
+
+          </button>
+
         </div>
+
       </div>
+
+
       <div id="feedList"></div>
+
     </div>
 
-    <!-- KHO HOC LIEU -->
-    <div class="ws-panel" id="panel-kh">
+
+    <!-- =====================================================
+         KHO HỌC LIỆU
+    ====================================================== -->
+
+    <div
+      class="ws-panel"
+      id="panel-kh">
+
+
       <div class="lib-form">
-        <input id="matName" placeholder="Tên học liệu (VD: Giáo án Sinh học 8 — Bài 5)">
-        <select id="matSubject"><option>Toán</option><option>Ngữ văn</option><option>GDCD</option><option>Khoa học tự nhiên</option><option>STEM/STEAM</option></select>
-        <div class="full"><button class="btn btn-primary" onclick="addMaterial()">Tải lên chờ duyệt</button></div>
-      </div>
-      <div class="lib-toolbar">
-        <div class="lib-filter" id="libFilter">
-          <button class="chip-filter active" data-f="all">Tất cả</button>
-          <button class="chip-filter" data-f="s1">Chờ duyệt trường</button>
-          <button class="chip-filter" data-f="s2">Chờ duyệt cụm</button>
-          <button class="chip-filter" data-f="s3">Đã xuất bản</button>
+
+        <input
+          id="matName"
+          placeholder="Tên học liệu (VD: Giáo án Sinh học 8 — Bài 5)">
+
+
+        <select id="matSubject">
+
+          <option>Toán</option>
+          <option>Ngữ văn</option>
+          <option>GDCD</option>
+          <option>Khoa học tự nhiên</option>
+          <option>STEM/STEAM</option>
+
+        </select>
+
+
+        <div class="full">
+
+          <button
+            class="btn btn-primary"
+            id="materialButton"
+            onclick="addMaterial()">
+
+            Tải lên chờ duyệt
+
+          </button>
+
         </div>
+
       </div>
-      <div class="mat-grid" id="matGrid"></div>
+
+
+      <div class="lib-toolbar">
+
+        <div
+          class="lib-filter"
+          id="libFilter">
+
+          <button
+            class="chip-filter active"
+            data-f="all">
+
+            Tất cả
+
+          </button>
+
+          <button
+            class="chip-filter"
+            data-f="s1">
+
+            Chờ duyệt trường
+
+          </button>
+
+          <button
+            class="chip-filter"
+            data-f="s2">
+
+            Chờ duyệt cụm
+
+          </button>
+
+          <button
+            class="chip-filter"
+            data-f="s3">
+
+            Đã xuất bản
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mat-grid"
+        id="matGrid">
+      </div>
+
     </div>
 
-    <!-- NCBH -->
-    <div class="ws-panel" id="panel-nc">
+
+    <!-- =====================================================
+         NGHIÊN CỨU BÀI HỌC
+    ====================================================== -->
+
+    <div
+      class="ws-panel"
+      id="panel-nc">
+
       <div id="sessionList"></div>
+
     </div>
+
   </div>
+
 </section>
 
-<!-- ================= OTHER MODULES ================= -->
+
+<!-- =========================================================
+     MODULES
+========================================================= -->
+
 <section id="modules">
+
   <div class="wrap">
+
     <div class="sec-head">
-      <div class="eyebrow"><span class="dot"></span> Sitemap</div>
-      <h2>Ba phân hệ tiếp theo trong lộ trình.</h2>
-      <p>Nhóm nội dung này sẽ được đưa vào khu vực làm việc ở các đợt triển khai tiếp theo, sau khi 3 phân hệ lõi vận hành ổn định.</p>
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        Sitemap
+      </div>
+
+      <h2>
+        Ba phân hệ tiếp theo trong lộ trình.
+      </h2>
+
+      <p>
+        Nhóm nội dung này sẽ được đưa vào khu vực làm việc
+        ở các đợt triển khai tiếp theo.
+      </p>
+
     </div>
+
+
     <div class="mod-grid">
+
+
       <div class="mod-card">
-        <div class="mod-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12h6M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <h4>Tư vấn học tập &amp; Hướng nghiệp</h4>
-        <p>Hỗ trợ tổ chuyên môn thống nhất phương án, hỗ trợ học sinh chọn môn học và tổ hợp phù hợp năng lực.</p>
+
+        <div class="mod-ic">
+
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none">
+
+            <path
+              d="M4 19V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"
+              stroke="currentColor"
+              stroke-width="1.6"/>
+
+            <path
+              d="M9 12h6M9 16h6"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+        <h4>
+          Tư vấn học tập & Hướng nghiệp
+        </h4>
+
+        <p>
+          Hỗ trợ tổ chuyên môn thống nhất phương án,
+          hỗ trợ học sinh chọn môn học và tổ hợp phù hợp.
+        </p>
+
         <ul>
           <li>Cẩm nang tổ chức môn học lựa chọn</li>
           <li>Cổng tư vấn chọn tổ hợp lớp 10</li>
           <li>Cập nhật tuyển sinh Đại học, Cao đẳng</li>
         </ul>
+
       </div>
+
+
       <div class="mod-card">
-        <div class="mod-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7l9 5 9-5-9-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Giáo dục Mũi nhọn &amp; Sáng tạo</h4>
-        <p>Nâng cao chất lượng giáo dục mũi nhọn, phát hiện học sinh năng khiếu, nâng cao năng lực số cho giáo viên.</p>
+
+        <div class="mod-ic">
+
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none">
+
+            <path
+              d="M12 2 3 7l9 5 9-5-9-5Z"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linejoin="round"/>
+
+            <path
+              d="M3 12l9 5 9-5M3 17l9 5 9-5"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linejoin="round"/>
+
+          </svg>
+
+        </div>
+
+        <h4>
+          Giáo dục Mũi nhọn & Sáng tạo
+        </h4>
+
+        <p>
+          Nâng cao chất lượng giáo dục mũi nhọn,
+          phát hiện học sinh năng khiếu và nâng cao năng lực số.
+        </p>
+
         <ul>
           <li>Tài liệu bồi dưỡng học sinh giỏi</li>
-          <li>Hướng dẫn nghiên cứu khoa học kỹ thuật</li>
+          <li>Nghiên cứu khoa học kỹ thuật</li>
           <li>Chia sẻ ứng dụng AI trong soạn giảng</li>
         </ul>
+
       </div>
+
+
       <div class="mod-card">
-        <div class="mod-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M12 20V4M20 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h4>Phân tích Dữ liệu Học tập</h4>
-        <p>Khai thác dữ liệu giáo dục số để điều chỉnh kế hoạch dạy học, cá thể hóa hỗ trợ học sinh.</p>
+
+        <div class="mod-ic">
+
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none">
+
+            <path
+              d="M4 20V10M12 20V4M20 20v-7"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+        <h4>
+          Phân tích Dữ liệu Học tập
+        </h4>
+
+        <p>
+          Khai thác dữ liệu giáo dục số để điều chỉnh kế hoạch
+          dạy học và hỗ trợ học sinh.
+        </p>
+
         <ul>
           <li>Bảng tổng hợp điểm kiểm tra liên trường</li>
           <li>Báo cáo phân tích chất lượng định kỳ</li>
           <li>Biểu đồ năng lực học sinh theo môn</li>
         </ul>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="band" id="workflow">
+
+<!-- =========================================================
+     WORKFLOW
+========================================================= -->
+
+<section
+  class="band"
+  id="workflow">
+
   <div class="wrap">
+
     <div class="sec-head">
-      <div class="eyebrow"><span class="dot"></span> Vận hành</div>
-      <h2>Quy trình kiểm duyệt và chia sẻ học liệu — 4 bước chuẩn hóa.</h2>
-      <p>Bạn vừa thử luồng này trong khu vực Kho học liệu số ở trên — đây chính là quy trình đứng sau các nút "Duyệt".</p>
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        Vận hành
+      </div>
+
+      <h2>
+        Quy trình kiểm duyệt và chia sẻ học liệu — 4 bước chuẩn hóa.
+      </h2>
+
+      <p>
+        Học liệu đi qua cấp trường trước khi được xuất bản
+        vào kho dùng chung cấp cụm.
+      </p>
+
     </div>
+
+
     <div class="flow">
-      <div class="flow-step"><div class="fnum">01</div><h4>Khởi tạo</h4><p>Giáo viên/nhóm giáo viên tải sản phẩm (giáo án, bài giảng số, câu hỏi kiểm tra) lên phân hệ chờ duyệt.</p></div>
-      <div class="flow-step"><div class="fnum">02</div><h4>Duyệt cấp trường</h4><p>Tổ trưởng chuyên môn và Ban giám hiệu trường thành viên kiểm tra tính đúng đắn khoa học, sư phạm.</p></div>
-      <div class="flow-step"><div class="fnum">03</div><h4>Duyệt &amp; xuất bản cấp cụm</h4><p>Ban điều hành cụm phê duyệt chính thức, phân loại theo cấp học, lớp học, môn học.</p></div>
-      <div class="flow-step"><div class="fnum">04</div><h4>Đánh giá &amp; cập nhật</h4><p>Giáo viên toàn cụm sử dụng, phản hồi để định kỳ rà soát, hoàn thiện chất lượng.</p></div>
+
+
+      <div class="flow-step">
+
+        <div class="fnum">01</div>
+
+        <h4>Khởi tạo</h4>
+
+        <p>
+          Giáo viên tải sản phẩm chuyên môn lên hệ thống
+          ở trạng thái chờ duyệt.
+        </p>
+
+      </div>
+
+
+      <div class="flow-step">
+
+        <div class="fnum">02</div>
+
+        <h4>Duyệt cấp trường</h4>
+
+        <p>
+          Admin Trường kiểm tra tính đúng đắn khoa học,
+          sư phạm và hình thức.
+        </p>
+
+      </div>
+
+
+      <div class="flow-step">
+
+        <div class="fnum">03</div>
+
+        <h4>Duyệt cấp cụm</h4>
+
+        <p>
+          Admin Cụm kiểm duyệt và xuất bản học liệu
+          vào kho dùng chung.
+        </p>
+
+      </div>
+
+
+      <div class="flow-step">
+
+        <div class="fnum">04</div>
+
+        <h4>Đánh giá & cập nhật</h4>
+
+        <p>
+          Giáo viên sử dụng, phản hồi và cùng hoàn thiện
+          chất lượng học liệu.
+        </p>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+<!-- =========================================================
+     ROLES
+========================================================= -->
 
 <section id="roles">
+
   <div class="wrap">
+
     <div class="sec-head">
-      <div class="eyebrow"><span class="dot"></span> Phân quyền</div>
-      <h2>Ba cấp tài khoản, rành mạch trách nhiệm.</h2>
-      <p>Đúng những vai trò thầy vừa chọn thử ở khu vực làm việc phía trên.</p>
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        Phân quyền
+      </div>
+
+      <h2>
+        Ba cấp tài khoản, rành mạch trách nhiệm.
+      </h2>
+
+      <p>
+        Quyền được quản lý tập trung trong Firestore.
+        Người dùng không tự thay đổi quyền trên giao diện.
+      </p>
+
     </div>
+
+
     <div class="roles">
-      <div class="role-card"><span class="role-tag">Admin Cụm</span><h4>Quản trị viên cụm</h4><p>Đại diện Ban điều hành cụm (Trường Cụm trưởng) — quản lý cấu trúc chung, phê duyệt &amp; xuất bản chuyên đề toàn cụm.</p></div>
-      <div class="role-card mid"><span class="role-tag">Admin Trường</span><h4>Quản trị viên trường thành viên</h4><p>Hiệu phó chuyên môn / Tổ trưởng chuyên môn — duyệt học liệu nội bộ trước khi chia sẻ lên cụm.</p></div>
-      <div class="role-card low"><span class="role-tag">Giáo viên</span><h4>Tài khoản giáo viên</h4><p>Toàn bộ giáo viên trong cụm — tải học liệu, đóng góp bài giảng số, tham gia thảo luận nghiên cứu bài học.</p></div>
+
+
+      <div class="role-card">
+
+        <span class="role-tag">
+          Admin Cụm
+        </span>
+
+        <h4>
+          Quản trị viên cụm
+        </h4>
+
+        <p>
+          Đại diện Ban điều hành cụm — quản lý cấu trúc chung,
+          phê duyệt và xuất bản học liệu toàn cụm.
+        </p>
+
+      </div>
+
+
+      <div class="role-card mid">
+
+        <span class="role-tag">
+          Admin Trường
+        </span>
+
+        <h4>
+          Quản trị viên trường thành viên
+        </h4>
+
+        <p>
+          Hiệu phó chuyên môn hoặc Tổ trưởng chuyên môn —
+          duyệt học liệu nội bộ trước khi chia sẻ lên cụm.
+        </p>
+
+      </div>
+
+
+      <div class="role-card low">
+
+        <span class="role-tag">
+          Giáo viên
+        </span>
+
+        <h4>
+          Tài khoản giáo viên
+        </h4>
+
+        <p>
+          Giáo viên trong cụm — đóng góp học liệu,
+          tham gia thảo luận và nghiên cứu bài học.
+        </p>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+<!-- =========================================================
+     TARGETS
+========================================================= -->
 
 <section id="targets">
+
   <div class="wrap">
+
     <div class="sec-head">
-      <div class="eyebrow"><span class="dot"></span> Chỉ tiêu hoạt động</div>
-      <h2>Vận hành thực chất — không thiết lập xong để trống.</h2>
-      <p>Các chỉ tiêu thi đua chuyên môn để trang web thực sự đi vào đời sống dạy học.</p>
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        Chỉ tiêu hoạt động
+      </div>
+
+      <h2>
+        Vận hành thực chất — không thiết lập xong để trống.
+      </h2>
+
+      <p>
+        Các chỉ tiêu hướng tới việc đưa Trạm Chuyên Môn Cụm
+        thực sự đi vào đời sống chuyên môn.
+      </p>
+
     </div>
+
+
     <div class="targets">
-      <div class="target-card"><div class="tnum">≥02<span>lần / môn / năm</span></div><h4>Tần suất sinh hoạt &amp; vận hành</h4><p>Mỗi môn học hoặc nhóm môn học trong cụm sinh hoạt chuyên môn ít nhất 2 lần/năm học.</p></div>
-      <div class="target-card"><div class="tnum">≥01<span>sản phẩm / năm</span></div><h4>Chỉ tiêu sản phẩm dùng chung</h4><p>Mỗi năm học, cụm phấn đấu nghiệm thu ít nhất 1 chuyên đề hoặc sản phẩm chuyên môn chất lượng cao.</p></div>
-      <div class="target-card"><div class="tnum">100%<span>quy đổi giờ BDTX</span></div><h4>Liên kết bồi dưỡng thường xuyên</h4><p>Thời lượng đóng góp học liệu, dự giờ trực tuyến được quy đổi vào thời lượng BDTX theo quy định.</p></div>
+
+
+      <div class="target-card">
+
+        <div class="tnum">
+          ≥02
+          <span>lần / môn / năm</span>
+        </div>
+
+        <h4>
+          Tần suất sinh hoạt & vận hành
+        </h4>
+
+        <p>
+          Mỗi môn học hoặc nhóm môn học trong cụm
+          sinh hoạt chuyên môn ít nhất 2 lần/năm học.
+        </p>
+
+      </div>
+
+
+      <div class="target-card">
+
+        <div class="tnum">
+          ≥01
+          <span>sản phẩm / năm</span>
+        </div>
+
+        <h4>
+          Chỉ tiêu sản phẩm dùng chung
+        </h4>
+
+        <p>
+          Cụm phấn đấu nghiệm thu ít nhất 1 chuyên đề
+          hoặc sản phẩm chuyên môn chất lượng cao.
+        </p>
+
+      </div>
+
+
+      <div class="target-card">
+
+        <div class="tnum">
+          100%
+          <span>tham gia</span>
+        </div>
+
+        <h4>
+          Tham gia kho học liệu
+        </h4>
+
+        <p>
+          Khuyến khích giáo viên đóng góp, sử dụng,
+          nhận xét và hoàn thiện học liệu dùng chung.
+        </p>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
 
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
 <footer>
+
   <div class="wrap">
+
     <div class="foot-grid">
+
+
       <div class="foot-brand">
-        <a class="brand" href="#top" style="text-decoration:none;">
-          <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 9L12 4L21 9L12 14L3 9Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-          <div class="brand-text"><b>Trạm Chuyên Môn Cụm</b></div>
+
+        <a
+          class="brand"
+          href="#top"
+          style="text-decoration:none;">
+
+          <div class="brand-mark">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none">
+
+              <path
+                d="M3 9L12 4L21 9L12 14L3 9Z"
+                stroke="#fff"
+                stroke-width="1.6"
+                stroke-linejoin="round"/>
+
+            </svg>
+
+          </div>
+
+          <div class="brand-text">
+
+            <b>Trạm Chuyên Môn Cụm</b>
+
+          </div>
+
         </a>
-        <p>Trang thông tin điện tử &amp; kho học liệu số dùng chung cụm liên trường, xây dựng theo hướng dẫn tại Công văn số 4069/BGDĐT-GDPT ngày 01/07/2026 của Bộ Giáo dục và Đào tạo.</p>
+
+
+        <p>
+          Trang thông tin điện tử và kho học liệu số dùng chung
+          cụm liên trường, hướng tới chia sẻ chuyên môn,
+          nghiên cứu bài học và bồi dưỡng giáo viên.
+        </p>
+
       </div>
+
+
       <div>
+
         <h5>Phân hệ</h5>
+
         <ul>
-          <li><a href="#workspace">Kho học liệu số</a></li>
-          <li><a href="#workspace">Nghiên cứu bài học</a></li>
-          <li><a href="#modules">Tư vấn hướng nghiệp</a></li>
-          <li><a href="#modules">Phân tích dữ liệu</a></li>
+
+          <li>
+            <a href="#workspace">
+              Kho học liệu số
+            </a>
+          </li>
+
+          <li>
+            <a href="#workspace">
+              Nghiên cứu bài học
+            </a>
+          </li>
+
+          <li>
+            <a href="#modules">
+              Tư vấn hướng nghiệp
+            </a>
+          </li>
+
+          <li>
+            <a href="#modules">
+              Phân tích dữ liệu
+            </a>
+          </li>
+
         </ul>
+
       </div>
+
+
       <div>
-        <h5>Căn cứ pháp lý</h5>
+
+        <h5>Thông tin</h5>
+
         <ul>
-          <li>CV 4069/BGDĐT-GDPT · 01/07/2026</li>
-          <li>TT 15/2026/TT-BGDĐT · 24/03/2026</li>
-          <li>Chương trình GDPT 2018</li>
+
+          <li>
+            Trạm Chuyên Môn Cụm
+          </li>
+
+          <li>
+            Kho học liệu số dùng chung
+          </li>
+
+          <li>
+            Firebase Authentication
+          </li>
+
+          <li>
+            Firestore Database
+          </li>
+
         </ul>
+
       </div>
+
     </div>
+
+
     <div class="foot-bottom">
-      <span>© 2026 Trạm Chuyên Môn Cụm — Bản demo tương tác, chưa gắn tên trường cụ thể.</span>
-      <span class="credit">Thiết kế &amp; Lập trình: Nguyễn Thanh Tùng</span>
+
+      <span>
+        © 2026 Trạm Chuyên Môn Cụm — Bản thử nghiệm.
+      </span>
+
+      <span class="credit">
+        Thiết kế & Lập trình: Nguyễn Thanh Tùng
+      </span>
+
     </div>
+
   </div>
+
 </footer>
 
-<div class="demo-badge">● BẢN DEMO TƯƠNG TÁC</div>
 
-<!-- ================= MEETING MODAL ================= -->
-<div class="modal-overlay" id="meetOverlay">
-  <div class="meet-modal">
-    <div class="meet-head">
-      <div>
-        <h3>Phòng họp trực tuyến toàn cụm</h3>
-        <div class="msub">Miễn phí · Không cần tài khoản · Chạy trên Jitsi Meet</div>
-      </div>
-      <button class="meet-close" onclick="closeMeeting()">✕</button>
-    </div>
-    <div id="jitsi-container"></div>
-    <div class="meet-foot">
-      <span class="meet-link" id="meetLink">meet.jit.si/TramChuyenMonCum-HopToanCum</span>
-      <div class="meet-actions">
-        <button onclick="copyMeetLink()">Sao chép liên kết</button>
-        <a href="https://meet.jit.si/TramChuyenMonCum-HopToanCum" target="_blank" rel="noopener">Mở tab mới ↗</a>
-      </div>
-    </div>
-  </div>
+<!-- =========================================================
+     BADGES
+========================================================= -->
+
+<div class="demo-badge">
+  ● BẢN THỬ NGHIỆM
 </div>
 
+<div
+  class="firebase-status"
+  id="firebaseStatus">
+
+  Firebase: đang khởi tạo...
+
+</div>
+
+
+<!-- =========================================================
+     JITSI MODAL
+========================================================= -->
+
+<div
+  class="modal-overlay"
+  id="meetOverlay">
+
+  <div class="meet-modal">
+
+
+    <div class="meet-head">
+
+      <div>
+
+        <h3>
+          Phòng họp trực tuyến toàn cụm
+        </h3>
+
+        <div class="msub">
+          Miễn phí · Không cần tài khoản · Chạy trên Jitsi Meet
+        </div>
+
+      </div>
+
+
+      <button
+        class="meet-close"
+        onclick="closeMeeting()">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <div id="jitsi-container"></div>
+
+
+    <div class="meet-foot">
+
+      <span
+        class="meet-link"
+        id="meetLink">
+
+        meet.jit.si/TramChuyenMonCum-HopToanCum
+
+      </span>
+
+
+      <div class="meet-actions">
+
+        <button onclick="copyMeetLink()">
+          Sao chép liên kết
+        </button>
+
+        <a
+          href="https://meet.jit.si/TramChuyenMonCum-HopToanCum"
+          target="_blank"
+          rel="noopener">
+
+          Mở tab mới ↗
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     JITSI SCRIPT
+========================================================= -->
+
 <script src="https://meet.jit.si/external_api.js"></script>
+
+
+<!-- =========================================================
+     APPLICATION JAVASCRIPT
+     
+     LƯU Ý:
+     Không có Firebase ở đây.
+     Firebase chỉ được khởi tạo duy nhất
+     trong module cuối file.
+========================================================= -->
+
 <script>
-  /* ---------- MEETING MODAL ---------- */
-  let jitsiApi = null;
-  function openMeeting(){
-    document.getElementById('meetOverlay').classList.add('open');
-    if(!jitsiApi && window.JitsiMeetExternalAPI){
-      jitsiApi = new JitsiMeetExternalAPI("meet.jit.si", {
-        roomName: "TramChuyenMonCum-HopToanCum",
-        parentNode: document.querySelector('#jitsi-container'),
-        width: "100%", height: "100%",
-        userInfo: { displayName: "Khách" },
-        configOverwrite: { prejoinPageEnabled: true },
-        interfaceConfigOverwrite: { TOOLBAR_BUTTONS: ['microphone','camera','desktop','chat','raisehand','tileview','hangup'] }
-      });
-    }
-  }
-  function closeMeeting(){ document.getElementById('meetOverlay').classList.remove('open'); }
-  function copyMeetLink(){
-    navigator.clipboard.writeText('https://meet.jit.si/TramChuyenMonCum-HopToanCum').then(()=>{
-      const el = document.getElementById('meetLink');
-      const old = el.textContent; el.textContent = 'Đã sao chép ✓';
-      setTimeout(()=>{ el.textContent = old; }, 1500);
-    });
+
+/* =========================================================
+   JITSI
+========================================================= */
+
+let jitsiApi = null;
+
+
+function openMeeting(){
+
+  const overlay =
+    document.getElementById('meetOverlay');
+
+  overlay.classList.add('open');
+
+
+  if(
+    !jitsiApi &&
+    window.JitsiMeetExternalAPI
+  ){
+
+    jitsiApi =
+      new JitsiMeetExternalAPI(
+        "meet.jit.si",
+        {
+
+          roomName:
+            "TramChuyenMonCum-HopToanCum",
+
+          parentNode:
+            document.querySelector(
+              '#jitsi-container'
+            ),
+
+          width:"100%",
+
+          height:"100%",
+
+          userInfo:{
+            displayName:
+              currentUserName || "Khách"
+          },
+
+          configOverwrite:{
+            prejoinPageEnabled:true
+          },
+
+          interfaceConfigOverwrite:{
+            TOOLBAR_BUTTONS:[
+              'microphone',
+              'camera',
+              'desktop',
+              'chat',
+              'raisehand',
+              'tileview',
+              'hangup'
+            ]
+          }
+
+        }
+      );
+
   }
 
- /* ---------- ROLE STATE - FIREBASE ---------- */
+}
+
+
+function closeMeeting(){
+
+  document
+    .getElementById('meetOverlay')
+    .classList.remove('open');
+
+}
+
+
+function copyMeetLink(){
+
+  const link =
+    'https://meet.jit.si/TramChuyenMonCum-HopToanCum';
+
+
+  if(
+    navigator.clipboard &&
+    navigator.clipboard.writeText
+  ){
+
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+
+        const el =
+          document.getElementById(
+            'meetLink'
+          );
+
+        const old =
+          el.textContent;
+
+        el.textContent =
+          'Đã sao chép ✓';
+
+        setTimeout(() => {
+
+          el.textContent = old;
+
+        },1500);
+
+      });
+
+  }
+
+}
+
+
+/* =========================================================
+   ROLE
+========================================================= */
 
 let role = 'giaovien';
 
+let currentUserName = '';
+
+let currentUserEmail = '';
+
+let currentUser = null;
+
+
 const roleLabels = {
-  giaovien: 'Giáo viên',
-  admintruong: 'Admin Trường',
-  admincum: 'Admin Cụm'
+
+  giaovien:
+    'Giáo viên',
+
+  admintruong:
+    'Admin Trường',
+
+  admincum:
+    'Admin Cụm'
+
 };
 
+
 const roleHints = {
+
   giaovien:
-    'Vai trò <b>Giáo viên</b>: xem bản tin, tải học liệu mới lên chờ duyệt, tham gia thảo luận nghiên cứu bài học.',
+    'Vai trò <b>Giáo viên</b>: xem bản tin, đóng góp học liệu mới lên chờ duyệt và tham gia nghiên cứu bài học.',
 
   admintruong:
     'Vai trò <b>Admin Trường</b>: duyệt học liệu cấp trường và đăng bản tin nội bộ.',
 
   admincum:
-    'Vai trò <b>Admin Cụm</b>: toàn quyền quản trị, duyệt cấp trường và duyệt & xuất bản học liệu cấp cụm.'
+    'Vai trò <b>Admin Cụm</b>: quản trị toàn cụm, duyệt cấp trường và duyệt & xuất bản học liệu cấp cụm.'
+
 };
 
 
-/* ---------------------------------
-   ĐỌC QUYỀN TỪ FIRESTORE
---------------------------------- */
+/* =========================================================
+   CẬP NHẬT ROLE BUTTONS
+========================================================= */
 
-async function loadUserRole(user) {
+function updateRoleButtons(){
 
-  if (!user) {
-    role = 'giaovien';
-    updateRoleButtons();
-    renderAll();
+  document
+    .querySelectorAll('.role-btn')
+    .forEach(btn => {
+
+      const btnRole =
+        btn.dataset.role;
+
+      btn.classList.remove(
+        'active'
+      );
+
+      btn.disabled = true;
+
+      btn.style.cursor =
+        'default';
+
+      btn.style.opacity =
+        btnRole === role
+          ? '1'
+          : '.45';
+
+
+      if(
+        btnRole === role
+      ){
+
+        btn.classList.add(
+          'active'
+        );
+
+      }
+
+    });
+
+
+  const hint =
+    document.getElementById(
+      'roleHint'
+    );
+
+
+  if(hint){
+
+    hint.innerHTML =
+      '🔐 ' +
+      (
+        currentUser
+          ? 'Đã đăng nhập: '
+          : 'Chưa đăng nhập — '
+      ) +
+      '<b>' +
+      roleLabels[role] +
+      '</b>';
+
+  }
+
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+document
+  .querySelectorAll('.ws-tab')
+  .forEach(tab => {
+
+    tab.addEventListener(
+      'click',
+      () => {
+
+        document
+          .querySelectorAll('.ws-tab')
+          .forEach(t =>
+            t.classList.remove(
+              'active'
+            )
+          );
+
+
+        document
+          .querySelectorAll('.ws-panel')
+          .forEach(p =>
+            p.classList.remove(
+              'active'
+            )
+          );
+
+
+        tab.classList.add(
+          'active'
+        );
+
+
+        const panel =
+          document.getElementById(
+            'panel-' +
+            tab.dataset.tab
+          );
+
+
+        if(panel){
+
+          panel.classList.add(
+            'active'
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   DỮ LIỆU DEMO
+========================================================= */
+
+let posts = [
+
+  {
+    tag:'Văn bản chỉ đạo',
+    author:'Admin Cụm',
+    time:'2 giờ trước',
+    body:
+      'Đã đăng tải hướng dẫn triển khai sinh hoạt cụm chuyên môn. Mời các trường thành viên nghiên cứu và góp ý.',
+    color:'#2F66E0'
+  },
+
+  {
+    tag:'Lịch công tác',
+    author:'Admin Trường THCS Bình Minh',
+    time:'Hôm qua',
+    body:
+      'Tuần tới trường tổ chức tiết dạy nghiên cứu bài học môn GDCD lớp 8, mời giáo viên các trường trong cụm cùng dự.',
+    color:'#0EA894'
+  },
+
+  {
+    tag:'Bản tin',
+    author:'Admin Cụm',
+    time:'3 ngày trước',
+    body:
+      'Chúc mừng cụm đã hoàn thành chỉ tiêu sinh hoạt chuyên môn quý I.',
+    color:'#E8992C'
+  }
+
+];
+
+
+let materials = [
+
+  {
+    name:
+      'Giáo án GDCD 8 — Bài "Tôn trọng sự thật"',
+    subject:'GDCD',
+    author:'GV. Trần Thị Lan',
+    status:'s3'
+  },
+
+  {
+    name:
+      'Ngân hàng câu hỏi trắc nghiệm Toán 9 — HK1',
+    subject:'Toán',
+    author:'GV. Nguyễn Văn Hùng',
+    status:'s2'
+  },
+
+  {
+    name:
+      'Học liệu STEM — Chủ đề Năng lượng tái tạo',
+    subject:'STEM/STEAM',
+    author:'GV. Phạm Thu Hà',
+    status:'s1'
+  },
+
+  {
+    name:
+      'Bài giảng điện tử Ngữ văn 7 — Bài 12',
+    subject:'Ngữ văn',
+    author:'GV. Lê Minh Đức',
+    status:'s3'
+  }
+
+];
+
+
+let sessions = [
+
+  {
+    title:
+      'Nghiên cứu bài học: Toán 6 — Phép cộng phân số',
+
+    school:
+      'THCS Bình Minh · 02/08/2026',
+
+    comments:[
+      {
+        name:'GV. Đỗ Thị Mai',
+        text:
+          'Học sinh nhóm còn hạn chế nắm khá tốt bước quy đồng nhờ hoạt động nhóm 4 người.'
+      },
+
+      {
+        name:'Admin Trường Nguyễn Hoa',
+        text:
+          'Đề nghị nhân rộng cách chia nhóm này ở các lớp 6 còn lại.'
+      }
+    ]
+  },
+
+
+  {
+    title:
+      'Nghiên cứu bài học: GDCD 8 — Tôn trọng sự thật',
+
+    school:
+      'THCS Lê Lợi · 15/07/2026',
+
+    comments:[
+      {
+        name:'GV. Trần Thị Lan',
+        text:
+          'Tình huống thực tế đưa vào bài giúp học sinh tranh luận sôi nổi.'
+      }
+    ]
+  }
+
+];
+
+
+let matFilter = 'all';
+
+
+const avatarColors = [
+  '#3B7DFB',
+  '#0EA894',
+  '#E8992C',
+  '#7A5FE0',
+  '#E5544B'
+];
+
+
+/* =========================================================
+   HELPER
+========================================================= */
+
+function escapeHtml(value){
+
+  return String(value || '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+
+}
+
+
+function initials(name){
+
+  const clean =
+    String(name || '')
+      .replace('GV.','')
+      .replace('Admin Trường','')
+      .replace('Admin Cụm','')
+      .trim();
+
+
+  const parts =
+    clean
+      .split(/\s+/)
+      .filter(Boolean);
+
+
+  if(!parts.length){
+    return 'GV';
+  }
+
+
+  return (
+    parts[0]?.[0] || ''
+  ) +
+  (
+    parts[parts.length - 1]?.[0] || ''
+  );
+
+}
+
+
+function colorFor(str){
+
+  let h = 0;
+
+  for(
+    const c of String(str || '')
+  ){
+
+    h =
+      c.charCodeAt(0) +
+      ((h << 5) - h);
+
+  }
+
+  return avatarColors[
+    Math.abs(h) %
+    avatarColors.length
+  ];
+
+}
+
+
+/* =========================================================
+   FEED
+========================================================= */
+
+function renderFeed(){
+
+  const canPost =
+    role !== 'giaovien';
+
+
+  const composer =
+    document.getElementById(
+      'composerTC'
+    );
+
+  const input =
+    document.getElementById(
+      'postInput'
+    );
+
+  const button =
+    document.getElementById(
+      'postButton'
+    );
+
+
+  composer.classList.toggle(
+    'locked',
+    !canPost
+  );
+
+
+  input.disabled =
+    !canPost;
+
+
+  button.disabled =
+    !canPost;
+
+
+  input.placeholder =
+    canPost
+      ? 'Đăng bản tin / thông báo tới toàn cụm...'
+      : 'Chỉ Admin Trường / Admin Cụm mới có quyền đăng bản tin.';
+
+
+  const list =
+    document.getElementById(
+      'feedList'
+    );
+
+
+  list.innerHTML =
+    posts.map(p => `
+
+      <div class="feed-item">
+
+        <div
+          class="avatar"
+          style="background:${escapeHtml(p.color)}">
+
+          ${escapeHtml(
+            initials(p.author)
+          )}
+
+        </div>
+
+
+        <div>
+
+          <div class="feed-head">
+
+            <b>
+              ${escapeHtml(p.author)}
+            </b>
+
+            <span class="feed-tag">
+              ${escapeHtml(p.tag)}
+            </span>
+
+            <span class="feed-time">
+              ${escapeHtml(p.time)}
+            </span>
+
+          </div>
+
+
+          <div class="feed-body">
+            ${escapeHtml(p.body)}
+          </div>
+
+        </div>
+
+      </div>
+
+    `).join('');
+
+}
+
+
+/* =========================================================
+   ADD POST
+========================================================= */
+
+function addPost(){
+
+  if(role === 'giaovien'){
     return;
   }
 
-  try {
 
-    const db = window.firebaseDB;
+  const input =
+    document.getElementById(
+      'postInput'
+    );
 
-    if (!db) {
-      console.error('Không tìm thấy Firebase Firestore');
+
+  const value =
+    input.value.trim();
+
+
+  if(!value){
+    return;
+  }
+
+
+  posts.unshift({
+
+    tag:
+      document.getElementById(
+        'postTag'
+      ).value,
+
+    author:
+      roleLabels[role],
+
+    time:
+      'Vừa xong',
+
+    body:
+      value,
+
+    color:
+      role === 'admincum'
+        ? '#2F66E0'
+        : '#0EA894'
+
+  });
+
+
+  input.value = '';
+
+  renderFeed();
+
+}
+
+
+/* =========================================================
+   MATERIALS
+========================================================= */
+
+const statusMeta = {
+
+  s1:{
+    label:'Chờ duyệt trường',
+    cls:'s1'
+  },
+
+  s2:{
+    label:'Chờ duyệt cụm',
+    cls:'s2'
+  },
+
+  s3:{
+    label:'Đã xuất bản',
+    cls:'s3'
+  }
+
+};
+
+
+document
+  .querySelectorAll('.chip-filter')
+  .forEach(chip => {
+
+    chip.addEventListener(
+      'click',
+      () => {
+
+        document
+          .querySelectorAll('.chip-filter')
+          .forEach(c =>
+            c.classList.remove(
+              'active'
+            )
+          );
+
+
+        chip.classList.add(
+          'active'
+        );
+
+
+        matFilter =
+          chip.dataset.f;
+
+
+        renderMaterials();
+
+      }
+    );
+
+  });
+
+
+function renderMaterials(){
+
+  document
+    .getElementById('khCount')
+    .textContent =
+      materials.length;
+
+
+  const grid =
+    document.getElementById(
+      'matGrid'
+    );
+
+
+  const items =
+    materials.filter(
+      m =>
+        matFilter === 'all' ||
+        m.status === matFilter
+    );
+
+
+  grid.innerHTML =
+    items.map(m => {
+
+      const idx =
+        materials.indexOf(m);
+
+      const meta =
+        statusMeta[m.status];
+
+
+      let action = '';
+
+
+      if(
+        m.status === 's1' &&
+        (
+          role === 'admintruong' ||
+          role === 'admincum'
+        )
+      ){
+
+        action = `
+
+          <button
+            class="mat-approve"
+            onclick="approveMaterial(${idx})">
+
+            Duyệt cấp trường
+
+          </button>
+
+        `;
+
+      }
+
+      else if(
+        m.status === 's2' &&
+        role === 'admincum'
+      ){
+
+        action = `
+
+          <button
+            class="mat-approve final"
+            onclick="approveMaterial(${idx})">
+
+            Duyệt & xuất bản
+
+          </button>
+
+        `;
+
+      }
+
+      else if(
+        m.status === 's3'
+      ){
+
+        action = `
+
+          <span class="mat-locked">
+            ✓ Đã có trong kho dùng chung
+          </span>
+
+        `;
+
+      }
+
+      else{
+
+        action = `
+
+          <span class="mat-locked">
+            Đang chờ người có quyền duyệt
+          </span>
+
+        `;
+
+      }
+
+
+      return `
+
+        <div class="mat-card">
+
+          <div class="mat-top">
+
+            <div
+              style="display:flex;gap:12px;">
+
+              <div class="mat-icon">
+
+                ${escapeHtml(
+                  m.subject
+                    .slice(0,2)
+                    .toUpperCase()
+                )}
+
+              </div>
+
+
+              <div>
+
+                <h4>
+                  ${escapeHtml(m.name)}
+                </h4>
+
+                <div class="mat-meta">
+
+                  ${escapeHtml(m.subject)}
+                  ·
+                  ${escapeHtml(m.author)}
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <span
+              class="status-badge ${meta.cls}">
+
+              ${meta.label}
+
+            </span>
+
+          </div>
+
+
+          <div class="mat-foot">
+
+            ${action}
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join('');
+
+
+  if(!items.length){
+
+    grid.innerHTML = `
+
+      <p style="padding:20px 0;">
+
+        Không có học liệu ở trạng thái này.
+
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   APPROVE MATERIAL
+========================================================= */
+
+function approveMaterial(i){
+
+  if(
+    !materials[i]
+  ){
+    return;
+  }
+
+
+  if(
+    materials[i].status === 's1'
+  ){
+
+    if(
+      role !== 'admintruong' &&
+      role !== 'admincum'
+    ){
       return;
     }
 
-    // Firebase v12
-    const {
-      doc,
-      getDoc
-    } = await import(
-      'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js'
-    );
+    materials[i].status = 's2';
 
-    const userRef = doc(db, 'users', user.uid);
-
-    const userSnap = await getDoc(userRef);
-
-    if (userSnap.exists()) {
-
-      const data = userSnap.data();
-
-      role = data.role || 'giaovien';
-
-      console.log(
-        'Firebase - Quyền tài khoản:',
-        role
-      );
-
-    } else {
-
-      role = 'giaovien';
-
-      console.warn(
-        'Không tìm thấy hồ sơ users/' + user.uid
-      );
-    }
-
-  } catch (error) {
-
-    console.error(
-      'Không đọc được quyền từ Firestore:',
-      error
-    );
-
-    role = 'giaovien';
   }
 
-  updateRoleButtons();
-  renderAll();
+  else if(
+    materials[i].status === 's2'
+  ){
+
+    if(
+      role !== 'admincum'
+    ){
+      return;
+    }
+
+    materials[i].status = 's3';
+
+  }
+
+
+  renderMaterials();
+
 }
 
 
-/* ---------------------------------
-   CẬP NHẬT 3 NÚT THEO QUYỀN THẬT
---------------------------------- */
+/* =========================================================
+   ADD MATERIAL
+========================================================= */
 
-function updateRoleButtons() {
+function addMaterial(){
 
-  document.querySelectorAll('.role-btn').forEach(btn => {
+  const nameEl =
+    document.getElementById(
+      'matName'
+    );
 
-    const btnRole = btn.dataset.role;
 
-    // Bỏ trạng thái active cũ
-    btn.classList.remove('active');
+  const name =
+    nameEl.value.trim();
 
-    // Không cho người dùng tự đổi quyền
-    btn.disabled = true;
 
-    btn.style.cursor = 'default';
-    btn.style.opacity =
-      btnRole === role ? '1' : '0.55';
+  if(!name){
+    return;
+  }
 
-    if (btnRole === role) {
-      btn.classList.add('active');
-    }
+
+  materials.unshift({
+
+    name:name,
+
+    subject:
+      document.getElementById(
+        'matSubject'
+      ).value,
+
+    author:
+      currentUserName ||
+      roleLabels[role],
+
+    status:'s1'
+
   });
 
-  // Hiển thị vai trò hiện tại
-  const hint = document.getElementById('roleHint');
 
-  if (hint) {
-    hint.innerHTML =
-      '🔐 Đã đăng nhập: <b>' +
-      roleLabels[role] +
-      '</b>';
-  }
+  nameEl.value = '';
+
+  matFilter = 'all';
+
+
+  document
+    .querySelectorAll('.chip-filter')
+    .forEach(c =>
+      c.classList.remove(
+        'active'
+      )
+    );
+
+
+  document
+    .querySelector(
+      '.chip-filter[data-f="all"]'
+    )
+    .classList.add(
+      'active'
+    );
+
+
+  renderMaterials();
+
 }
 
 
-/* ---------------------------------
-   THEO DÕI FIREBASE LOGIN
---------------------------------- */
+/* =========================================================
+   SESSIONS
+========================================================= */
 
-if (window.firebaseAuth) {
+function renderSessions(){
 
-  window.firebaseAuth.onAuthStateChanged(user => {
+  const list =
+    document.getElementById(
+      'sessionList'
+    );
 
-    if (user) {
+
+  list.innerHTML =
+    sessions.map(
+      (s,si) => `
+
+      <div class="session-card">
+
+        <div class="session-top">
+
+          <div>
+
+            <h4>
+              ${escapeHtml(s.title)}
+            </h4>
+
+            <div class="session-meta">
+              ${escapeHtml(s.school)}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="comments">
+
+          ${s.comments.map(c => `
+
+            <div class="comment">
+
+              <div
+                class="avatar"
+                style="
+                  width:30px;
+                  height:30px;
+                  font-size:11px;
+                  background:${colorFor(c.name)}
+                ">
+
+                ${escapeHtml(
+                  initials(c.name)
+                )}
+
+              </div>
+
+
+              <div class="cbody">
+
+                <b>
+                  ${escapeHtml(c.name)}
+                </b>
+
+                <br>
+
+                ${escapeHtml(c.text)}
+
+              </div>
+
+            </div>
+
+          `).join('')}
+
+        </div>
+
+
+        <div class="comment-form">
+
+          <input
+            type="text"
+            placeholder="Chia sẻ nhận xét dựa trên minh chứng thực tế..."
+            id="cinput-${si}">
+
+          <button
+            onclick="addComment(${si})">
+
+            Gửi
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `
+    ).join('');
+
+}
+
+
+/* =========================================================
+   ADD COMMENT
+========================================================= */
+
+function addComment(si){
+
+  const input =
+    document.getElementById(
+      'cinput-' + si
+    );
+
+
+  if(
+    !input ||
+    !input.value.trim()
+  ){
+    return;
+  }
+
+
+  sessions[si].comments.push({
+
+    name:
+      currentUserName ||
+      roleLabels[role],
+
+    text:
+      input.value.trim()
+
+  });
+
+
+  renderSessions();
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderAll(){
+
+  renderHint();
+
+  renderFeed();
+
+  renderMaterials();
+
+  renderSessions();
+
+}
+
+
+function renderHint(){
+
+  const hint =
+    document.getElementById(
+      'roleHint'
+    );
+
+
+  if(!hint){
+    return;
+  }
+
+
+  if(currentUser){
+
+    hint.innerHTML =
+      '🔐 Đã đăng nhập: <b>' +
+      escapeHtml(
+        roleLabels[role]
+      ) +
+      '</b>';
+
+  }
+  else{
+
+    hint.innerHTML =
+      '🔐 Chưa đăng nhập — <b>Giáo viên</b>';
+
+  }
+
+}
+
+
+/* =========================================================
+   KHỞI TẠO GIAO DIỆN
+========================================================= */
+
+updateRoleButtons();
+
+renderAll();
+
+</script>
+
+
+<!-- =========================================================
+     FIREBASE — DUY NHẤT MỘT LẦN
+     
+     Đây là BLOCK Firebase DUY NHẤT trong toàn bộ file.
+========================================================= -->
+
+<script type="module">
+
+/* =========================================================
+   IMPORT FIREBASE
+========================================================= */
+
+import {
+  initializeApp
+}
+from
+  "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+}
+from
+  "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+}
+from
+  "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDxAgi1owSIkwilcWrIbJfBNC8r6bG8cic",
+
+  authDomain:
+    "gen-lang-client-0168920715.firebaseapp.com",
+
+  projectId:
+    "gen-lang-client-0168920715",
+
+  storageBucket:
+    "gen-lang-client-0168920715.firebasestorage.app",
+
+  messagingSenderId:
+    "365370339194",
+
+  appId:
+    "1:365370339194:web:b7e257442e1a78d6f930c3",
+
+  measurementId:
+    "G-72SXY9TXVW"
+
+};
+
+
+/* =========================================================
+   KHỞI TẠO FIREBASE
+========================================================= */
+
+const app =
+  initializeApp(
+    firebaseConfig
+  );
+
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+const provider =
+  new GoogleAuthProvider();
+
+
+/* =========================================================
+   ĐƯA RA WINDOW
+========================================================= */
+
+window.firebaseApp =
+  app;
+
+window.firebaseAuth =
+  auth;
+
+window.firebaseDB =
+  db;
+
+window.firebaseProvider =
+  provider;
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+const firebaseStatus =
+  document.getElementById(
+    'firebaseStatus'
+  );
+
+
+function setFirebaseStatus(
+  text,
+  type
+){
+
+  if(!firebaseStatus){
+    return;
+  }
+
+
+  firebaseStatus.textContent =
+    text;
+
+
+  firebaseStatus.classList.remove(
+    'online',
+    'offline'
+  );
+
+
+  if(type){
+
+    firebaseStatus.classList.add(
+      type
+    );
+
+  }
+
+}
+
+
+setFirebaseStatus(
+  'Firebase: đã kết nối',
+  'online'
+);
+
+
+console.log(
+  'Firebase đã được kết nối thành công!'
+);
+
+
+/* =========================================================
+   NÚT LOGIN / LOGOUT
+========================================================= */
+
+const loginBtn =
+  document.getElementById(
+    'googleLoginBtn'
+  );
+
+
+const logoutBtn =
+  document.getElementById(
+    'googleLogoutBtn'
+  );
+
+
+const userBox =
+  document.getElementById(
+    'firebaseUserBox'
+  );
+
+
+const userName =
+  document.getElementById(
+    'firebaseUserName'
+  );
+
+
+const userAvatar =
+  document.getElementById(
+    'firebaseUserAvatar'
+  );
+
+
+/* =========================================================
+   GOOGLE LOGIN
+========================================================= */
+
+loginBtn.addEventListener(
+  'click',
+  async () => {
+
+    try{
+
+      loginBtn.disabled =
+        true;
+
+      loginBtn.textContent =
+        'Đang đăng nhập...';
+
+
+      const result =
+        await signInWithPopup(
+          auth,
+          provider
+        );
+
+
+      const user =
+        result.user;
+
 
       console.log(
-        'Trạm Chuyên Môn Cụm:',
+        'Firebase: Đăng nhập thành công:',
         user.displayName,
         user.email
       );
 
-      loadUserRole(user);
 
-    } else {
+    }
+    catch(error){
 
-      console.log(
-        'Trạm Chuyên Môn Cụm: Chưa đăng nhập'
+      console.error(
+        'Firebase Login Error:',
+        error
       );
 
-      role = 'giaovien';
 
-      updateRoleButtons();
-      renderAll();
-    }
+      loginBtn.disabled =
+        false;
 
-  });
+      loginBtn.textContent =
+        '🔵 Đăng nhập';
 
-} else {
-
-  console.error(
-    'Firebase Authentication chưa được khởi tạo'
-  );
-}
-
-  document.querySelectorAll('.ws-tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      document.querySelectorAll('.ws-tab').forEach(t=>t.classList.remove('active'));
-      document.querySelectorAll('.ws-panel').forEach(p=>p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
-    });
-  });
-
-  /* ---------- SEED DATA ---------- */
-  let posts = [
-    { tag:'Văn bản chỉ đạo', author:'Admin Cụm', time:'2 giờ trước', body:'Đã đăng tải hướng dẫn triển khai sinh hoạt cụm chuyên môn theo CV 4069/BGDĐT-GDPT. Mời các trường thành viên nghiên cứu và góp ý trước 20/8.', color:'#2F66E0' },
-    { tag:'Lịch công tác', author:'Admin Trường THCS Bình Minh', time:'Hôm qua', body:'Tuần tới trường tổ chức tiết dạy nghiên cứu bài học môn GDCD lớp 8, mời giáo viên các trường trong cụm cùng dự.', color:'#0EA894' },
-    { tag:'Bản tin', author:'Admin Cụm', time:'3 ngày trước', body:'Chúc mừng cụm đã hoàn thành chỉ tiêu sinh hoạt chuyên môn quý I — 6/6 môn học đạt từ 2 lần sinh hoạt trở lên.', color:'#E8992C' }
-  ];
-
-  let materials = [
-    { name:'Giáo án GDCD 8 — Bài "Tôn trọng sự thật"', subject:'GDCD', author:'GV. Trần Thị Lan', status:'s3' },
-    { name:'Ngân hàng câu hỏi trắc nghiệm Toán 9 — HK1', subject:'Toán', author:'GV. Nguyễn Văn Hùng', status:'s2' },
-    { name:'Học liệu STEM — Chủ đề Năng lượng tái tạo', subject:'STEM/STEAM', author:'GV. Phạm Thu Hà', status:'s1' },
-    { name:'Bài giảng điện tử Ngữ văn 7 — Bài 12', subject:'Ngữ văn', author:'GV. Lê Minh Đức', status:'s3' }
-  ];
-
-  let sessions = [
-    { title:'Nghiên cứu bài học: Toán 6 — Phép cộng phân số', school:'THCS Bình Minh · 02/08/2026',
-      comments:[
-        { name:'GV. Đỗ Thị Mai', text:'Học sinh nhóm còn hạn chế nắm khá tốt bước quy đồng nhờ hoạt động nhóm 4 người.' },
-        { name:'Admin Trường Nguyễn Hoa', text:'Đề nghị nhân rộng cách chia nhóm này ở các lớp 6 còn lại.' }
-      ] },
-    { title:'Nghiên cứu bài học: GDCD 8 — Tôn trọng sự thật', school:'THCS Lê Lợi · 15/07/2026',
-      comments:[
-        { name:'GV. Trần Thị Lan', text:'Tình huống thực tế đưa vào bài giúp học sinh tranh luận sôi nổi, đề xuất bổ sung thêm 1 tình huống về mạng xã hội.' }
-      ] }
-  ];
-
-  let matFilter = 'all';
-  const avatarColors = ['#3B7DFB','#0EA894','#E8992C','#7A5FE0','#E5544B'];
-  function initials(name){ const p = name.replace('GV.','').replace('Admin Trường','').replace('Admin Cụm','').trim().split(' '); return (p[0]?.[0]||'') + (p[p.length-1]?.[0]||''); }
-  function colorFor(str){ let h=0; for(const c of str) h = c.charCodeAt(0)+((h<<5)-h); return avatarColors[Math.abs(h)%avatarColors.length]; }
-
-  /* ---------- RENDER: ROLE HINT ---------- */
-  function renderHint(){ document.getElementById('roleHint').innerHTML = roleHints[role]; }
-
-  /* ---------- RENDER: TRANG CHU ---------- */
-  function renderFeed(){
-    const canPost = role !== 'giaovien';
-    document.getElementById('composerTC').classList.toggle('locked', !canPost);
-    document.getElementById('postInput').disabled = !canPost;
-    document.getElementById('postInput').placeholder = canPost ? 'Đăng bản tin / thông báo tới toàn cụm...' : 'Chỉ Admin Trường / Admin Cụm mới có quyền đăng bản tin.';
-    const list = document.getElementById('feedList');
-    list.innerHTML = posts.map(p => `
-      <div class="feed-item">
-        <div class="avatar" style="background:${p.color}">${initials(p.author)}</div>
-        <div>
-          <div class="feed-head"><b>${p.author}</b><span class="feed-tag">${p.tag}</span><span class="feed-time">${p.time}</span></div>
-          <div class="feed-body">${p.body}</div>
-        </div>
-      </div>`).join('');
-  }
-  function addPost(){
-    if(role === 'giaovien') return;
-    const input = document.getElementById('postInput');
-    if(!input.value.trim()) return;
-    posts.unshift({ tag: document.getElementById('postTag').value, author: roleLabels[role], time:'Vừa xong', body: input.value.trim(), color: role==='admincum' ? '#2F66E0' : '#0EA894' });
-    input.value=''; renderFeed();
-  }
-
-  /* ---------- RENDER: KHO HOC LIEU ---------- */
-  const statusMeta = { s1:{label:'Chờ duyệt trường', cls:'s1'}, s2:{label:'Chờ duyệt cụm', cls:'s2'}, s3:{label:'Đã xuất bản', cls:'s3'} };
-  document.querySelectorAll('.chip-filter').forEach(chip=>{
-    chip.addEventListener('click', ()=>{
-      document.querySelectorAll('.chip-filter').forEach(c=>c.classList.remove('active'));
-      chip.classList.add('active'); matFilter = chip.dataset.f; renderMaterials();
-    });
-  });
-  function renderMaterials(){
-    document.getElementById('khCount').textContent = materials.length;
-    const grid = document.getElementById('matGrid');
-    const items = materials.filter(m => matFilter==='all' || m.status===matFilter);
-    grid.innerHTML = items.map((m, i)=>{
-      const idx = materials.indexOf(m);
-      const meta = statusMeta[m.status];
-      let action = '';
-      if(m.status==='s1' && (role==='admintruong' || role==='admincum')) action = `<button class="mat-approve" onclick="approveMaterial(${idx})">Duyệt cấp trường</button>`;
-      else if(m.status==='s2' && role==='admincum') action = `<button class="mat-approve final" onclick="approveMaterial(${idx})">Duyệt &amp; xuất bản</button>`;
-      else if(m.status==='s3') action = `<span class="mat-locked">✓ Đã có trong kho dùng chung</span>`;
-      else action = `<span class="mat-locked">Đang chờ người có quyền duyệt</span>`;
-      return `
-      <div class="mat-card">
-        <div class="mat-top">
-          <div style="display:flex; gap:12px;">
-            <div class="mat-icon">${m.subject.slice(0,2).toUpperCase()}</div>
-            <div><h4>${m.name}</h4><div class="mat-meta">${m.subject} · ${m.author}</div></div>
-          </div>
-          <span class="status-badge ${meta.cls}">${meta.label}</span>
-        </div>
-        <div class="mat-foot">${action}</div>
-      </div>`;
-    }).join('') || '<p style="padding:20px 0;">Không có học liệu ở trạng thái này.</p>';
-  }
-  function approveMaterial(i){
-    if(materials[i].status==='s1') materials[i].status='s2';
-    else if(materials[i].status==='s2') materials[i].status='s3';
-    renderMaterials();
-  }
-  function addMaterial(){
-    const nameEl = document.getElementById('matName');
-    if(!nameEl.value.trim()) return;
-    materials.unshift({ name:nameEl.value.trim(), subject:document.getElementById('matSubject').value, author: roleLabels[role], status:'s1' });
-    nameEl.value=''; matFilter='all';
-    document.querySelectorAll('.chip-filter').forEach(c=>c.classList.remove('active'));
-    document.querySelector('.chip-filter[data-f="all"]').classList.add('active');
-    renderMaterials();
-  }
-
-  /* ---------- RENDER: NCBH ---------- */
-  function renderSessions(){
-    const list = document.getElementById('sessionList');
-    list.innerHTML = sessions.map((s, si)=>`
-      <div class="session-card">
-        <div class="session-top">
-          <div><h4>${s.title}</h4><div class="session-meta">${s.school}</div></div>
-        </div>
-        <div class="comments">
-          ${s.comments.map(c=>`
-            <div class="comment">
-              <div class="avatar" style="width:30px;height:30px;font-size:11px;background:${colorFor(c.name)}">${initials(c.name)}</div>
-              <div class="cbody"><b>${c.name}</b><br>${c.text}</div>
-            </div>`).join('')}
-        </div>
-        <div class="comment-form">
-          <input type="text" placeholder="Chia sẻ nhận xét dựa trên minh chứng thực tế..." id="cinput-${si}">
-          <button onclick="addComment(${si})">Gửi</button>
-        </div>
-      </div>`).join('');
-  }
-  function addComment(si){
-    const input = document.getElementById('cinput-'+si);
-    if(!input.value.trim()) return;
-    sessions[si].comments.push({ name: roleLabels[role] + (role==='giaovien' ? ' (demo)' : ''), text: input.value.trim() });
-    renderSessions();
-  }
-
-  function renderAll(){ renderHint(); renderFeed(); renderMaterials(); renderSessions(); }
-  renderAll();
-</script>
-
-<!-- FIREBASE -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDxAgi1owSIkwilcWrIbJfBNC8r6bG8cic",
-    authDomain: "gen-lang-client-0168920715.firebaseapp.com",
-    projectId: "gen-lang-client-0168920715",
-    storageBucket: "gen-lang-client-0168920715.firebasestorage.app",
-    messagingSenderId: "365370339194",
-    appId: "1:365370339194:web:b7e257442e1a78d6f930c3",
-    measurementId: "G-72SXY9TXVW"
-  };
-
-  // Khởi tạo Firebase
-  const app = initializeApp(firebaseConfig);
-
-  // Authentication
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  // Firestore
-  const db = getFirestore(app);
-
-  // Đưa ra ngoài để các phần khác của website có thể sử dụng
-  window.firebaseAuth = auth;
-  window.firebaseProvider = provider;
-  window.firebaseDB = db;
-  window.firebaseSignIn = signInWithPopup;
-  window.firebaseSignOut = signOut;
-  window.firebaseGoogleProvider = provider;
-
-  // Theo dõi trạng thái đăng nhập
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      console.log("Firebase: Đã đăng nhập", user.displayName);
-
-      // Lưu thông tin người dùng vào Firestore
-      try {
-        const userRef = doc(db, "users", user.uid);
-
-        const userSnap = await getDoc(userRef);
-
-        if (!userSnap.exists()) {
-          await setDoc(userRef, {
-            uid: user.uid,
-            name: user.displayName || "",
-            email: user.email || "",
-            photoURL: user.photoURL || "",
-            role: "teacher",
-            createdAt: serverTimestamp()
-          });
-
-          console.log("Firebase: Đã tạo hồ sơ giáo viên");
-        }
-      } catch (error) {
-        console.error("Lỗi Firestore:", error);
-      }
-    } else {
-      console.log("Firebase: Chưa đăng nhập");
-    }
-  });
-
-  console.log("Firebase đã được kết nối thành công!");
-</script>
-<!-- END FIREBASE -->
-  <script type="module">
-  import {
-    signInWithPopup,
-    GoogleAuthProvider,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-  import {
-    doc,
-    setDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-  const auth = window.firebaseAuth;
-  const db = window.firebaseDB;
-
-  const loginBtn = document.getElementById("googleLoginBtn");
-  const logoutBtn = document.getElementById("googleLogoutBtn");
-
-  const userBox = document.getElementById("firebaseUserBox");
-  const userName = document.getElementById("firebaseUserName");
-  const userAvatar = document.getElementById("firebaseUserAvatar");
-
-  const provider = new GoogleAuthProvider();
-
-  // ==========================
-  // ĐĂNG NHẬP GOOGLE
-  // ==========================
-
-  loginBtn.addEventListener("click", async () => {
-
-    try {
-
-      loginBtn.disabled = true;
-      loginBtn.textContent = "Đang đăng nhập...";
-
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      console.log("Đăng nhập thành công:", user.email);
-
-      // Lưu tài khoản vào Firestore
-      await setDoc(
-        doc(db, "users", user.uid),
-        {
-          uid: user.uid,
-          name: user.displayName || "",
-          email: user.email || "",
-          photoURL: user.photoURL || "",
-          role: "giaovien",
-          lastLogin: serverTimestamp()
-        },
-        { merge: true }
-      );
-
-    } catch (error) {
-
-      console.error("Lỗi đăng nhập:", error);
 
       alert(
-        "Đăng nhập Google không thành công.\n\n" +
+        'Đăng nhập Google không thành công.\n\n' +
         error.message
       );
 
-      loginBtn.disabled = false;
-      loginBtn.textContent = "🔵 Đăng nhập";
-
     }
 
-  });
+  }
+);
 
-  // ==========================
-  // THEO DÕI TRẠNG THÁI
-  // ==========================
 
-  onAuthStateChanged(auth, (user) => {
+/* =========================================================
+   GOOGLE LOGOUT
+========================================================= */
 
-    if (user) {
+logoutBtn.addEventListener(
+  'click',
+  async () => {
 
-      loginBtn.style.display = "none";
-
-      userBox.style.display = "flex";
-
-      userName.textContent =
-        user.displayName || user.email || "Giáo viên";
-
-      if (user.photoURL) {
-        userAvatar.src = user.photoURL;
-      }
-
-      console.log(
-        "Firebase đang đăng nhập:",
-        user.displayName,
-        user.email
-      );
-
-    } else {
-
-      loginBtn.style.display = "block";
-
-      loginBtn.disabled = false;
-      loginBtn.textContent = "🔵 Đăng nhập";
-
-      userBox.style.display = "none";
-
-    }
-
-  });
-
-  // ==========================
-  // ĐĂNG XUẤT
-  // ==========================
-
-  logoutBtn.addEventListener("click", async () => {
-
-    try {
+    try{
 
       await signOut(auth);
 
-    } catch (error) {
+      console.log(
+        'Firebase: Đã đăng xuất'
+      );
 
-      console.error("Lỗi đăng xuất:", error);
+    }
+    catch(error){
+
+      console.error(
+        'Firebase Logout Error:',
+        error
+      );
 
     }
 
-  });
+  }
+);
+
+
+/* =========================================================
+   THEO DÕI ĐĂNG NHẬP
+     
+   CHỈ CÓ MỘT onAuthStateChanged TRONG TOÀN BỘ FILE.
+========================================================= */
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+
+    /* =====================================================
+       CHƯA ĐĂNG NHẬP
+    ====================================================== */
+
+    if(!user){
+
+      console.log(
+        'Firebase: Chưa đăng nhập'
+      );
+
+
+      currentUser =
+        null;
+
+      currentUserName =
+        '';
+
+      currentUserEmail =
+        '';
+
+      role =
+        'giaovien';
+
+
+      loginBtn.style.display =
+        'block';
+
+      loginBtn.disabled =
+        false;
+
+      loginBtn.textContent =
+        '🔵 Đăng nhập';
+
+
+      userBox.style.display =
+        'none';
+
+
+      updateRoleButtons();
+
+      renderAll();
+
+      return;
+
+    }
+
+
+    /* =====================================================
+       ĐÃ ĐĂNG NHẬP
+    ====================================================== */
+
+    currentUser =
+      user;
+
+    currentUserName =
+      user.displayName ||
+      user.email ||
+      'Giáo viên';
+
+    currentUserEmail =
+      user.email ||
+      '';
+
+
+    console.log(
+      'Firebase: Đã đăng nhập',
+      user.displayName,
+      user.email
+    );
+
+
+    /* =====================================================
+       HIỂN THỊ TÀI KHOẢN
+    ====================================================== */
+
+    loginBtn.style.display =
+      'none';
+
+
+    userBox.style.display =
+      'flex';
+
+
+    userName.textContent =
+      currentUserName;
+
+
+    if(user.photoURL){
+
+      userAvatar.src =
+        user.photoURL;
+
+    }
+    else{
+
+      userAvatar.src =
+        'https://ui-avatars.com/api/?name=' +
+        encodeURIComponent(
+          currentUserName
+        ) +
+        '&background=2F66E0&color=fff';
+
+    }
+
+
+    /* =====================================================
+       ĐỌC HỒ SƠ FIRESTORE
+    ====================================================== */
+
+    try{
+
+      const userRef =
+        doc(
+          db,
+          'users',
+          user.uid
+        );
+
+
+      const userSnap =
+        await getDoc(
+          userRef
+        );
+
+
+      /* ===================================================
+         TÀI KHOẢN MỚI
+         
+         Chỉ lúc này mới tạo role mặc định.
+         Tuyệt đối KHÔNG ghi role khi tài khoản
+         đã tồn tại.
+      ==================================================== */
+
+      if(
+        !userSnap.exists()
+      ){
+
+        await setDoc(
+          userRef,
+          {
+
+            uid:
+              user.uid,
+
+            name:
+              user.displayName ||
+              '',
+
+            email:
+              user.email ||
+              '',
+
+            photoURL:
+              user.photoURL ||
+              '',
+
+            role:
+              'giaovien',
+
+            createdAt:
+              serverTimestamp(),
+
+            lastLogin:
+              serverTimestamp()
+
+          }
+        );
+
+
+        role =
+          'giaovien';
+
+
+        console.log(
+          'Firebase: Đã tạo hồ sơ giáo viên mới'
+        );
+
+      }
+
+
+      /* ===================================================
+         TÀI KHOẢN ĐÃ CÓ
+         
+         Đọc quyền hiện tại.
+         KHÔNG ghi đè role.
+      ==================================================== */
+
+      else{
+
+        const data =
+          userSnap.data();
+
+
+        let savedRole =
+          data.role ||
+          'giaovien';
+
+
+        /*
+          Hỗ trợ tài khoản cũ
+          từng lưu "teacher".
+        */
+
+        if(
+          savedRole === 'teacher'
+        ){
+
+          savedRole =
+            'giaovien';
+
+        }
+
+
+        /*
+          Chỉ chấp nhận 3 quyền hợp lệ.
+        */
+
+        const validRoles = [
+          'giaovien',
+          'admintruong',
+          'admincum'
+        ];
+
+
+        if(
+          validRoles.includes(
+            savedRole
+          )
+        ){
+
+          role =
+            savedRole;
+
+        }
+        else{
+
+          role =
+            'giaovien';
+
+          console.warn(
+            'Role không hợp lệ, chuyển về giaovien:',
+            savedRole
+          );
+
+        }
+
+
+        /*
+          Chỉ cập nhật lastLogin.
+          Không đụng vào role.
+        */
+
+        await setDoc(
+          userRef,
+          {
+
+            lastLogin:
+              serverTimestamp(),
+
+            name:
+              user.displayName ||
+              '',
+
+            email:
+              user.email ||
+              '',
+
+            photoURL:
+              user.photoURL ||
+              ''
+
+          },
+          {
+            merge:true
+          }
+        );
+
+
+        console.log(
+          'Firebase - Quyền tài khoản:',
+          role
+        );
+
+      }
+
+
+    }
+    catch(error){
+
+      console.error(
+        'Không đọc được quyền từ Firestore:',
+        error
+      );
+
+
+      role =
+        'giaovien';
+
+    }
+
+
+    /* =====================================================
+       CẬP NHẬT TOÀN BỘ GIAO DIỆN
+    ====================================================== */
+
+    updateRoleButtons();
+
+    renderAll();
+
+
+    setFirebaseStatus(
+      'Firebase: đang hoạt động',
+      'online'
+    );
+
+  }
+
+);
 
 </script>
+
+
 </body>
 </html>
