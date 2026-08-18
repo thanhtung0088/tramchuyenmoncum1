@@ -746,5 +746,80 @@
   renderAll();
 </script>
 
+<!-- FIREBASE -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDxAgi1owSIkwilcWrIbJfBNC8r6bG8cic",
+    authDomain: "gen-lang-client-0168920715.firebaseapp.com",
+    projectId: "gen-lang-client-0168920715",
+    storageBucket: "gen-lang-client-0168920715.firebasestorage.app",
+    messagingSenderId: "365370339194",
+    appId: "1:365370339194:web:b7e257442e1a78d6f930c3",
+    measurementId: "G-72SXY9TXVW"
+  };
+
+  // Khởi tạo Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // Authentication
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // Firestore
+  const db = getFirestore(app);
+
+  // Đưa ra ngoài để các phần khác của website có thể sử dụng
+  window.firebaseAuth = auth;
+  window.firebaseProvider = provider;
+  window.firebaseDB = db;
+  window.firebaseSignIn = signInWithPopup;
+  window.firebaseSignOut = signOut;
+  window.firebaseGoogleProvider = provider;
+
+  // Theo dõi trạng thái đăng nhập
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      console.log("Firebase: Đã đăng nhập", user.displayName);
+
+      // Lưu thông tin người dùng vào Firestore
+      try {
+        const userRef = doc(db, "users", user.uid);
+
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+          await setDoc(userRef, {
+            uid: user.uid,
+            name: user.displayName || "",
+            email: user.email || "",
+            photoURL: user.photoURL || "",
+            role: "teacher",
+            createdAt: serverTimestamp()
+          });
+
+          console.log("Firebase: Đã tạo hồ sơ giáo viên");
+        }
+      } catch (error) {
+        console.error("Lỗi Firestore:", error);
+      }
+    } else {
+      console.log("Firebase: Chưa đăng nhập");
+    }
+  });
+
+  console.log("Firebase đã được kết nối thành công!");
+</script>
+<!-- END FIREBASE -->
 </body>
 </html>
