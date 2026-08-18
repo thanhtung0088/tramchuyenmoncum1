@@ -876,6 +876,134 @@
   console.log("Firebase đã được kết nối thành công!");
 </script>
 <!-- END FIREBASE -->
-  
+  <script type="module">
+  import {
+    signInWithPopup,
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    doc,
+    setDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+  const auth = window.firebaseAuth;
+  const db = window.firebaseDB;
+
+  const loginBtn = document.getElementById("googleLoginBtn");
+  const logoutBtn = document.getElementById("googleLogoutBtn");
+
+  const userBox = document.getElementById("firebaseUserBox");
+  const userName = document.getElementById("firebaseUserName");
+  const userAvatar = document.getElementById("firebaseUserAvatar");
+
+  const provider = new GoogleAuthProvider();
+
+  // ==========================
+  // ĐĂNG NHẬP GOOGLE
+  // ==========================
+
+  loginBtn.addEventListener("click", async () => {
+
+    try {
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = "Đang đăng nhập...";
+
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      console.log("Đăng nhập thành công:", user.email);
+
+      // Lưu tài khoản vào Firestore
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          uid: user.uid,
+          name: user.displayName || "",
+          email: user.email || "",
+          photoURL: user.photoURL || "",
+          role: "giaovien",
+          lastLogin: serverTimestamp()
+        },
+        { merge: true }
+      );
+
+    } catch (error) {
+
+      console.error("Lỗi đăng nhập:", error);
+
+      alert(
+        "Đăng nhập Google không thành công.\n\n" +
+        error.message
+      );
+
+      loginBtn.disabled = false;
+      loginBtn.textContent = "🔵 Đăng nhập";
+
+    }
+
+  });
+
+  // ==========================
+  // THEO DÕI TRẠNG THÁI
+  // ==========================
+
+  onAuthStateChanged(auth, (user) => {
+
+    if (user) {
+
+      loginBtn.style.display = "none";
+
+      userBox.style.display = "flex";
+
+      userName.textContent =
+        user.displayName || user.email || "Giáo viên";
+
+      if (user.photoURL) {
+        userAvatar.src = user.photoURL;
+      }
+
+      console.log(
+        "Firebase đang đăng nhập:",
+        user.displayName,
+        user.email
+      );
+
+    } else {
+
+      loginBtn.style.display = "block";
+
+      loginBtn.disabled = false;
+      loginBtn.textContent = "🔵 Đăng nhập";
+
+      userBox.style.display = "none";
+
+    }
+
+  });
+
+  // ==========================
+  // ĐĂNG XUẤT
+  // ==========================
+
+  logoutBtn.addEventListener("click", async () => {
+
+    try {
+
+      await signOut(auth);
+
+    } catch (error) {
+
+      console.error("Lỗi đăng xuất:", error);
+
+    }
+
+  });
+
+</script>
 </body>
 </html>
