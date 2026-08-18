@@ -636,23 +636,172 @@
     });
   }
 
-  /* ---------- ROLE STATE ---------- */
-  let role = 'giaovien';
-  const roleLabels = { giaovien:'Giáo viên', admintruong:'Admin Trường', admincum:'Admin Cụm' };
-  const roleHints = {
-    giaovien: 'Vai trò <b>Giáo viên</b>: xem bản tin, tải học liệu mới lên chờ duyệt, tham gia thảo luận nghiên cứu bài học. Chưa có quyền đăng bản tin hay duyệt học liệu.',
-    admintruong: 'Vai trò <b>Admin Trường</b> (Hiệu phó / Tổ trưởng CM): thêm được vào đó quyền <b>duyệt cấp trường</b> cho học liệu mới, và đăng bản tin nội bộ.',
-    admincum: 'Vai trò <b>Admin Cụm</b> (Ban điều hành cụm): toàn quyền — đăng bản tin toàn cụm, duyệt cấp trường, và <b>duyệt & xuất bản cấp cụm</b> để đưa vào kho dùng chung.'
-  };
+ /* ---------- ROLE STATE - FIREBASE ---------- */
 
-  document.querySelectorAll('.role-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+let role = 'giaovien';
+
+const roleLabels = {
+  giaovien: 'Giáo viên',
+  admintruong: 'Admin Trường',
+  admincum: 'Admin Cụm'
+};
+
+const roleHints = {
+  giaovien:
+    'Vai trò <b>Giáo viên</b>: xem bản tin, tải học liệu mới lên chờ duyệt, tham gia thảo luận nghiên cứu bài học.',
+
+  admintruong:
+    'Vai trò <b>Admin Trường</b>: duyệt học liệu cấp trường và đăng bản tin nội bộ.',
+
+  admincum:
+    'Vai trò <b>Admin Cụm</b>: toàn quyền quản trị, duyệt cấp trường và duyệt & xuất bản học liệu cấp cụm.'
+};
+
+
+/* ---------------------------------
+   ĐỌC QUYỀN TỪ FIRESTORE
+--------------------------------- */
+
+async function loadUserRole(user) {
+
+  if (!user) {
+    role = 'giaovien';
+    updateRoleButtons();
+    renderAll();
+    return;
+  }
+
+  try {
+
+    const db = window.firebaseDB;
+
+    if (!db) {
+      console.error('Không tìm thấy Firebase Firestore');
+      return;
+    }
+
+    // Firebase v12
+    const {
+      doc,
+      getDoc
+    } = await import(
+      'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js'
+    );
+
+    const userRef = doc(db, 'users', user.uid);
+
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+
+      const data = userSnap.data();
+
+      role = data.role || 'giaovien';
+
+      console.log(
+        'Firebase - Quyền tài khoản:',
+        role
+      );
+
+    } else {
+
+      role = 'giaovien';
+
+      console.warn(
+        'Không tìm thấy hồ sơ users/' + user.uid
+      );
+    }
+
+  } catch (error) {
+
+    console.error(
+      'Không đọc được quyền từ Firestore:',
+      error
+    );
+
+    role = 'giaovien';
+  }
+
+  updateRoleButtons();
+  renderAll();
+}
+
+
+/* ---------------------------------
+   CẬP NHẬT 3 NÚT THEO QUYỀN THẬT
+--------------------------------- */
+
+function updateRoleButtons() {
+
+  document.querySelectorAll('.role-btn').forEach(btn => {
+
+    const btnRole = btn.dataset.role;
+
+    // Bỏ trạng thái active cũ
+    btn.classList.remove('active');
+
+    // Không cho người dùng tự đổi quyền
+    btn.disabled = true;
+
+    btn.style.cursor = 'default';
+    btn.style.opacity =
+      btnRole === role ? '1' : '0.55';
+
+    if (btnRole === role) {
       btn.classList.add('active');
-      role = btn.dataset.role;
-      renderAll();
-    });
+    }
   });
+
+  // Hiển thị vai trò hiện tại
+  const hint = document.getElementById('roleHint');
+
+  if (hint) {
+    hint.innerHTML =
+      '🔐 Đã đăng nhập: <b>' +
+      roleLabels[role] +
+      '</b>';
+  }
+}
+
+
+/* ---------------------------------
+   THEO DÕI FIREBASE LOGIN
+--------------------------------- */
+
+if (window.firebaseAuth) {
+
+  window.firebaseAuth.onAuthStateChanged(user => {
+
+    if (user) {
+
+      console.log(
+        'Trạm Chuyên Môn Cụm:',
+        user.displayName,
+        user.email
+      );
+
+      loadUserRole(user);
+
+    } else {
+
+      console.log(
+        'Trạm Chuyên Môn Cụm: Chưa đăng nhập'
+      );
+
+      role = 'giaovien';
+
+      updateRoleButtons();
+      renderAll();
+    }
+
+  });
+
+} else {
+
+  console.error(
+    'Firebase Authentication chưa được khởi tạo'
+  );
+}
 
   document.querySelectorAll('.ws-tab').forEach(tab=>{
     tab.addEventListener('click', ()=>{
