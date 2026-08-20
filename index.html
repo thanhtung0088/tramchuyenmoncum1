@@ -133,61 +133,99 @@ header.nav{
   position:sticky;
   top:0;
   z-index:80;
-  background:var(--blue-700);
-  border-bottom:1px solid rgba(255,255,255,.12);
+  padding:14px 16px 0;
+  background:linear-gradient(120deg, var(--blue-800,#173D8C), var(--blue-500));
+}
+
+.glass-shell{
+  position:relative;
+  max-width:1220px;
+  margin:0 auto;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:0 8px 32px -12px rgba(15,42,94,.35);
+}
+
+.glass-shell::before,
+.glass-shell::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  filter:blur(46px);
+  z-index:0;
+  pointer-events:none;
+}
+
+.glass-shell::before{
+  width:220px; height:220px;
+  background:rgba(127,216,255,.45);
+  top:-110px; left:6%;
+}
+
+.glass-shell::after{
+  width:220px; height:220px;
+  background:rgba(255,217,138,.35);
+  top:-120px; right:10%;
 }
 
 .nav-inner{
+  position:relative;
+  z-index:2;
   max-width:1220px;
   margin:0 auto;
-  padding:0 32px;
-  min-height:64px;
+  padding:0 22px;
+  min-height:54px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:15px;
+  border-bottom:1px solid rgba(255,255,255,.16);
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:10px;
   text-decoration:none;
   flex-shrink:0;
 }
 
 .brand-mark{
-  width:34px;
-  height:34px;
+  width:30px;
+  height:30px;
   border-radius:8px;
   flex-shrink:0;
-  background:rgba(255,255,255,.14);
+  background:rgba(255,255,255,.18);
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
 .brand-mark svg{
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
 }
 
 .brand-text{
   display:flex;
   flex-direction:column;
-  line-height:1.15;
+  line-height:1.1;
 }
 
 .brand-text b{
   font-family:'Sora',sans-serif;
-  font-size:15.5px;
+  font-size:14.5px;
   font-weight:700;
   color:#fff;
 }
 
 .brand-text span{
   font-family:'IBM Plex Mono',monospace;
-  font-size:9.5px;
+  font-size:9px;
   letter-spacing:.08em;
   color:#B9D2FF;
   text-transform:uppercase;
@@ -195,7 +233,7 @@ header.nav{
 
 nav.links{
   display:flex;
-  gap:20px;
+  gap:18px;
   align-items:center;
   flex-wrap:nowrap;
 }
@@ -203,7 +241,7 @@ nav.links{
 nav.links a.nlink{
   color:#DCE8FF;
   text-decoration:none;
-  font-size:13px;
+  font-size:12.5px;
   font-weight:600;
   opacity:.85;
   transition:.2s;
@@ -220,10 +258,10 @@ nav.links a.nlink:hover{
   align-items:center;
   justify-content:center;
   gap:8px;
-  padding:11px 20px;
+  padding:9px 18px;
   border-radius:999px;
   font-weight:700;
-  font-size:14px;
+  font-size:13px;
   text-decoration:none;
   cursor:pointer;
   border:1px solid transparent;
@@ -248,21 +286,20 @@ nav.links a.nlink:hover{
 }
 
 .btn-meet{
-  background:#fff;
+  background:rgba(255,255,255,.92);
   color:var(--red);
-  border:1.5px solid #F6D3D0;
-  padding:9px 16px 9px 12px;
-  font-size:13.5px;
+  border:1px solid rgba(255,255,255,.5);
+  padding:8px 14px 8px 11px;
+  font-size:12.5px;
 }
 
 .btn-meet:hover{
-  background:#FFF3F2;
-  border-color:var(--red);
+  background:#fff;
 }
 
 .live-dot{
-  width:8px;
-  height:8px;
+  width:7px;
+  height:7px;
   border-radius:50%;
   background:var(--red);
   animation:blink 1.6s ease-in-out infinite;
@@ -278,16 +315,17 @@ nav.links a.nlink:hover{
 #firebaseAuthBox{
   display:flex;
   align-items:center;
+  gap:10px;
   margin-left:2px;
 }
 
 #googleLoginBtn{
   border:0;
-  border-radius:10px;
-  padding:10px 15px;
+  border-radius:999px;
+  padding:8px 14px;
   background:#fff;
   color:#1a56db;
-  font-size:13px;
+  font-size:12.5px;
   font-weight:700;
   cursor:pointer;
   white-space:nowrap;
@@ -306,8 +344,8 @@ nav.links a.nlink:hover{
 }
 
 #firebaseUserAvatar{
-  width:32px;
-  height:32px;
+  width:28px;
+  height:28px;
   border-radius:50%;
   object-fit:cover;
   border:2px solid rgba(255,255,255,.8);
@@ -316,8 +354,8 @@ nav.links a.nlink:hover{
 
 #firebaseUserName{
   font-weight:600;
-  font-size:13px;
-  max-width:140px;
+  font-size:12.5px;
+  max-width:130px;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -325,63 +363,77 @@ nav.links a.nlink:hover{
 
 #googleLogoutBtn{
   border:0;
-  border-radius:8px;
-  padding:7px 10px;
+  border-radius:999px;
+  padding:7px 12px;
   background:rgba(255,255,255,.18);
   color:#fff;
   cursor:pointer;
   font-weight:600;
+  font-size:12px;
 }
 
 #googleLogoutBtn:hover{
   background:rgba(255,255,255,.28);
 }
 
-/* ================= HERO ================= */
+/* ================= HERO (gọn, trong glass-shell) ================= */
 
-.hero{
+.hero-compact{
   position:relative;
-  padding:56px 0 68px;
-  background:var(--blue-700);
+  z-index:2;
+  padding:16px 22px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
 }
 
-.hero-inner{
-  max-width:720px;
+.hero-text{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
-.hero .eyebrow{
-  background:rgba(255,255,255,.12);
-  color:#EAF2FF;
-  border-color:rgba(255,255,255,.2);
+.hero-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  width:fit-content;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:30px;
+  font-weight:800;
+  letter-spacing:.03em;
+  color:#FFA733;
+  text-shadow:0 2px 14px rgba(255,167,51,.45);
+  text-transform:uppercase;
 }
 
-.hero .eyebrow .dot{
-  background:#BFE0FF;
+.hero-eyebrow .dot{
+  width:11px; height:11px; border-radius:50%;
+  background:#FFA733;
+  flex-shrink:0;
+  box-shadow:0 0 10px rgba(255,167,51,.7);
 }
 
-.hero h1{
+.hero-compact h1{
   color:#fff;
-  font-size:38px;
-  line-height:1.22;
-  margin:16px 0;
-  max-width:620px;
+  font-size:19px;
+  line-height:1.35;
+  font-weight:700;
+  max-width:520px;
+  margin:0;
 }
 
-.hero h1 span{
+.hero-compact h1 span{
   color:#FFE9A8;
-}
-
-.hero p.lead{
-  color:#D5E4FF;
-  font-size:15.5px;
-  max-width:560px;
-  margin-bottom:26px;
 }
 
 .btn-row{
   display:flex;
-  gap:12px;
+  gap:10px;
   flex-wrap:wrap;
+  flex-shrink:0;
 }
 
 .btn-hero-primary{
@@ -394,31 +446,13 @@ nav.links a.nlink:hover{
 }
 
 .btn-hero-meet{
-  background:#fff;
+  background:rgba(255,255,255,.92);
   color:var(--red);
-  border:1.5px solid transparent;
+  border:1px solid transparent;
 }
 
 .btn-hero-meet:hover{
-  background:#FFF3F2;
-}
-
-.legal-chip{
-  margin-top:22px;
-  display:inline-flex;
-  gap:9px;
-  align-items:center;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:11px;
-  color:#C7DBFF;
-  border:1px solid rgba(255,255,255,.18);
-  padding:7px 13px;
-  border-radius:6px;
-}
-
-.legal-chip b{
-  color:#fff;
-  font-weight:600;
+  background:#fff;
 }
 
 /* ================= STATS ================= */
@@ -763,6 +797,129 @@ section{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:16px;
+}
+
+/* ================= TƯ VẤN & HƯỚNG NGHIỆP ================= */
+
+.tv-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:22px;
+  margin-bottom:16px;
+  background:#fff;
+}
+
+.tv-top{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.tv-top h4{
+  font-size:16px;
+}
+
+.tv-meta{
+  font-size:12.5px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.tv-body{
+  font-size:14px;
+  color:var(--ink);
+  line-height:1.6;
+  margin:10px 0 14px;
+  white-space:pre-line;
+}
+
+/* ================= PHÂN TÍCH DỮ LIỆU ================= */
+
+.pt-chart-box{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:22px 24px;
+  margin-bottom:24px;
+}
+
+.pt-chart-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--muted);
+  margin-bottom:16px;
+  font-weight:600;
+}
+
+.pt-bar-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:12px;
+}
+
+.pt-bar-label{
+  width:130px;
+  flex-shrink:0;
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink);
+}
+
+.pt-bar-track{
+  flex:1;
+  height:14px;
+  background:var(--blue-50);
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.pt-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--blue-400),var(--blue-600));
+  border-radius:999px;
+  transition:width .4s ease;
+}
+
+.pt-bar-value{
+  width:42px;
+  flex-shrink:0;
+  text-align:right;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--blue-700);
+}
+
+.pt-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+.pt-table th{
+  text-align:left;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--muted);
+  padding:8px 10px;
+  border-bottom:1px solid var(--line);
+}
+
+.pt-table td{
+  padding:10px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+}
+
+.pt-table tr:last-child td{
+  border-bottom:none;
 }
 
 .mat-card{
@@ -1465,9 +1622,17 @@ footer a:hover{
 
 @media (max-width:700px){
 
+  header.nav{
+    padding:10px 10px 0;
+  }
+
   .nav-inner{
-    padding-left:18px;
-    padding-right:18px;
+    padding-left:14px;
+    padding-right:14px;
+    flex-wrap:wrap;
+    min-height:auto;
+    padding-top:10px;
+    padding-bottom:10px;
   }
 
   .brand-text b{
@@ -1486,6 +1651,25 @@ footer a:hover{
     display:none;
   }
 
+  nav.links{
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  .hero-compact{
+    padding:14px 16px 16px;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .hero-eyebrow{
+    font-size:22px;
+  }
+
+  .hero-compact h1{
+    font-size:17px;
+  }
+
 }
 
 @media (max-width:600px){
@@ -1494,10 +1678,6 @@ footer a:hover{
   .stats-inner{
     padding-left:18px;
     padding-right:18px;
-  }
-
-  .hero h1{
-    font-size:30px;
   }
 
   section{
@@ -1535,7 +1715,9 @@ footer a:hover{
      HEADER
 ========================================================= -->
 
-<header class="nav">
+<header class="nav" id="top">
+
+  <div class="glass-shell">
 
   <div class="nav-inner">
 
@@ -1586,11 +1768,6 @@ footer a:hover{
         Phân quyền
       </a>
 
-      <a class="btn btn-meet" onclick="openMeeting()">
-        <span class="live-dot"></span>
-        Họp online toàn cụm
-      </a>
-
 
       <!-- ================= AUTH BOX ================= -->
 
@@ -1624,63 +1801,27 @@ footer a:hover{
 
   </div>
 
-</header>
+  <div class="hero-compact">
 
+    <div class="hero-text">
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        Cổng thông tin điện tử · Cụm liên trường
+      </div>
 
-<section class="hero" id="top">
-
-  <div class="wrap hero-inner">
-
-    <div class="eyebrow">
-      <span class="dot"></span>
-      Cổng thông tin điện tử · Cụm liên trường
-    </div>
-
-    <h1>
-      Một mái nhà chuyên môn cho
-      <span>mọi trường trong cụm</span>.
-    </h1>
-
-    <p class="lead">
-      Xóa bỏ rào cản địa lý giữa các trường, chia sẻ học liệu số,
-      sinh hoạt nghiên cứu bài học, họp trực tuyến và bồi dưỡng
-      thường xuyên — trên cùng một nền tảng.
-    </p>
-
-    <div class="btn-row">
-
-      <a
-        href="#workspace"
-        class="btn btn-hero-primary">
-        Vào khu vực làm việc ↓
-      </a>
-
-      <a
-        class="btn btn-hero-meet"
-        onclick="openMeeting()">
-
-        <span class="live-dot"></span>
-        Họp online toàn cụm
-
-      </a>
-
-    </div>
-
-    <div class="legal-chip">
-
-      📄 Căn cứ:
-      <b>CV 4069/BGDĐT-GDPT</b>
-      · 01/07/2026
+      <h1>
+        Một mái nhà chuyên môn cho
+        <span>mọi trường trong cụm</span>
+      </h1>
 
     </div>
 
   </div>
 
-</section>
+  </div>
+
+</header>
 
 
 <!-- =========================================================
@@ -1738,11 +1879,6 @@ footer a:hover{
         <span class="dot"></span>
         Khu vực làm việc
       </div>
-
-      <h2>
-        Ba phân hệ lõi — dùng thử ngay,
-        đúng luồng nghiệp vụ thật.
-      </h2>
 
       <p>
         Hệ thống tự xác định quyền của tài khoản sau khi đăng nhập.
@@ -1831,6 +1967,39 @@ footer a:hover{
         data-tab="nc">
 
         🔬 Hồ sơ Nghiên cứu bài học
+
+      </button>
+
+
+      <button
+        class="ws-tab"
+        data-tab="tv">
+
+        🎯 Tư vấn & Hướng nghiệp
+
+      </button>
+
+
+      <button
+        class="ws-tab"
+        data-tab="mn">
+
+        🏆 Mũi nhọn & Sáng tạo
+
+        <span
+          class="wt-badge"
+          id="mnCount">
+          0
+        </span>
+
+      </button>
+
+
+      <button
+        class="ws-tab"
+        data-tab="pt">
+
+        📊 Phân tích Dữ liệu
 
       </button>
 
@@ -1989,7 +2158,116 @@ footer a:hover{
       class="ws-panel"
       id="panel-nc">
 
+      <div class="lib-form" id="sessionForm" style="display:none;">
+
+        <input id="sessTitle" placeholder="Tên buổi sinh hoạt (VD: NCBH Toán 6 — Phép cộng phân số)">
+        <input id="sessSchool" placeholder="Trường tổ chức · ngày (VD: THCS Bình Minh · 20/08/2026)">
+
+        <div class="full">
+          <button class="btn btn-primary" onclick="addSession()">Tạo buổi sinh hoạt</button>
+        </div>
+
+      </div>
+
       <div id="sessionList"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TƯ VẤN HỌC TẬP & HƯỚNG NGHIỆP
+    ====================================================== -->
+
+    <div
+      class="ws-panel"
+      id="panel-tv">
+
+      <div class="lib-form" id="tuvanForm" style="display:none;">
+
+        <input id="tvTitle" placeholder="Tiêu đề (VD: Hướng dẫn chọn tổ hợp môn lớp 10 năm học 2026-2027)">
+
+        <select id="tvCategory">
+          <option>Cẩm nang môn học lựa chọn</option>
+          <option>Tư vấn tổ hợp lớp 10</option>
+          <option>Tuyển sinh Đại học, Cao đẳng</option>
+        </select>
+
+        <textarea id="tvBody" placeholder="Nội dung hướng dẫn / thông tin tư vấn..." style="grid-column:1/-1;min-height:70px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;font-family:inherit;font-size:13.5px;"></textarea>
+
+        <div class="full">
+          <button class="btn btn-primary" onclick="addTuVan()">Đăng chủ đề tư vấn</button>
+        </div>
+
+      </div>
+
+      <div id="tuvanList"></div>
+      <p id="tuvanEmpty" style="display:none;padding:30px 0;text-align:center;color:var(--muted);">Chưa có chủ đề tư vấn nào.</p>
+
+    </div>
+
+
+    <!-- =====================================================
+         GIÁO DỤC MŨI NHỌN & SÁNG TẠO
+    ====================================================== -->
+
+    <div
+      class="ws-panel"
+      id="panel-mn">
+
+      <div class="lib-form">
+        <input id="mnName" placeholder="Tên tài liệu (VD: Chuyên đề bồi dưỡng HSG Toán 9)">
+        <select id="mnCategory">
+          <option>Bồi dưỡng học sinh giỏi</option>
+          <option>Nghiên cứu khoa học kỹ thuật</option>
+          <option>Ứng dụng AI trong soạn giảng</option>
+        </select>
+        <div class="full"><button class="btn btn-primary" onclick="addMuiNhon()">Tải lên chờ duyệt</button></div>
+      </div>
+
+      <div class="lib-toolbar">
+        <div class="lib-filter" id="mnFilter">
+          <button class="chip-filter active" data-f="all">Tất cả</button>
+          <button class="chip-filter" data-f="s1">Chờ duyệt trường</button>
+          <button class="chip-filter" data-f="s2">Chờ duyệt cụm</button>
+          <button class="chip-filter" data-f="s3">Đã xuất bản</button>
+        </div>
+      </div>
+
+      <div class="mat-grid" id="mnGrid"></div>
+      <p id="mnEmpty" style="display:none;padding:30px 0;text-align:center;color:var(--muted);">Chưa có tài liệu nào trong phân hệ này.</p>
+
+    </div>
+
+
+    <!-- =====================================================
+         PHÂN TÍCH DỮ LIỆU HỌC TẬP
+    ====================================================== -->
+
+    <div
+      class="ws-panel"
+      id="panel-pt">
+
+      <div class="lib-form">
+        <input id="ptTruong" placeholder="Trường (VD: THCS Bình Minh)">
+        <select id="ptMon">
+          <option>Toán</option>
+          <option>Ngữ văn</option>
+          <option>Tiếng Anh</option>
+          <option>Khoa học tự nhiên</option>
+          <option>GDCD</option>
+          <option>Lịch sử - Địa lý</option>
+        </select>
+        <input id="ptLop" placeholder="Lớp (VD: 8A2)">
+        <input id="ptDiem" type="number" step="0.1" min="0" max="10" placeholder="Điểm TB (VD: 7.5)">
+        <input id="ptSiSo" type="number" min="1" placeholder="Số học sinh">
+        <input id="ptGhiChu" placeholder="Ghi chú (không bắt buộc)">
+        <div class="full"><button class="btn btn-primary" onclick="addPhanTich()">Gửi số liệu</button></div>
+      </div>
+
+      <div id="ptChart" class="pt-chart-box"></div>
+
+      <div id="ptList"></div>
+      <p id="ptEmpty" style="display:none;padding:30px 0;text-align:center;color:var(--muted);">Chưa có số liệu nào được nhập.</p>
 
     </div>
 
@@ -2013,13 +2291,9 @@ footer a:hover{
         Sitemap
       </div>
 
-      <h2>
-        Ba phân hệ tiếp theo trong lộ trình.
-      </h2>
-
       <p>
-        Nhóm nội dung này sẽ được đưa vào khu vực làm việc
-        ở các đợt triển khai tiếp theo.
+        Bấm vào một phân hệ bất kỳ để vào thẳng đúng tab trong
+        khu vực làm việc phía trên (cần đăng nhập).
       </p>
 
     </div>
@@ -2028,7 +2302,7 @@ footer a:hover{
     <div class="mod-grid">
 
 
-      <div class="mod-card">
+      <div class="mod-card" onclick="goToTab('tv')" style="cursor:pointer;">
 
         <div class="mod-ic">
 
@@ -2071,7 +2345,7 @@ footer a:hover{
       </div>
 
 
-      <div class="mod-card">
+      <div class="mod-card" onclick="goToTab('mn')" style="cursor:pointer;">
 
         <div class="mod-ic">
 
@@ -2115,7 +2389,7 @@ footer a:hover{
       </div>
 
 
-      <div class="mod-card">
+      <div class="mod-card" onclick="goToTab('pt')" style="cursor:pointer;">
 
         <div class="mod-ic">
 
@@ -2268,10 +2542,6 @@ footer a:hover{
         Phân quyền
       </div>
 
-      <h2>
-        Ba cấp tài khoản, rành mạch trách nhiệm.
-      </h2>
-
       <p>
         Quyền được quản lý tập trung trong Firestore.
         Người dùng không tự thay đổi quyền trên giao diện.
@@ -2357,10 +2627,6 @@ footer a:hover{
         <span class="dot"></span>
         Chỉ tiêu hoạt động
       </div>
-
-      <h2>
-        Vận hành thực chất — không thiết lập xong để trống.
-      </h2>
 
       <p>
         Các chỉ tiêu hướng tới việc đưa Trạm Chuyên Môn Cụm
@@ -2896,12 +3162,470 @@ function updateRoleButtons(){
 
   }
 
+
+  const sessionForm =
+    document.getElementById('sessionForm');
+
+  if(sessionForm){
+    sessionForm.style.display =
+      (role === 'admintruong' || role === 'admincum')
+        ? 'grid'
+        : 'none';
+  }
+
+
+  const tuvanForm =
+    document.getElementById('tuvanForm');
+
+  if(tuvanForm){
+    tuvanForm.style.display =
+      (role === 'admintruong' || role === 'admincum')
+        ? 'grid'
+        : 'none';
+  }
+
+}
+
+
+/* =========================================================
+   TẠO BUỔI SINH HOẠT MỚI (Admin Trường / Admin Cụm)
+========================================================= */
+
+function addSession(){
+
+  if(role !== 'admintruong' && role !== 'admincum'){
+    return;
+  }
+
+  if(!currentUser){
+    return;
+  }
+
+  const titleEl = document.getElementById('sessTitle');
+  const schoolEl = document.getElementById('sessSchool');
+
+  const title = titleEl.value.trim();
+
+  if(!title){
+    return;
+  }
+
+  const { collection, addDoc, serverTimestamp } = window.fs;
+
+  addDoc(
+    collection(window.firebaseDB, 'sessions'),
+    {
+      title: title,
+      school: schoolEl.value.trim(),
+      comments: [],
+      createdAt: serverTimestamp()
+    }
+  ).catch(err => {
+    console.error('Lỗi tạo buổi sinh hoạt:', err);
+    alert('Không tạo được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
+
+  titleEl.value = '';
+  schoolEl.value = '';
+
+}
+
+
+/* =========================================================
+   TƯ VẤN HỌC TẬP & HƯỚNG NGHIỆP
+========================================================= */
+
+function renderTuVan(){
+
+  const list = document.getElementById('tuvanList');
+  if(!list){ return; }
+
+  document.getElementById('tuvanEmpty').style.display =
+    tuvan.length ? 'none' : 'block';
+
+  list.innerHTML = tuvan.map(t => `
+
+    <div class="tv-card">
+
+      <div class="tv-top">
+        <div>
+          <h4>${escapeHtml(t.title)}</h4>
+          <div class="tv-meta">${escapeHtml(t.category)} · ${escapeHtml(t.authorName)} · ${escapeHtml(formatTime(t.createdAt))}</div>
+        </div>
+      </div>
+
+      <div class="tv-body">${escapeHtml(t.body || '')}</div>
+
+      <div class="comments">
+        ${(t.replies||[]).map(r => `
+          <div class="comment">
+            <div class="avatar" style="width:30px;height:30px;font-size:11px;background:${colorFor(r.name)}">${escapeHtml(initials(r.name))}</div>
+            <div class="cbody"><b>${escapeHtml(r.name)}</b><br>${escapeHtml(r.text)}</div>
+          </div>
+        `).join('') || '<p style="font-size:13px;color:var(--muted);">Chưa có câu hỏi / phản hồi nào.</p>'}
+      </div>
+
+      <div class="comment-form">
+        <input type="text" placeholder="Đặt câu hỏi hoặc góp ý..." id="tvreply-${t.id}">
+        <button onclick="addTuVanReply('${t.id}')">Gửi</button>
+      </div>
+
+    </div>
+
+  `).join('');
+
+}
+
+function addTuVan(){
+
+  if(role !== 'admintruong' && role !== 'admincum'){
+    return;
+  }
+
+  if(!currentUser){
+    return;
+  }
+
+  const titleEl = document.getElementById('tvTitle');
+  const bodyEl = document.getElementById('tvBody');
+  const catEl = document.getElementById('tvCategory');
+
+  const title = titleEl.value.trim();
+
+  if(!title){
+    return;
+  }
+
+  const { collection, addDoc, serverTimestamp } = window.fs;
+
+  addDoc(
+    collection(window.firebaseDB, 'tuvan'),
+    {
+      title: title,
+      category: catEl.value,
+      body: bodyEl.value.trim(),
+      authorUid: currentUser.uid,
+      authorName: currentUserName || roleLabels[role],
+      replies: [],
+      createdAt: serverTimestamp()
+    }
+  ).catch(err => {
+    console.error('Lỗi đăng chủ đề tư vấn:', err);
+    alert('Không đăng được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
+
+  titleEl.value = '';
+  bodyEl.value = '';
+
+}
+
+function addTuVanReply(id){
+
+  if(!currentUser){
+    return;
+  }
+
+  const input = document.getElementById('tvreply-' + id);
+  if(!input || !input.value.trim()){
+    return;
+  }
+
+  const { doc, updateDoc, arrayUnion } = window.fs;
+
+  updateDoc(
+    doc(window.firebaseDB, 'tuvan', id),
+    {
+      replies: arrayUnion({
+        name: currentUserName || roleLabels[role],
+        text: input.value.trim(),
+        time: Date.now()
+      })
+    }
+  ).catch(err => {
+    console.error('Lỗi gửi phản hồi:', err);
+    alert('Không gửi được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
+
+  input.value = '';
+
+}
+
+
+/* =========================================================
+   GIÁO DỤC MŨI NHỌN & SÁNG TẠO
+   (dùng lại luồng duyệt 4 bước như Kho học liệu)
+========================================================= */
+
+document
+  .querySelectorAll('#mnFilter .chip-filter')
+  .forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#mnFilter .chip-filter').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      mnFilter = chip.dataset.f;
+      renderMuiNhon();
+    });
+  });
+
+function renderMuiNhon(){
+
+  const grid = document.getElementById('mnGrid');
+  if(!grid){ return; }
+
+  const countEl = document.getElementById('mnCount');
+  if(countEl){ countEl.textContent = munhon.length; }
+
+  const items = munhon.filter(m => mnFilter === 'all' || m.status === mnFilter);
+
+  document.getElementById('mnEmpty').style.display =
+    munhon.length ? 'none' : 'block';
+
+  grid.innerHTML = items.map(m => {
+
+    const meta = statusMeta[m.status];
+    let action = '';
+
+    if(m.status === 's1' && (role === 'admintruong' || role === 'admincum')){
+      action = `<button class="mat-approve" onclick="approveMuiNhon('${m.id}')">Duyệt cấp trường</button>`;
+    }
+    else if(m.status === 's2' && role === 'admincum'){
+      action = `<button class="mat-approve final" onclick="approveMuiNhon('${m.id}')">Duyệt & xuất bản</button>`;
+    }
+    else if(m.status === 's3'){
+      action = `<span class="mat-locked">✓ Đã có trong kho dùng chung</span>`;
+    }
+    else{
+      action = `<span class="mat-locked">Đang chờ người có quyền duyệt</span>`;
+    }
+
+    return `
+      <div class="mat-card">
+        <div class="mat-top">
+          <div style="display:flex;gap:12px;">
+            <div class="mat-icon">${escapeHtml((m.category||'??').slice(0,2).toUpperCase())}</div>
+            <div>
+              <h4>${escapeHtml(m.name)}</h4>
+              <div class="mat-meta">${escapeHtml(m.category)} · ${escapeHtml(m.authorName)} · ${escapeHtml(formatTime(m.createdAt))}</div>
+            </div>
+          </div>
+          <span class="status-badge ${meta.cls}">${meta.label}</span>
+        </div>
+        <div class="mat-foot">${action}</div>
+      </div>
+    `;
+
+  }).join('');
+
+  if(!items.length){
+    grid.innerHTML = `<p style="padding:20px 0;">${munhon.length ? 'Không có tài liệu ở trạng thái này.' : 'Chưa có tài liệu nào. Hãy là người đầu tiên tải lên!'}</p>`;
+  }
+
+}
+
+function addMuiNhon(){
+
+  if(!currentUser){
+    return;
+  }
+
+  const nameEl = document.getElementById('mnName');
+  const name = nameEl.value.trim();
+
+  if(!name){
+    return;
+  }
+
+  const { collection, addDoc, serverTimestamp } = window.fs;
+
+  addDoc(
+    collection(window.firebaseDB, 'munhon'),
+    {
+      name: name,
+      category: document.getElementById('mnCategory').value,
+      authorUid: currentUser.uid,
+      authorName: currentUserName || roleLabels[role],
+      status: 's1',
+      createdAt: serverTimestamp()
+    }
+  ).catch(err => {
+    console.error('Lỗi tải tài liệu mũi nhọn:', err);
+    alert('Không tải lên được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
+
+  nameEl.value = '';
+  mnFilter = 'all';
+
+  document.querySelectorAll('#mnFilter .chip-filter').forEach(c => c.classList.remove('active'));
+  document.querySelector('#mnFilter .chip-filter[data-f="all"]').classList.add('active');
+
+}
+
+function approveMuiNhon(id){
+
+  const item = munhon.find(m => m.id === id);
+  if(!item){
+    return;
+  }
+
+  let nextStatus = null;
+
+  if(item.status === 's1'){
+    if(role !== 'admintruong' && role !== 'admincum'){ return; }
+    nextStatus = 's2';
+  }
+  else if(item.status === 's2'){
+    if(role !== 'admincum'){ return; }
+    nextStatus = 's3';
+  }
+
+  if(!nextStatus){
+    return;
+  }
+
+  const { doc, updateDoc } = window.fs;
+
+  updateDoc(
+    doc(window.firebaseDB, 'munhon', id),
+    { status: nextStatus }
+  ).catch(err => {
+    console.error('Lỗi duyệt tài liệu:', err);
+    alert('Không duyệt được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
+
+}
+
+
+/* =========================================================
+   PHÂN TÍCH DỮ LIỆU HỌC TẬP
+========================================================= */
+
+function renderPhanTich(){
+
+  const chartBox = document.getElementById('ptChart');
+  const listBox = document.getElementById('ptList');
+  if(!chartBox || !listBox){ return; }
+
+  document.getElementById('ptEmpty').style.display =
+    phantich.length ? 'none' : 'block';
+
+  // Tính điểm trung bình theo môn
+  const bySubject = {};
+  phantich.forEach(p => {
+    if(!bySubject[p.mon]){
+      bySubject[p.mon] = { total: 0, count: 0 };
+    }
+    bySubject[p.mon].total += Number(p.diemTB) || 0;
+    bySubject[p.mon].count += 1;
+  });
+
+  const subjects = Object.keys(bySubject);
+
+  if(!subjects.length){
+    chartBox.innerHTML = '<div class="pt-chart-title">Điểm trung bình theo môn</div><p style="color:var(--muted);font-size:13px;">Chưa có số liệu để vẽ biểu đồ.</p>';
+  }
+  else{
+    chartBox.innerHTML = '<div class="pt-chart-title">Điểm trung bình theo môn (toàn cụm)</div>' +
+      subjects.map(mon => {
+        const avg = bySubject[mon].total / bySubject[mon].count;
+        const pct = Math.min(100, (avg / 10) * 100);
+        return `
+          <div class="pt-bar-row">
+            <div class="pt-bar-label">${escapeHtml(mon)}</div>
+            <div class="pt-bar-track"><div class="pt-bar-fill" style="width:${pct}%"></div></div>
+            <div class="pt-bar-value">${avg.toFixed(1)}</div>
+          </div>
+        `;
+      }).join('');
+  }
+
+  if(!phantich.length){
+    listBox.innerHTML = '';
+    return;
+  }
+
+  listBox.innerHTML = `
+    <table class="pt-table">
+      <thead>
+        <tr>
+          <th>Trường</th><th>Môn</th><th>Lớp</th><th>Điểm TB</th><th>Sĩ số</th><th>Người nhập</th><th>Thời gian</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${phantich.map(p => `
+          <tr>
+            <td>${escapeHtml(p.truong)}</td>
+            <td>${escapeHtml(p.mon)}</td>
+            <td>${escapeHtml(p.lop)}</td>
+            <td>${escapeHtml(String(p.diemTB))}</td>
+            <td>${escapeHtml(String(p.soHocSinh||''))}</td>
+            <td>${escapeHtml(p.authorName)}</td>
+            <td>${escapeHtml(formatTime(p.createdAt))}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+}
+
+function addPhanTich(){
+
+  if(!currentUser){
+    return;
+  }
+
+  const truongEl = document.getElementById('ptTruong');
+  const diemEl = document.getElementById('ptDiem');
+
+  const truong = truongEl.value.trim();
+  const diem = parseFloat(diemEl.value);
+
+  if(!truong || isNaN(diem)){
+    alert('Thầy/cô nhập đủ Trường và Điểm TB nhé.');
+    return;
+  }
+
+  const { collection, addDoc, serverTimestamp } = window.fs;
+
+  addDoc(
+    collection(window.firebaseDB, 'phantich'),
+    {
+      truong: truong,
+      mon: document.getElementById('ptMon').value,
+      lop: document.getElementById('ptLop').value.trim(),
+      diemTB: diem,
+      soHocSinh: parseInt(document.getElementById('ptSiSo').value) || null,
+      ghiChu: document.getElementById('ptGhiChu').value.trim(),
+      authorUid: currentUser.uid,
+      authorName: currentUserName || roleLabels[role],
+      createdAt: serverTimestamp()
+    }
+  ).catch(err => {
+    console.error('Lỗi gửi số liệu:', err);
+    alert('Không gửi được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
+
+  ['ptTruong','ptLop','ptDiem','ptSiSo','ptGhiChu'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+
 }
 
 
 /* =========================================================
    TABS
 ========================================================= */
+
+function goToTab(tabId){
+
+  document.getElementById('workspace').scrollIntoView({ behavior:'smooth' });
+
+  const tabBtn = document.querySelector('.ws-tab[data-tab="' + tabId + '"]');
+  if(tabBtn){
+    tabBtn.click();
+  }
+
+}
 
 document
   .querySelectorAll('.ws-tab')
@@ -2956,120 +3680,14 @@ document
 
 
 /* =========================================================
-   DỮ LIỆU DEMO
+   DỮ LIỆU THẬT (đổ vào từ Firestore, xem hàm startSync())
 ========================================================= */
 
-let posts = [
+let posts = [];
 
-  {
-    tag:'Văn bản chỉ đạo',
-    author:'Admin Cụm',
-    time:'2 giờ trước',
-    body:
-      'Đã đăng tải hướng dẫn triển khai sinh hoạt cụm chuyên môn. Mời các trường thành viên nghiên cứu và góp ý.',
-    color:'#2F66E0'
-  },
+let materials = [];
 
-  {
-    tag:'Lịch công tác',
-    author:'Admin Trường THCS Bình Minh',
-    time:'Hôm qua',
-    body:
-      'Tuần tới trường tổ chức tiết dạy nghiên cứu bài học môn GDCD lớp 8, mời giáo viên các trường trong cụm cùng dự.',
-    color:'#0EA894'
-  },
-
-  {
-    tag:'Bản tin',
-    author:'Admin Cụm',
-    time:'3 ngày trước',
-    body:
-      'Chúc mừng cụm đã hoàn thành chỉ tiêu sinh hoạt chuyên môn quý I.',
-    color:'#E8992C'
-  }
-
-];
-
-
-let materials = [
-
-  {
-    name:
-      'Giáo án GDCD 8 — Bài "Tôn trọng sự thật"',
-    subject:'GDCD',
-    author:'GV. Trần Thị Lan',
-    status:'s3'
-  },
-
-  {
-    name:
-      'Ngân hàng câu hỏi trắc nghiệm Toán 9 — HK1',
-    subject:'Toán',
-    author:'GV. Nguyễn Văn Hùng',
-    status:'s2'
-  },
-
-  {
-    name:
-      'Học liệu STEM — Chủ đề Năng lượng tái tạo',
-    subject:'STEM/STEAM',
-    author:'GV. Phạm Thu Hà',
-    status:'s1'
-  },
-
-  {
-    name:
-      'Bài giảng điện tử Ngữ văn 7 — Bài 12',
-    subject:'Ngữ văn',
-    author:'GV. Lê Minh Đức',
-    status:'s3'
-  }
-
-];
-
-
-let sessions = [
-
-  {
-    title:
-      'Nghiên cứu bài học: Toán 6 — Phép cộng phân số',
-
-    school:
-      'THCS Bình Minh · 02/08/2026',
-
-    comments:[
-      {
-        name:'GV. Đỗ Thị Mai',
-        text:
-          'Học sinh nhóm còn hạn chế nắm khá tốt bước quy đồng nhờ hoạt động nhóm 4 người.'
-      },
-
-      {
-        name:'Admin Trường Nguyễn Hoa',
-        text:
-          'Đề nghị nhân rộng cách chia nhóm này ở các lớp 6 còn lại.'
-      }
-    ]
-  },
-
-
-  {
-    title:
-      'Nghiên cứu bài học: GDCD 8 — Tôn trọng sự thật',
-
-    school:
-      'THCS Lê Lợi · 15/07/2026',
-
-    comments:[
-      {
-        name:'GV. Trần Thị Lan',
-        text:
-          'Tình huống thực tế đưa vào bài giúp học sinh tranh luận sôi nổi.'
-      }
-    ]
-  }
-
-];
+let sessions = [];
 
 
 let matFilter = 'all';
@@ -3082,6 +3700,146 @@ const avatarColors = [
   '#7A5FE0',
   '#E5544B'
 ];
+
+
+/* =========================================================
+   ĐỒNG BỘ FIRESTORE THỜI GIAN THỰC
+
+   startSync() được gọi từ khối Firebase (module script) ngay
+   sau khi xác định xong role của người dùng đã đăng nhập.
+   stopSync() được gọi khi đăng xuất, để hủy lắng nghe và
+   xóa sạch dữ liệu khỏi giao diện.
+========================================================= */
+
+let unsubPosts = null;
+let unsubMaterials = null;
+let unsubSessions = null;
+let unsubTuVan = null;
+let unsubMuiNhon = null;
+let unsubPhanTich = null;
+let syncStarted = false;
+
+let tuvan = [];
+let munhon = [];
+let phantich = [];
+let mnFilter = 'all';
+
+function startSync(){
+
+  if(syncStarted){
+    return;
+  }
+
+  if(!window.firebaseDB || !window.fs){
+    console.warn('Firestore chưa sẵn sàng, thử lại sau.');
+    return;
+  }
+
+  syncStarted = true;
+
+  const { collection, query, orderBy, onSnapshot } = window.fs;
+  const db = window.firebaseDB;
+
+  unsubPosts = onSnapshot(
+    query(collection(db, 'posts'), orderBy('createdAt', 'desc')),
+    snap => {
+      posts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderFeed();
+    },
+    err => console.error('Lỗi đồng bộ posts:', err)
+  );
+
+  unsubMaterials = onSnapshot(
+    query(collection(db, 'materials'), orderBy('createdAt', 'desc')),
+    snap => {
+      materials = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderMaterials();
+    },
+    err => console.error('Lỗi đồng bộ materials:', err)
+  );
+
+  unsubSessions = onSnapshot(
+    query(collection(db, 'sessions'), orderBy('createdAt', 'desc')),
+    snap => {
+      sessions = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderSessions();
+    },
+    err => console.error('Lỗi đồng bộ sessions:', err)
+  );
+
+  unsubTuVan = onSnapshot(
+    query(collection(db, 'tuvan'), orderBy('createdAt', 'desc')),
+    snap => {
+      tuvan = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderTuVan();
+    },
+    err => console.error('Lỗi đồng bộ tuvan:', err)
+  );
+
+  unsubMuiNhon = onSnapshot(
+    query(collection(db, 'munhon'), orderBy('createdAt', 'desc')),
+    snap => {
+      munhon = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderMuiNhon();
+    },
+    err => console.error('Lỗi đồng bộ munhon:', err)
+  );
+
+  unsubPhanTich = onSnapshot(
+    query(collection(db, 'phantich'), orderBy('createdAt', 'desc')),
+    snap => {
+      phantich = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderPhanTich();
+    },
+    err => console.error('Lỗi đồng bộ phantich:', err)
+  );
+}
+
+function stopSync(){
+
+  [unsubPosts, unsubMaterials, unsubSessions, unsubTuVan, unsubMuiNhon, unsubPhanTich].forEach(u => { if(u) u(); });
+
+  unsubPosts = null;
+  unsubMaterials = null;
+  unsubSessions = null;
+  unsubTuVan = null;
+  unsubMuiNhon = null;
+  unsubPhanTich = null;
+  syncStarted = false;
+
+  posts = [];
+  materials = [];
+  sessions = [];
+  tuvan = [];
+  munhon = [];
+  phantich = [];
+
+  renderAll();
+}
+
+
+/* =========================================================
+   ĐỊNH DẠNG THỜI GIAN
+========================================================= */
+
+function formatTime(ts){
+
+  if(!ts){
+    return 'Vừa xong';
+  }
+
+  try{
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleString('vi-VN', {
+      day:'2-digit', month:'2-digit', year:'numeric',
+      hour:'2-digit', minute:'2-digit'
+    });
+  }
+  catch(e){
+    return '';
+  }
+
+}
 
 
 /* =========================================================
@@ -3212,10 +3970,10 @@ function renderFeed(){
 
         <div
           class="avatar"
-          style="background:${escapeHtml(p.color)}">
+          style="background:${escapeHtml(colorFor(p.authorName))}">
 
           ${escapeHtml(
-            initials(p.author)
+            initials(p.authorName)
           )}
 
         </div>
@@ -3226,7 +3984,7 @@ function renderFeed(){
           <div class="feed-head">
 
             <b>
-              ${escapeHtml(p.author)}
+              ${escapeHtml(p.authorName)}
             </b>
 
             <span class="feed-tag">
@@ -3234,7 +3992,7 @@ function renderFeed(){
             </span>
 
             <span class="feed-time">
-              ${escapeHtml(p.time)}
+              ${escapeHtml(formatTime(p.createdAt))}
             </span>
 
           </div>
@@ -3248,7 +4006,7 @@ function renderFeed(){
 
       </div>
 
-    `).join('');
+    `).join('') || '<p style="padding:24px 0;color:var(--muted);">Chưa có bản tin nào. Hãy là người đầu tiên đăng tin!</p>';
 
 }
 
@@ -3260,6 +4018,10 @@ function renderFeed(){
 function addPost(){
 
   if(role === 'giaovien'){
+    return;
+  }
+
+  if(!currentUser){
     return;
   }
 
@@ -3279,33 +4041,24 @@ function addPost(){
   }
 
 
-  posts.unshift({
+  const { collection, addDoc, serverTimestamp } = window.fs;
 
-    tag:
-      document.getElementById(
-        'postTag'
-      ).value,
-
-    author:
-      roleLabels[role],
-
-    time:
-      'Vừa xong',
-
-    body:
-      value,
-
-    color:
-      role === 'admincum'
-        ? '#2F66E0'
-        : '#0EA894'
-
+  addDoc(
+    collection(window.firebaseDB, 'posts'),
+    {
+      tag: document.getElementById('postTag').value,
+      authorUid: currentUser.uid,
+      authorName: currentUserName || roleLabels[role],
+      body: value,
+      createdAt: serverTimestamp()
+    }
+  ).catch(err => {
+    console.error('Lỗi đăng tin:', err);
+    alert('Không đăng được tin, thầy/cô thử lại nhé.\n\n' + err.message);
   });
 
 
   input.value = '';
-
-  renderFeed();
 
 }
 
@@ -3335,7 +4088,7 @@ const statusMeta = {
 
 
 document
-  .querySelectorAll('.chip-filter')
+  .querySelectorAll('#libFilter .chip-filter')
   .forEach(chip => {
 
     chip.addEventListener(
@@ -3343,7 +4096,7 @@ document
       () => {
 
         document
-          .querySelectorAll('.chip-filter')
+          .querySelectorAll('#libFilter .chip-filter')
           .forEach(c =>
             c.classList.remove(
               'active'
@@ -3393,9 +4146,6 @@ function renderMaterials(){
   grid.innerHTML =
     items.map(m => {
 
-      const idx =
-        materials.indexOf(m);
-
       const meta =
         statusMeta[m.status];
 
@@ -3415,7 +4165,7 @@ function renderMaterials(){
 
           <button
             class="mat-approve"
-            onclick="approveMaterial(${idx})">
+            onclick="approveMaterial('${m.id}')">
 
             Duyệt cấp trường
 
@@ -3434,7 +4184,7 @@ function renderMaterials(){
 
           <button
             class="mat-approve final"
-            onclick="approveMaterial(${idx})">
+            onclick="approveMaterial('${m.id}')">
 
             Duyệt & xuất bản
 
@@ -3483,7 +4233,7 @@ function renderMaterials(){
               <div class="mat-icon">
 
                 ${escapeHtml(
-                  m.subject
+                  (m.subject||'??')
                     .slice(0,2)
                     .toUpperCase()
                 )}
@@ -3501,7 +4251,9 @@ function renderMaterials(){
 
                   ${escapeHtml(m.subject)}
                   ·
-                  ${escapeHtml(m.author)}
+                  ${escapeHtml(m.authorName)}
+                  ·
+                  ${escapeHtml(formatTime(m.createdAt))}
 
                 </div>
 
@@ -3539,7 +4291,7 @@ function renderMaterials(){
 
       <p style="padding:20px 0;">
 
-        Không có học liệu ở trạng thái này.
+        ${materials.length ? 'Không có học liệu ở trạng thái này.' : 'Chưa có học liệu nào. Hãy là người đầu tiên tải lên!'}
 
       </p>
 
@@ -3554,18 +4306,19 @@ function renderMaterials(){
    APPROVE MATERIAL
 ========================================================= */
 
-function approveMaterial(i){
+function approveMaterial(id){
 
-  if(
-    !materials[i]
-  ){
+  const item = materials.find(m => m.id === id);
+
+  if(!item){
     return;
   }
 
 
-  if(
-    materials[i].status === 's1'
-  ){
+  let nextStatus = null;
+
+
+  if(item.status === 's1'){
 
     if(
       role !== 'admintruong' &&
@@ -3574,26 +4327,35 @@ function approveMaterial(i){
       return;
     }
 
-    materials[i].status = 's2';
+    nextStatus = 's2';
 
   }
 
-  else if(
-    materials[i].status === 's2'
-  ){
+  else if(item.status === 's2'){
 
-    if(
-      role !== 'admincum'
-    ){
+    if(role !== 'admincum'){
       return;
     }
 
-    materials[i].status = 's3';
+    nextStatus = 's3';
 
   }
 
 
-  renderMaterials();
+  if(!nextStatus){
+    return;
+  }
+
+
+  const { doc, updateDoc } = window.fs;
+
+  updateDoc(
+    doc(window.firebaseDB, 'materials', id),
+    { status: nextStatus }
+  ).catch(err => {
+    console.error('Lỗi duyệt học liệu:', err);
+    alert('Không duyệt được, thầy/cô thử lại nhé.\n\n' + err.message);
+  });
 
 }
 
@@ -3603,6 +4365,10 @@ function approveMaterial(i){
 ========================================================= */
 
 function addMaterial(){
+
+  if(!currentUser){
+    return;
+  }
 
   const nameEl =
     document.getElementById(
@@ -3619,21 +4385,21 @@ function addMaterial(){
   }
 
 
-  materials.unshift({
+  const { collection, addDoc, serverTimestamp } = window.fs;
 
-    name:name,
-
-    subject:
-      document.getElementById(
-        'matSubject'
-      ).value,
-
-    author:
-      currentUserName ||
-      roleLabels[role],
-
-    status:'s1'
-
+  addDoc(
+    collection(window.firebaseDB, 'materials'),
+    {
+      name: name,
+      subject: document.getElementById('matSubject').value,
+      authorUid: currentUser.uid,
+      authorName: currentUserName || roleLabels[role],
+      status: 's1',
+      createdAt: serverTimestamp()
+    }
+  ).catch(err => {
+    console.error('Lỗi tải học liệu:', err);
+    alert('Không tải lên được, thầy/cô thử lại nhé.\n\n' + err.message);
   });
 
 
@@ -3643,7 +4409,7 @@ function addMaterial(){
 
 
   document
-    .querySelectorAll('.chip-filter')
+    .querySelectorAll('#libFilter .chip-filter')
     .forEach(c =>
       c.classList.remove(
         'active'
@@ -3653,14 +4419,11 @@ function addMaterial(){
 
   document
     .querySelector(
-      '.chip-filter[data-f="all"]'
+      '#libFilter .chip-filter[data-f="all"]'
     )
     .classList.add(
       'active'
     );
-
-
-  renderMaterials();
 
 }
 
@@ -3679,7 +4442,7 @@ function renderSessions(){
 
   list.innerHTML =
     sessions.map(
-      (s,si) => `
+      s => `
 
       <div class="session-card">
 
@@ -3702,7 +4465,7 @@ function renderSessions(){
 
         <div class="comments">
 
-          ${s.comments.map(c => `
+          ${(s.comments||[]).map(c => `
 
             <div class="comment">
 
@@ -3736,7 +4499,7 @@ function renderSessions(){
 
             </div>
 
-          `).join('')}
+          `).join('') || '<p style="font-size:13px;color:var(--muted);">Chưa có bình luận nào.</p>'}
 
         </div>
 
@@ -3746,10 +4509,10 @@ function renderSessions(){
           <input
             type="text"
             placeholder="Chia sẻ nhận xét dựa trên minh chứng thực tế..."
-            id="cinput-${si}">
+            id="cinput-${s.id}">
 
           <button
-            onclick="addComment(${si})">
+            onclick="addComment('${s.id}')">
 
             Gửi
 
@@ -3760,7 +4523,7 @@ function renderSessions(){
       </div>
 
     `
-    ).join('');
+    ).join('') || '<p style="padding:24px 0;color:var(--muted);">Chưa có buổi sinh hoạt nào được tạo.</p>';
 
 }
 
@@ -3769,11 +4532,15 @@ function renderSessions(){
    ADD COMMENT
 ========================================================= */
 
-function addComment(si){
+function addComment(sessionId){
+
+  if(!currentUser){
+    return;
+  }
 
   const input =
     document.getElementById(
-      'cinput-' + si
+      'cinput-' + sessionId
     );
 
 
@@ -3785,19 +4552,24 @@ function addComment(si){
   }
 
 
-  sessions[si].comments.push({
+  const { doc, updateDoc, arrayUnion } = window.fs;
 
-    name:
-      currentUserName ||
-      roleLabels[role],
-
-    text:
-      input.value.trim()
-
+  updateDoc(
+    doc(window.firebaseDB, 'sessions', sessionId),
+    {
+      comments: arrayUnion({
+        name: currentUserName || roleLabels[role],
+        text: input.value.trim(),
+        time: Date.now()
+      })
+    }
+  ).catch(err => {
+    console.error('Lỗi gửi bình luận:', err);
+    alert('Không gửi được bình luận, thầy/cô thử lại nhé.\n\n' + err.message);
   });
 
 
-  renderSessions();
+  input.value = '';
 
 }
 
@@ -3815,6 +4587,12 @@ function renderAll(){
   renderMaterials();
 
   renderSessions();
+
+  renderTuVan();
+
+  renderMuiNhon();
+
+  renderPhanTich();
 
 }
 
@@ -3898,7 +4676,14 @@ import {
   doc,
   getDoc,
   setDoc,
-  serverTimestamp
+  serverTimestamp,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  updateDoc,
+  arrayUnion
 }
 from
   "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -3971,6 +4756,18 @@ window.firebaseDB =
 
 window.firebaseProvider =
   provider;
+
+window.fs = {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  doc,
+  updateDoc,
+  arrayUnion,
+  serverTimestamp
+};
 
 
 /* =========================================================
@@ -4202,7 +4999,7 @@ onAuthStateChanged(
 
       updateRoleButtons();
 
-      renderAll();
+      stopSync();
 
       return;
 
@@ -4470,6 +5267,8 @@ onAuthStateChanged(
     updateRoleButtons();
 
     renderAll();
+
+    startSync();
 
 
     setFirebaseStatus(
