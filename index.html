@@ -129,128 +129,150 @@ svg{
 
 /* ================= NAV ================= */
 
-header.nav{
+/* ================= TOPBAR ================= */
+
+.topbar{
   position:sticky;
   top:0;
-  z-index:80;
-  padding:14px 16px 0;
-  background:linear-gradient(120deg, var(--blue-800,#173D8C), var(--blue-500));
+  z-index:90;
+  background:linear-gradient(90deg, #FFF7E0 0%, #FFF3D6 45%, var(--blue-500) 100%);
+  border-bottom:1px solid rgba(0,0,0,.06);
 }
 
-.glass-shell{
-  position:relative;
+.topbar-inner{
   max-width:1220px;
   margin:0 auto;
-  overflow:hidden;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.25);
-  background:rgba(255,255,255,.10);
-  backdrop-filter:blur(18px) saturate(160%);
-  -webkit-backdrop-filter:blur(18px) saturate(160%);
-  box-shadow:0 8px 32px -12px rgba(15,42,94,.35);
-}
-
-.glass-shell::before,
-.glass-shell::after{
-  content:"";
-  position:absolute;
-  border-radius:50%;
-  filter:blur(46px);
-  z-index:0;
-  pointer-events:none;
-}
-
-.glass-shell::before{
-  width:220px; height:220px;
-  background:rgba(127,216,255,.45);
-  top:-110px; left:6%;
-}
-
-.glass-shell::after{
-  width:220px; height:220px;
-  background:rgba(255,217,138,.35);
-  top:-120px; right:10%;
-}
-
-.nav-inner{
-  position:relative;
-  z-index:2;
-  max-width:1220px;
-  margin:0 auto;
-  padding:0 22px;
-  min-height:54px;
+  padding:12px 22px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
-  border-bottom:1px solid rgba(255,255,255,.16);
+  gap:16px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   text-decoration:none;
   flex-shrink:0;
 }
 
-.brand-mark{
-  width:30px;
-  height:30px;
-  border-radius:8px;
+.brand-mark-lg{
+  width:46px;
+  height:46px;
+  border-radius:50%;
   flex-shrink:0;
-  background:rgba(255,255,255,.18);
+  background:radial-gradient(circle at 35% 30%, var(--blue-400), var(--blue-700));
   display:flex;
   align-items:center;
   justify-content:center;
+  box-shadow:0 3px 10px rgba(15,42,94,.25);
 }
 
-.brand-mark svg{
-  width:16px;
-  height:16px;
+.brand-mark-lg svg{
+  width:24px;
+  height:24px;
 }
 
-.brand-text{
+.brand-text-lg{
   display:flex;
   flex-direction:column;
-  line-height:1.1;
+  line-height:1.25;
 }
 
-.brand-text b{
-  font-family:'Sora',sans-serif;
-  font-size:14.5px;
-  font-weight:700;
-  color:#fff;
-}
-
-.brand-text span{
+.tb-kicker{
   font-family:'IBM Plex Mono',monospace;
-  font-size:9px;
+  font-size:11px;
+  font-weight:700;
   letter-spacing:.08em;
-  color:#B9D2FF;
+  color:#7A6A3D;
   text-transform:uppercase;
+}
+
+.brand-text-lg b{
+  font-family:'Sora',sans-serif;
+  font-size:19px;
+  font-weight:800;
+  color:var(--blue-800,#173D8C);
+}
+
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-shrink:0;
+}
+
+.bell-btn{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:none;
+  background:var(--blue-600);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 3px 10px rgba(15,42,94,.2);
+}
+
+.bell-btn:hover{
+  background:var(--blue-700);
+}
+
+/* ================= NAVBAR ================= */
+
+header.nav{
+  position:sticky;
+  top:70px;
+  z-index:80;
+  background:linear-gradient(120deg, var(--blue-800,#173D8C), var(--blue-500));
+}
+
+.nav-inner{
+  max-width:1220px;
+  margin:0 auto;
+  padding:0 22px;
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
 }
 
 nav.links{
   display:flex;
-  gap:18px;
+  gap:4px;
   align-items:center;
-  flex-wrap:nowrap;
+  flex-wrap:wrap;
 }
 
 nav.links a.nlink{
   color:#DCE8FF;
   text-decoration:none;
-  font-size:12.5px;
+  font-size:13px;
   font-weight:600;
-  opacity:.85;
+  opacity:.9;
   transition:.2s;
   white-space:nowrap;
+  padding:15px 14px;
 }
 
 nav.links a.nlink:hover{
   opacity:1;
   color:#fff;
+}
+
+nav.links a.nlink.active-pill{
+  background:#fff;
+  color:var(--blue-700);
+  opacity:1;
+  border-radius:999px;
+  padding:8px 16px;
+  margin:8px 0;
 }
 
 .btn{
@@ -285,24 +307,29 @@ nav.links a.nlink:hover{
   box-shadow:0 12px 26px -8px rgba(47,102,224,.6);
 }
 
-.btn-meet{
-  background:rgba(255,255,255,.92);
-  color:var(--red);
-  border:1px solid rgba(255,255,255,.5);
-  padding:8px 14px 8px 11px;
+.btn-meet-nav{
+  background:linear-gradient(135deg,#FF6B61,var(--red));
+  color:#fff;
+  padding:9px 16px;
   font-size:12.5px;
+  flex-shrink:0;
+  box-shadow:0 6px 16px -6px rgba(229,84,75,.6);
 }
 
-.btn-meet:hover{
-  background:#fff;
+.btn-meet-nav:hover{
+  transform:translateY(-1px);
 }
 
 .live-dot{
   width:7px;
   height:7px;
   border-radius:50%;
-  background:var(--red);
+  background:#fff;
   animation:blink 1.6s ease-in-out infinite;
+}
+
+.btn-meet-nav .live-dot{
+  background:#fff;
 }
 
 @keyframes blink{
@@ -316,15 +343,14 @@ nav.links a.nlink:hover{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-left:2px;
 }
 
 #googleLoginBtn{
   border:0;
   border-radius:999px;
-  padding:8px 14px;
-  background:#fff;
-  color:#1a56db;
+  padding:9px 16px;
+  background:var(--blue-600);
+  color:#fff;
   font-size:12.5px;
   font-weight:700;
   cursor:pointer;
@@ -333,28 +359,28 @@ nav.links a.nlink:hover{
 }
 
 #googleLoginBtn:hover{
-  background:#F2F6FF;
+  background:var(--blue-700);
 }
 
 #firebaseUserBox{
   display:none;
   align-items:center;
   gap:8px;
-  color:#fff;
 }
 
 #firebaseUserAvatar{
-  width:28px;
-  height:28px;
-  border-radius:50%;
+  width:36px;
+  height:36px;
+  border-radius:10px;
   object-fit:cover;
-  border:2px solid rgba(255,255,255,.8);
+  border:2px solid var(--blue-100);
   background:#fff;
 }
 
 #firebaseUserName{
   font-weight:600;
   font-size:12.5px;
+  color:var(--ink);
   max-width:130px;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -365,75 +391,73 @@ nav.links a.nlink:hover{
   border:0;
   border-radius:999px;
   padding:7px 12px;
-  background:rgba(255,255,255,.18);
-  color:#fff;
+  background:var(--blue-50);
+  color:var(--blue-700);
   cursor:pointer;
   font-weight:600;
   font-size:12px;
 }
 
 #googleLogoutBtn:hover{
-  background:rgba(255,255,255,.28);
+  background:var(--blue-100);
 }
 
-/* ================= HERO (gọn, trong glass-shell) ================= */
+/* ================= HERO v2 ================= */
 
-.hero-compact{
+.hero-v2{
   position:relative;
-  z-index:2;
-  padding:16px 22px 18px;
-  display:flex;
+  overflow:hidden;
+  padding:52px 0 60px;
+  background:linear-gradient(155deg, var(--blue-700), var(--blue-500) 70%, #6FB6FF);
+}
+
+.hero-v2-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:48px;
   align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  flex-wrap:wrap;
 }
 
-.hero-text{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.hero-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  width:fit-content;
-  font-family:'IBM Plex Mono', monospace;
-  font-size:30px;
-  font-weight:800;
-  letter-spacing:.03em;
-  color:#FFA733;
-  text-shadow:0 2px 14px rgba(255,167,51,.45);
-  text-transform:uppercase;
-}
-
-.hero-eyebrow .dot{
-  width:11px; height:11px; border-radius:50%;
-  background:#FFA733;
-  flex-shrink:0;
-  box-shadow:0 0 10px rgba(255,167,51,.7);
-}
-
-.hero-compact h1{
+.hero-v2-text h1{
   color:#fff;
-  font-size:19px;
-  line-height:1.35;
-  font-weight:700;
-  max-width:520px;
-  margin:0;
+  font-size:34px;
+  line-height:1.28;
+  font-weight:800;
+  margin:0 0 18px;
 }
 
-.hero-compact h1 span{
+.hero-v2-text h1 span{
   color:#FFE9A8;
+}
+
+.hero-v2-text p{
+  color:#D5E4FF;
+  font-size:15px;
+  line-height:1.65;
+  max-width:520px;
+  margin-bottom:20px;
+}
+
+.hero-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.hero-tags span{
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);
+  color:#fff;
+  font-size:12.5px;
+  font-weight:600;
+  padding:7px 14px;
+  border-radius:999px;
 }
 
 .btn-row{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  flex-shrink:0;
 }
 
 .btn-hero-primary{
@@ -446,13 +470,199 @@ nav.links a.nlink:hover{
 }
 
 .btn-hero-meet{
-  background:rgba(255,255,255,.92);
-  color:var(--red);
-  border:1px solid transparent;
+  background:linear-gradient(135deg,#FF6B61,var(--red));
+  color:#fff;
 }
 
 .btn-hero-meet:hover{
+  transform:translateY(-1px);
+}
+
+.hero-v2-photo{
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:0 20px 50px -18px rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.2);
+}
+
+.hero-v2-illustration{
+  background:linear-gradient(160deg, var(--blue-800,#173D8C), var(--blue-600));
+  padding:18px;
+}
+
+.hero-v2-illustration svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.node-pulse{
+  animation:pulse 2.4s ease-in-out infinite;
+  transform-origin:center;
+  transform-box:fill-box;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.6;r:6}
+  50%{opacity:1;r:8.5}
+}
+
+.link-line{
+  stroke-dasharray:4 5;
+  animation:flow 3.6s linear infinite;
+}
+
+@keyframes flow{
+  to{stroke-dashoffset:-90}
+}
+
+.hero-v2-caption{
   background:#fff;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+  padding:12px;
+}
+
+/* ================= TRỢ LÝ AI NỔI ================= */
+
+.ai-assistant{
+  position:fixed;
+  right:22px;
+  bottom:24px;
+  z-index:120;
+  cursor:pointer;
+}
+
+.ai-orb{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:conic-gradient(from 180deg, #3B7DFB, #14B8A6, #FFA733, #E5544B, #3B7DFB);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  box-shadow:0 10px 30px -8px rgba(15,42,94,.5);
+  animation:aiFloat 3.2s ease-in-out infinite;
+  border:3px solid #fff;
+}
+
+@keyframes aiFloat{
+  0%,100%{ transform:translateY(0) scale(1); }
+  50%{ transform:translateY(-9px) scale(1.04); }
+}
+
+.ai-bubble{
+  position:absolute;
+  bottom:76px;
+  right:0;
+  width:300px;
+  background:#fff;
+  color:var(--ink);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-md);
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+  transition:.2s;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.ai-bubble.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.ai-bubble::after{
+  content:"";
+  position:absolute;
+  bottom:-7px;
+  right:22px;
+  width:14px;
+  height:14px;
+  background:#fff;
+  transform:rotate(45deg);
+  z-index:-1;
+}
+
+.ai-bubble-head{
+  background:var(--blue-700);
+  color:#fff;
+  font-size:12.5px;
+  font-weight:700;
+  padding:12px 16px;
+}
+
+.ai-chat-log{
+  max-height:260px;
+  overflow-y:auto;
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.ai-msg{
+  font-size:12.8px;
+  line-height:1.55;
+  padding:10px 12px;
+  border-radius:10px;
+  max-width:88%;
+}
+
+.ai-msg-bot{
+  background:var(--blue-50);
+  color:var(--ink);
+  align-self:flex-start;
+}
+
+.ai-msg-user{
+  background:var(--blue-600);
+  color:#fff;
+  align-self:flex-end;
+}
+
+.ai-msg-loading{
+  background:var(--blue-50);
+  color:var(--muted);
+  align-self:flex-start;
+  font-style:italic;
+}
+
+.ai-chat-input-row{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  border-top:1px solid var(--line);
+}
+
+.ai-chat-input-row input{
+  flex:1;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:12.8px;
+  font-family:inherit;
+}
+
+.ai-chat-input-row button{
+  background:var(--blue-600);
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  padding:0 16px;
+  font-weight:700;
+  font-size:12.5px;
+  cursor:pointer;
+}
+
+.ai-chat-input-row button:hover{
+  background:var(--blue-700);
 }
 
 /* ================= STATS ================= */
@@ -1622,8 +1832,29 @@ footer a:hover{
 
 @media (max-width:700px){
 
+  .topbar-inner{
+    padding:10px 14px;
+  }
+
+  .brand-mark-lg{
+    width:38px;
+    height:38px;
+  }
+
+  .tb-kicker{
+    font-size:9px;
+  }
+
+  .brand-text-lg b{
+    font-size:15px;
+  }
+
+  #firebaseUserName{
+    display:none;
+  }
+
   header.nav{
-    padding:10px 10px 0;
+    top:60px;
   }
 
   .nav-inner{
@@ -1631,43 +1862,50 @@ footer a:hover{
     padding-right:14px;
     flex-wrap:wrap;
     min-height:auto;
-    padding-top:10px;
-    padding-bottom:10px;
-  }
-
-  .brand-text b{
-    font-size:13px;
-  }
-
-  .brand-text span{
-    display:none;
-  }
-
-  #firebaseUserName{
-    display:none;
-  }
-
-  .btn-meet{
-    display:none;
+    padding-top:6px;
+    padding-bottom:6px;
+    justify-content:center;
   }
 
   nav.links{
-    gap:12px;
+    gap:2px;
     flex-wrap:wrap;
+    justify-content:center;
   }
 
-  .hero-compact{
-    padding:14px 16px 16px;
-    flex-direction:column;
-    align-items:flex-start;
+  .btn-meet-nav{
+    margin:8px auto 4px;
   }
 
-  .hero-eyebrow{
+  .hero-v2{
+    padding:36px 0 40px;
+  }
+
+  .hero-v2-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-v2-photo{
+    order:-1;
+  }
+
+  .hero-v2-text h1{
+    font-size:26px;
+  }
+
+  .ai-orb{
+    width:50px;
+    height:50px;
     font-size:22px;
   }
 
-  .hero-compact h1{
-    font-size:17px;
+  .ai-assistant{
+    right:14px;
+    bottom:16px;
+  }
+
+  .ai-bubble{
+    width:min(300px, calc(100vw - 40px));
   }
 
 }
@@ -1715,15 +1953,17 @@ footer a:hover{
      HEADER
 ========================================================= -->
 
-<header class="nav" id="top">
+<!-- =========================================================
+     TOPBAR (logo + tên đơn vị + thông báo + tài khoản)
+========================================================= -->
 
-  <div class="glass-shell">
+<div class="topbar" id="top">
 
-  <div class="nav-inner">
+  <div class="topbar-inner">
 
     <a class="brand" href="#top">
 
-      <div class="brand-mark">
+      <div class="brand-mark-lg">
 
         <svg viewBox="0 0 24 24" fill="none">
 
@@ -1743,31 +1983,20 @@ footer a:hover{
 
       </div>
 
-      <div class="brand-text">
+      <div class="brand-text-lg">
+
+        <span class="tb-kicker">Cổng thông tin điện tử · Cụm liên trường</span>
 
         <b>Trạm Chuyên Môn Cụm</b>
-
-        <span>Kho học liệu số dùng chung</span>
 
       </div>
 
     </a>
 
 
-    <nav class="links">
+    <div class="topbar-right">
 
-      <a class="nlink" href="#workspace">
-        Khu vực làm việc
-      </a>
-
-      <a class="nlink" href="#modules">
-        Phân hệ khác
-      </a>
-
-      <a class="nlink" href="#roles">
-        Phân quyền
-      </a>
-
+      <button class="bell-btn" title="Thông báo" onclick="alert('Chưa có thông báo mới.')">🔔</button>
 
       <!-- ================= AUTH BOX ================= -->
 
@@ -1776,7 +2005,6 @@ footer a:hover{
         <button id="googleLoginBtn">
           🔵 Đăng nhập
         </button>
-
 
         <div id="firebaseUserBox">
 
@@ -1794,34 +2022,150 @@ footer a:hover{
         </div>
 
       </div>
-
       <!-- ================= END AUTH ================= -->
-
-    </nav>
-
-  </div>
-
-  <div class="hero-compact">
-
-    <div class="hero-text">
-
-      <div class="hero-eyebrow">
-        <span class="dot"></span>
-        Cổng thông tin điện tử · Cụm liên trường
-      </div>
-
-      <h1>
-        Một mái nhà chuyên môn cho
-        <span>mọi trường trong cụm</span>
-      </h1>
 
     </div>
 
   </div>
 
+</div>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header class="nav">
+
+  <div class="nav-inner">
+
+    <nav class="links">
+
+      <a class="nlink active-pill" href="#top">Trang chủ</a>
+      <a class="nlink" href="#workspace">Khu vực làm việc</a>
+      <a class="nlink" href="#modules">Phân hệ khác</a>
+      <a class="nlink" href="#workflow">Quy trình</a>
+      <a class="nlink" href="#roles">Phân quyền</a>
+      <a class="nlink" href="#targets">Chỉ tiêu</a>
+
+    </nav>
+
+    <a class="btn btn-meet-nav" onclick="openMeeting()">
+      <span class="live-dot"></span>
+      Họp online toàn cụm
+    </a>
+
   </div>
 
 </header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero-v2">
+
+  <div class="wrap hero-v2-grid">
+
+    <div class="hero-v2-text">
+
+      <h1>
+        Đồng hành cùng <span>Thầy Cô</span><br>
+        Xây dựng Cụm liên trường phát triển
+      </h1>
+
+      <p>
+        Trạm Chuyên Môn Cụm hỗ trợ chia sẻ học liệu số, tổ chức
+        sinh hoạt chuyên môn, tiếp nhận tư vấn hướng nghiệp và
+        ứng dụng trí tuệ nhân tạo trong quản lý điều hành chuyên môn cụm.
+      </p>
+
+      <div class="hero-tags">
+        <span>#ChuyểnĐổiSố</span>
+        <span>#SinhHoạtChuyênMôn</span>
+        <span>#HọcLiệuSố</span>
+        <span>#CụmLiênTrường</span>
+      </div>
+
+      <div class="btn-row" style="margin-top:22px;">
+        <a href="#workspace" class="btn btn-hero-primary">Vào khu vực làm việc ↓</a>
+      </div>
+
+    </div>
+
+    <div class="hero-v2-photo">
+
+      <div class="hero-v2-illustration">
+
+        <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="rgba(255,255,255,.35)" stroke-width="1.4" fill="none">
+            <path class="link-line" d="M230,150 L90,60"/>
+            <path class="link-line" d="M230,150 L370,55"/>
+            <path class="link-line" d="M230,150 L60,220"/>
+            <path class="link-line" d="M230,150 L380,235"/>
+          </g>
+          <circle cx="230" cy="150" r="34" fill="#FFA733"/>
+          <text x="230" y="156" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#14213D" font-weight="700">CỤM</text>
+          <g fill="#5FD8C4">
+            <circle class="node-pulse" cx="90" cy="60" r="7"/>
+            <circle class="node-pulse" cx="370" cy="55" r="7"/>
+            <circle class="node-pulse" cx="60" cy="220" r="7"/>
+            <circle class="node-pulse" cx="380" cy="235" r="7"/>
+          </g>
+          <g font-family="Be Vietnam Pro, sans-serif" font-size="13" fill="#EAF2FF">
+            <text x="90" y="45">Trường A</text>
+            <text x="370" y="40" text-anchor="end">Trường B</text>
+            <text x="60" y="245">Trường C</text>
+            <text x="380" y="262" text-anchor="end">Trường D</text>
+          </g>
+        </svg>
+
+      </div>
+
+      <div class="hero-v2-caption">Kết nối các trường trong cụm</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRỢ LÝ AI (nổi góc phải dưới)
+========================================================= -->
+
+<div class="ai-assistant" id="aiAssistant">
+
+  <div class="ai-orb" onclick="toggleAiBubble(event)">🤖</div>
+
+  <div class="ai-bubble" id="aiBubble" onclick="event.stopPropagation()">
+
+    <div class="ai-bubble-head">
+      🤖 Trợ lý AI · Trạm Chuyên Môn Cụm
+    </div>
+
+    <div class="ai-chat-log" id="aiChatLog">
+      <div class="ai-msg ai-msg-bot">
+        👋 Xin chào thầy/cô! Mình có thể giúp gợi ý ý tưởng bài dạy,
+        tóm tắt văn bản, hoặc trả lời nhanh các câu hỏi chuyên môn.
+        Thầy/cô cứ hỏi nhé.
+      </div>
+    </div>
+
+    <div class="ai-chat-input-row">
+      <input
+        type="text"
+        id="aiChatInput"
+        placeholder="Nhập câu hỏi..."
+        onkeydown="if(event.key==='Enter'){sendAiMessage();}">
+      <button onclick="sendAiMessage()">Gửi</button>
+    </div>
+
+  </div>
+
+</div>
 
 
 <!-- =========================================================
@@ -3016,6 +3360,99 @@ function closeMeeting(){
   document
     .getElementById('meetOverlay')
     .classList.remove('open');
+
+}
+
+
+/* =========================================================
+   TRỢ LÝ AI NỔI
+========================================================= */
+
+/* =========================================================
+   TRỢ LÝ AI NỔI — kết nối qua /api/ai-assistant (Gemini)
+========================================================= */
+
+function toggleAiBubble(e){
+
+  if(e){ e.stopPropagation(); }
+
+  const bubble = document.getElementById('aiBubble');
+  if(bubble){
+    bubble.classList.toggle('show');
+  }
+
+}
+
+document.addEventListener('click', function(e){
+
+  const box = document.getElementById('aiAssistant');
+  const bubble = document.getElementById('aiBubble');
+
+  if(box && bubble && !box.contains(e.target)){
+    bubble.classList.remove('show');
+  }
+
+});
+
+
+function appendAiMsg(text, kind){
+
+  const log = document.getElementById('aiChatLog');
+  const div = document.createElement('div');
+
+  div.className = 'ai-msg ' + kind;
+  div.textContent = text;
+
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+
+  return div;
+
+}
+
+async function sendAiMessage(){
+
+  const input = document.getElementById('aiChatInput');
+  const question = input.value.trim();
+
+  if(!question){
+    return;
+  }
+
+  appendAiMsg(question, 'ai-msg-user');
+  input.value = '';
+
+  const loadingEl = appendAiMsg('Đang suy nghĩ...', 'ai-msg-loading');
+
+  try{
+
+    const res = await fetch('/api/ai-assistant', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: question })
+    });
+
+    if(!res.ok){
+      throw new Error('HTTP ' + res.status);
+    }
+
+    const data = await res.json();
+
+    loadingEl.remove();
+    appendAiMsg(data.reply || 'Xin lỗi, mình chưa có câu trả lời.', 'ai-msg-bot');
+
+  }
+  catch(err){
+
+    console.error('Lỗi trợ lý AI:', err);
+
+    loadingEl.remove();
+    appendAiMsg(
+      'Không kết nối được với trợ lý AI. Có thể server chưa cấu hình xong (thiếu GEMINI_API_KEY trên Vercel), thầy/cô báo lại người quản trị nhé.',
+      'ai-msg-bot'
+    );
+
+  }
 
 }
 
@@ -4857,8 +5294,39 @@ const userAvatar =
 
 
 /* =========================================================
-   GOOGLE LOGIN
+   GIẢI THÍCH LỖI ĐĂNG NHẬP DỄ HIỂU
 ========================================================= */
+
+function describeLoginError(error){
+
+  const code = error && error.code;
+
+  if(code === 'auth/operation-not-supported-in-this-environment'){
+    return 'Không đăng nhập được vì trang đang được mở trực tiếp từ file trên máy (không phải qua một địa chỉ web thật).\n\nThầy/cô cần mở trang qua link đã deploy trên Vercel (dạng https://ten-du-an.vercel.app) thì đăng nhập Google mới hoạt động.';
+  }
+
+  if(code === 'auth/unauthorized-domain'){
+    return 'Domain hiện tại chưa được cấp phép đăng nhập trong Firebase.\n\nVào Firebase Console → Authentication → Settings → Authorized domains → bấm "Add domain" → thêm đúng địa chỉ web đang dùng (VD: ten-du-an.vercel.app), rồi thử đăng nhập lại.';
+  }
+
+  if(code === 'auth/popup-blocked'){
+    return 'Trình duyệt đã chặn cửa sổ đăng nhập bật lên (popup).\n\nThầy/cô vào phần cài đặt trình duyệt, cho phép popup với trang này, rồi bấm "Đăng nhập" lại.';
+  }
+
+  if(code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request'){
+    return 'Cửa sổ đăng nhập đã bị đóng trước khi hoàn tất. Thầy/cô thử bấm "Đăng nhập" lại và chọn tài khoản Google nhé.';
+  }
+
+  if(code === 'auth/network-request-failed'){
+    return 'Lỗi kết nối mạng, thầy/cô kiểm tra lại internet rồi thử đăng nhập lại.';
+  }
+
+  return 'Đăng nhập Google không thành công.\n\n' + (error && error.message ? error.message : 'Lỗi không xác định.');
+
+}
+
+
+
 
 loginBtn.addEventListener(
   'click',
@@ -4908,8 +5376,7 @@ loginBtn.addEventListener(
 
 
       alert(
-        'Đăng nhập Google không thành công.\n\n' +
-        error.message
+        describeLoginError(error)
       );
 
     }
