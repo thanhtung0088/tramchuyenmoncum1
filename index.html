@@ -2505,7 +2505,12 @@ footer a:hover{
       <div class="lib-form" id="sessionForm" style="display:none;">
 
         <input id="sessTitle" placeholder="Tên buổi sinh hoạt (VD: NCBH Toán 6 — Phép cộng phân số)">
-        <input id="sessSchool" placeholder="Trường tổ chức · ngày (VD: THCS Bình Minh · 20/08/2026)">
+
+        <select id="sessSchool" class="school-select">
+          <option value="">— Chọn trường tổ chức —</option>
+        </select>
+
+        <input id="sessDate" type="date">
 
         <div class="full">
           <button class="btn btn-primary" onclick="addSession()">Tạo buổi sinh hoạt</button>
@@ -2592,7 +2597,9 @@ footer a:hover{
       id="panel-pt">
 
       <div class="lib-form">
-        <input id="ptTruong" placeholder="Trường (VD: THCS Bình Minh)">
+        <select id="ptTruong" class="school-select">
+          <option value="">— Chọn trường —</option>
+        </select>
         <select id="ptMon">
           <option>Toán</option>
           <option>Ngữ văn</option>
@@ -3640,11 +3647,20 @@ function addSession(){
 
   const titleEl = document.getElementById('sessTitle');
   const schoolEl = document.getElementById('sessSchool');
+  const dateEl = document.getElementById('sessDate');
 
   const title = titleEl.value.trim();
+  const truong = schoolEl.value.trim();
 
-  if(!title){
+  if(!title || !truong){
+    alert('Thầy/cô nhập tên buổi sinh hoạt và chọn trường tổ chức nhé.');
     return;
+  }
+
+  let ngayHienThi = '';
+  if(dateEl.value){
+    const [y,m,d] = dateEl.value.split('-');
+    ngayHienThi = ' · ' + d + '/' + m + '/' + y;
   }
 
   const { collection, addDoc, serverTimestamp } = window.fs;
@@ -3653,7 +3669,7 @@ function addSession(){
     collection(window.firebaseDB, 'sessions'),
     {
       title: title,
-      school: schoolEl.value.trim(),
+      school: truong + ngayHienThi,
       comments: [],
       createdAt: serverTimestamp()
     }
@@ -3664,6 +3680,7 @@ function addSession(){
 
   titleEl.value = '';
   schoolEl.value = '';
+  dateEl.value = '';
 
 }
 
@@ -4137,6 +4154,67 @@ const avatarColors = [
   '#7A5FE0',
   '#E5544B'
 ];
+
+
+/* =========================================================
+   DANH SÁCH TRƯỜNG THÀNH VIÊN CỤM 1
+   (theo Danh sách giáo viên GDCD Cụm 1 - Sở GD&ĐT TP.HCM,
+   cập nhật 20/9/2025 — sắp xếp theo bảng chữ cái)
+========================================================= */
+
+const DANH_SACH_TRUONG_CUM_1 = [
+  'TH_THCS Tân Trung',
+  'THCS An Nhơn Tây',
+  'THCS An Phú',
+  'THCS Bình Hòa',
+  'THCS Đặng Công Bỉnh',
+  'THCS Đặng Thúc Vịnh',
+  'THCS Đỗ Văn Dậy',
+  'THCS Đông Thạnh',
+  'THCS Hòa Phú',
+  'THCS Nguyễn An Khương',
+  'THCS Nguyễn Hồng Đào',
+  'THCS Nguyễn Thị Minh Khai',
+  'THCS Nhuận Đức',
+  'THCS Phạm Văn Cội',
+  'THCS Phan Đăng Lưu',
+  'THCS Phú Hòa Đông',
+  'THCS Phú Mỹ Hưng',
+  'THCS Phước Hiệp',
+  'THCS Phước Vĩnh An',
+  'THCS Tân An Hội',
+  'THCS Tân Phú Trung',
+  'THCS Tân Thạnh Đông',
+  'THCS Tân Thạnh Tây',
+  'THCS Tân Thông Hội',
+  'THCS Tân Tiến',
+  'THCS Tân Xuân',
+  'THCS Thị Trấn',
+  'THCS Thị Trấn 2',
+  'THCS Tô Ký',
+  'THCS Trung An',
+  'THCS Trung Lập',
+  'THCS Trung Lập Hạ',
+  'THCS Võ Văn Tần',
+  'TiH - THCS Tạ Uyên'
+];
+
+function populateSchoolSelects(){
+
+  document.querySelectorAll('select.school-select').forEach(sel => {
+
+    DANH_SACH_TRUONG_CUM_1.forEach(ten => {
+      const opt = document.createElement('option');
+      opt.value = ten;
+      opt.textContent = ten;
+      sel.appendChild(opt);
+    });
+
+  });
+
+}
+
+populateSchoolSelects();
 
 
 /* =========================================================
