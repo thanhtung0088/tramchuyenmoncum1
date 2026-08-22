@@ -1728,8 +1728,67 @@ footer a:hover{
 }
 
 .foot-bottom .credit{
+  font-family:'Be Vietnam Pro',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:.01em;
+}
+
+/* ================= THỐNG KÊ TRUY CẬP ================= */
+
+.visit-strip{
+  background:#0B1730;
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:14px 0;
+}
+
+.visit-strip-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:26px;
+  flex-wrap:wrap;
+}
+
+.visit-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
   font-family:'IBM Plex Mono',monospace;
-  color:#6E86B8;
+  font-size:12.5px;
+  color:#8FA0C2;
+}
+
+.visit-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#3ECF8E;
+  box-shadow:0 0 8px rgba(62,207,142,.8);
+  animation:visitPulse 1.8s ease-in-out infinite;
+  flex-shrink:0;
+}
+
+@keyframes visitPulse{
+  0%,100%{opacity:1}
+  50%{opacity:.4}
+}
+
+.visit-ic{
+  font-size:13px;
+}
+
+.visit-num{
+  font-weight:700;
+  color:#fff;
+  font-size:14px;
+}
+
+.visit-sep{
+  width:1px;
+  height:16px;
+  background:rgba(255,255,255,.14);
 }
 
 /* ================= DEMO BADGE ================= */
@@ -3187,6 +3246,33 @@ footer a:hover{
 
 
 <!-- =========================================================
+     THỐNG KÊ TRUY CẬP THẬT (dưới footer)
+========================================================= -->
+
+<div class="visit-strip">
+
+  <div class="wrap visit-strip-inner">
+
+    <div class="visit-item">
+      <span class="visit-dot"></span>
+      <span class="visit-num" id="statOnline">—</span>
+      <span class="visit-lbl">người đang online</span>
+    </div>
+
+    <div class="visit-sep"></div>
+
+    <div class="visit-item">
+      <span class="visit-ic">👁</span>
+      <span class="visit-num" id="statVisits">—</span>
+      <span class="visit-lbl">lượt truy cập</span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
      BADGES
 ========================================================= -->
 
@@ -4334,6 +4420,121 @@ function stopSync(){
 
 
 /* =========================================================
+   THỐNG KÊ TRUY CẬP THẬT — số người đang online +
+   tổng lượt truy cập. Chạy độc lập, không cần đăng nhập,
+   vì khách chưa đăng nhập vẫn tính là đang xem trang.
+========================================================= */
+
+let visitTrackingStarted = false;
+let presenceHeartbeatTimer = null;
+
+function initVisitTracking(){
+
+  if(visitTrackingStarted){
+    return;
+  }
+
+  if(!window.firebaseDB || !window.fs){
+    console.warn('Firestore chưa sẵn sàng để đếm truy cập.');
+    return;
+  }
+
+  visitTrackingStarted = true;
+
+  const { doc, setDoc, deleteDoc, increment, serverTimestamp, onSnapshot, collection } = window.fs;
+  const db = window.firebaseDB;
+
+  /* ---------- 1. LƯỢT TRUY CẬP (đếm 1 lần / phiên trình duyệt) ---------- */
+
+  const visitDocRef = doc(db, 'stats', 'visits');
+
+  if(!sessionStorage.getItem('tcmc_da_dem_luot_truy_cap')){
+
+    sessionStorage.setItem('tcmc_da_dem_luot_truy_cap', '1');
+
+    setDoc(
+      visitDocRef,
+      {
+        count: increment(1),
+        lastVisit: serverTimestamp()
+      },
+      { merge: true }
+    ).catch(err => {
+      console.error('Lỗi ghi lượt truy cập:', err);
+    });
+
+  }
+
+  onSnapshot(visitDocRef, snap => {
+    const el = document.getElementById('statVisits');
+    if(el){
+      const data = snap.data();
+      el.textContent = data && typeof data.count === 'number' ? data.count.toLocaleString('vi-VN') : '0';
+    }
+  }, err => {
+    console.error('Lỗi đọc lượt truy cập:', err);
+  });
+
+
+  /* ---------- 2. NGƯỜI ĐANG ONLINE (presence heartbeat) ---------- */
+
+  let sessionId = sessionStorage.getItem('tcmc_session_id');
+  if(!sessionId){
+    sessionId = 'sess-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+    sessionStorage.setItem('tcmc_session_id', sessionId);
+  }
+
+  const presenceDocRef = doc(db, 'presence', sessionId);
+
+  function beatPresence(){
+    setDoc(presenceDocRef, { lastActive: serverTimestamp() }).catch(() => {});
+  }
+
+  beatPresence();
+  presenceHeartbeatTimer = setInterval(beatPresence, 25000);
+
+  // Cố gắng dọn dẹp khi rời trang (không đảm bảo 100% chạy, nhất là trên mobile)
+  window.addEventListener('beforeunload', () => {
+    deleteDoc(presenceDocRef).catch(() => {});
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible'){
+      beatPresence();
+    }
+  });
+
+  // Đếm số phiên còn "sống" (heartbeat trong 60 giây gần nhất)
+  onSnapshot(collection(db, 'presence'), snap => {
+
+    const now = Date.now();
+    let dangOnline = 0;
+
+    snap.forEach(d => {
+      const data = d.data();
+      if(data && data.lastActive && data.lastActive.toDate){
+        const diff = now - data.lastActive.toDate().getTime();
+        if(diff < 60000){
+          dangOnline++;
+        }
+      }
+    });
+
+    const el = document.getElementById('statOnline');
+    if(el){
+      el.textContent = Math.max(dangOnline, 1).toLocaleString('vi-VN');
+    }
+
+  }, err => {
+    console.error('Lỗi đọc số người online:', err);
+  });
+
+}
+
+window.initVisitTracking = initVisitTracking;
+
+
+/* =========================================================
    ĐỊNH DẠNG THỜI GIAN
 ========================================================= */
 
@@ -5198,7 +5399,9 @@ import {
   query,
   orderBy,
   updateDoc,
-  arrayUnion
+  arrayUnion,
+  increment,
+  deleteDoc
 }
 from
   "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -5281,8 +5484,16 @@ window.fs = {
   doc,
   updateDoc,
   arrayUnion,
-  serverTimestamp
+  serverTimestamp,
+  setDoc,
+  increment,
+  deleteDoc
 };
+
+
+if(typeof window.initVisitTracking === 'function'){
+  window.initVisitTracking();
+}
 
 
 /* =========================================================
